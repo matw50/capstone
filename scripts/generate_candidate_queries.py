@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Generate candidate queries for the next capstone round.
 
-Strategy:
+Trust-region strategy:
 - Use Gaussian Process + UCB for lower-dimensional functions (dimension <= 4).
 - Use local Random Forest search for higher-dimensional functions (dimension > 4).
-- If the latest query improved the best score, tighten the local search radius.
-- If the latest query did not improve, keep the search centered on the best historical point
-  but widen the radius slightly and include more global samples.
+- If the latest query improved the best score, shrink the search radius and exploit.
+- If the latest query did not improve, search around the best historical point with a
+  slightly wider radius and only a small amount of global coverage.
+
+This is designed for the later capstone rounds where the remaining query budget is small
+and sample efficiency matters more than broad exploration.
 
 Example:
     python3 scripts/generate_candidate_queries.py \
@@ -91,22 +94,32 @@ def latest_improved_best(y: np.ndarray) -> bool:
     return bool(y[-1] >= np.max(y[:-1]))
 
 
+def trust_region_parameters(improved: bool, dimension: int) -> tuple[float, int, int]:
+    if improved:
+        radius = 0.04 if dimension <= 4 else 0.05
+        local_count = 9000 if dimension <= 4 else 12000
+        global_count = 250
+    else:
+        radius = 0.08 if dimension <= 4 else 0.10
+        local_count = 7000 if dimension <= 4 else 9000
+        global_count = 1000
+    return radius, local_count, global_count
+
+
 def build_candidate_pool(
     rng: np.random.Generator,
     center: np.ndarray,
     dimension: int,
     improved: bool,
-    local_count: int,
-    global_count: int,
-) -> np.ndarray:
-    radius = 0.05 if improved else 0.12
+) -> tuple[np.ndarray, float]:
+    radius, local_count, global_count = trust_region_parameters(improved, dimension)
     local = np.clip(
         center + rng.normal(0.0, radius, size=(local_count, dimension)),
         0.0,
         1.0,
     )
     global_samples = rng.uniform(0.0, 1.0, size=(global_count, dimension))
-    return np.vstack([local, global_samples])
+    return np.vstack([local, global_samples]), radius
 
 
 def suggest_with_gp(
@@ -114,16 +127,14 @@ def suggest_with_gp(
     y: np.ndarray,
     improved: bool,
     rng: np.random.Generator,
-) -> tuple[np.ndarray, str]:
+) -> tuple[np.ndarray, str, float]:
     dim = x.shape[1]
     center = x[int(np.argmax(y))]
-    local_count = 6000 if improved else 4000
-    global_count = 1000 if improved else 3000
-    candidates = build_candidate_pool(rng, center, dim, improved, local_count, global_count)
+    candidates, radius = build_candidate_pool(rng, center, dim, improved)
 
     kernel = ConstantKernel(1.0, (1e-3, 1e3)) * Matern(
         length_scale=np.ones(dim),
-        length_scale_bounds=(1e-2, 2.0),
+        length_scale_bounds=(1e-2, 1.5),
         nu=2.5,
     ) + WhiteKernel(noise_level=1e-5, noise_level_bounds=(1e-8, 1e-1))
 
@@ -136,10 +147,10 @@ def suggest_with_gp(
     gp.fit(x, y)
 
     mu, sigma = gp.predict(candidates, return_std=True)
-    beta = 0.8 if improved else 1.8
+    beta = 0.5 if improved else 1.2
     acquisition = mu + beta * sigma
     best_idx = int(np.argmax(acquisition))
-    return candidates[best_idx], "gaussian_process_ucb"
+    return candidates[best_idx], "gaussian_process_trust_region_ucb", radius
 
 
 def suggest_with_rf(
@@ -147,22 +158,21 @@ def suggest_with_rf(
     y: np.ndarray,
     improved: bool,
     rng: np.random.Generator,
-) -> tuple[np.ndarray, str]:
+) -> tuple[np.ndarray, str, float]:
     dim = x.shape[1]
     center = x[int(np.argmax(y))]
-    local_count = 8000 if improved else 5000
-    global_count = 1000 if improved else 4000
-    candidates = build_candidate_pool(rng, center, dim, improved, local_count, global_count)
+    candidates, radius = build_candidate_pool(rng, center, dim, improved)
 
     model = RandomForestRegressor(
         n_estimators=500,
         random_state=int(rng.integers(0, 1_000_000)),
         n_jobs=-1,
+        min_samples_leaf=1,
     )
     model.fit(x, y)
     predicted = model.predict(candidates)
     best_idx = int(np.argmax(predicted))
-    return candidates[best_idx], "random_forest_local"
+    return candidates[best_idx], "random_forest_trust_region", radius
 
 
 def format_query(point: np.ndarray) -> str:
@@ -176,6 +186,7 @@ def main() -> None:
 
     results = {
         "through_week": args.through_week,
+        "strategy": "trust_region",
         "recommendations": {},
     }
 
@@ -185,14 +196,15 @@ def main() -> None:
         improved = latest_improved_best(y)
 
         if dim <= 4:
-            candidate, method = suggest_with_gp(x, y, improved, rng)
+            candidate, method, radius = suggest_with_gp(x, y, improved, rng)
         else:
-            candidate, method = suggest_with_rf(x, y, improved, rng)
+            candidate, method, radius = suggest_with_rf(x, y, improved, rng)
 
         results["recommendations"][str(function_id)] = {
             "dimension": dim,
             "method": method,
             "latest_query_improved_best": improved,
+            "trust_region_radius": radius,
             "best_observed_output": float(np.max(y)),
             "best_observed_input": x[int(np.argmax(y))].tolist(),
             "candidate": candidate.tolist(),

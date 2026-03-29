@@ -2,6 +2,25 @@
 
 This repository tracks data, weekly submissions, returned outputs, and helper scripts for the capstone black-box optimisation challenge.
 
+## Programme Context
+This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
+
+The wider programme is designed to build both technical and practical capability in ML and AI. It moves from foundations, to common machine learning methods, to more advanced topics such as deep learning and generative AI. The capstone project acts as the practical culmination of that learning journey by simulating a real-world ML competition where models and optimisation strategies must be refined over time.
+
+The programme is structured in three phases:
+- Phase 1 introduces foundational ML and AI concepts and shows how they are used in data science projects.
+- Phase 2 focuses on common ML methods and how they can create business value.
+- Phase 3 explores advanced AI topics including deep learning and generative AI, with attention to real-world implementation.
+
+Across the programme, the broader learning goals include:
+- evaluating the feasibility of machine learning solutions for business challenges
+- choosing suitable ML methods to improve predictive performance and decision-making
+- analysing complex datasets with machine learning
+- refining models in Python
+- understanding the mathematical, probabilistic, and statistical foundations of ML and AI
+- considering the real-world implications of AI, including responsible use
+- understanding large language models, including architecture, scale, training, and emergent behaviour
+
 ## What Is This Challenge About?
 This capstone project mimics a Bayesian optimisation-style competition in which the goal is to find the maximum of eight unknown functions, also known as black-box functions. The functions are unknown in advance, so there are no equations or direct visualisations available at the start. Instead, the challenge begins with a small amount of initial data and the task is to make informed guesses about which inputs to try next.
 

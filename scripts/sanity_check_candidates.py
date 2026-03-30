@@ -41,7 +41,10 @@ def parse_args() -> argparse.Namespace:
         "--candidate-file",
         type=Path,
         required=True,
-        help="JSON file containing proposed inputs, for example: week2/inputs.json",
+        help=(
+            "JSON file containing proposed inputs. Supports weekN/inputs.json "
+            "or generated candidate files such as weekN/candidates.json."
+        ),
     )
     return parser.parse_args()
 
@@ -125,7 +128,17 @@ def main() -> None:
     with candidate_file.open("r", encoding="utf-8") as fh:
         candidate_payload = json.load(fh)
 
-    candidate_functions = candidate_payload["functions"]
+    if "functions" in candidate_payload:
+        candidate_functions = candidate_payload["functions"]
+    elif "recommendations" in candidate_payload:
+        candidate_functions = {
+            key: value["candidate"]
+            for key, value in candidate_payload["recommendations"].items()
+        }
+    else:
+        raise KeyError(
+            "Candidate file must contain either 'functions' or 'recommendations'."
+        )
     results = {
         "through_week": args.through_week,
         "candidate_file": str(candidate_file),

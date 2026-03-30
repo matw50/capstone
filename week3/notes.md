@@ -3,6 +3,21 @@
 ## Summary
 Week 3 starts from the raw trust-region candidates in `candidates.json`, but the final submission is a blended set based on manual sanity checks and the Week 1 to Week 2 convergence curves.
 
+## Lower-Dimensional Visuals
+These plots show the accumulated data through Week 2 for Functions 1 to 4, with the proposed Week 3 candidate overlaid as the candidate marker.
+
+### Function 1
+![Function 1 Week 3 scatter](lower_dim/function_1_scatter.png)
+
+### Function 2
+![Function 2 Week 3 scatter](lower_dim/function_2_scatter.png)
+
+### Function 3
+![Function 3 Week 3 scatter](lower_dim/function_3_scatter.png)
+
+### Function 4
+![Function 4 Week 3 pairplot](lower_dim/function_4_pairplot.png)
+
 ## Convergence View
 Convergence plots were generated in `week3/convergence/` for each function plus a combined panel. These plots were used as a quick visual check on whether recent local moves were improving, flattening out, or moving away from the best historical basin.
 

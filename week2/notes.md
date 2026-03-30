@@ -3,6 +3,21 @@
 ## Summary
 The Week 2 candidates were generated using the trust-region query script and then manually reviewed before selecting the final submission set.
 
+## Lower-Dimensional Visuals
+These plots show the accumulated data through Week 2 for Functions 1 to 4, with the Week 2 submitted point overlaid as the candidate marker.
+
+### Function 1
+![Function 1 Week 2 scatter](lower_dim/function_1_scatter.png)
+
+### Function 2
+![Function 2 Week 2 scatter](lower_dim/function_2_scatter.png)
+
+### Function 3
+![Function 3 Week 2 scatter](lower_dim/function_3_scatter.png)
+
+### Function 4
+![Function 4 Week 2 pairplot](lower_dim/function_4_pairplot.png)
+
 ## Why Manual Overrides Were Used
 The raw script output was not used unchanged for every function. The main reason is that the remaining query budget is limited, so broad or unstable jumps are harder to justify at this stage.
 

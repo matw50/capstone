@@ -42,8 +42,16 @@ Over time, the dataset grows as new weekly query points are submitted and their 
 ### Week 1
 Week 1 used an adaptive balance between exploitation and limited exploration. Lower-dimensional functions were approached with scatter plots and local visual reasoning, while higher-dimensional functions used random-forest surrogate guidance. The main outcome was that Functions 5, 6, and 8 responded well to local refinement, while Functions 1, 3, and 7 showed that the initial direction was not yet strong enough. This week established the first clear separation between momentum functions, cautious-refinement functions, and recovery functions.
 
+Full Week 1 notes:
+- [Approach](week1/approach.md)
+
 ### Week 2
 Week 2 shifted to a more disciplined trust-region strategy because the remaining query budget became more valuable. The approach was to exploit tightly where Week 1 improved, refine cautiously where Week 1 was close but not better, and return to the best historical region where Week 1 underperformed. Additional sanity checks were introduced, including distance from the best point, trust-region adherence, nearby observed outcomes, and boundary behaviour. These checks directly changed the proposed Week 2 query for Function 5, replacing a more aggressive edge-seeking point with a safer local exploitation move.
+
+Full Week 2 notes:
+- [Approach](week2/approach.md)
+- [Notes](week2/notes.md)
+- [Reflection](week2/reflection.md)
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:

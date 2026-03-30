@@ -1,0 +1,178 @@
+{
+  "through_week": "week1",
+  "strategy": "trust_region",
+  "recommendations": {
+    "1": {
+      "dimension": 2,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": 7.710875114502849e-16,
+      "best_observed_input": [
+        0.7310236309563586,
+        0.7329998764152272
+      ],
+      "candidate": [
+        0.5733807409533367,
+        0.20918510972003623
+      ],
+      "portal": "0.573381-0.209185",
+      "latest_payload_present": true
+    },
+    "2": {
+      "dimension": 2,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": 0.6112052157614438,
+      "best_observed_input": [
+        0.7026365569244406,
+        0.9265641975455574
+      ],
+      "candidate": [
+        0.7001244808996823,
+        0.30376829992684395
+      ],
+      "portal": "0.700124-0.303768",
+      "latest_payload_present": true
+    },
+    "3": {
+      "dimension": 3,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": -0.034835313350078584,
+      "best_observed_input": [
+        0.49258141463713434,
+        0.6115931882759961,
+        0.3401763860035727
+      ],
+      "candidate": [
+        0.9834344254321983,
+        0.9150739702403737,
+        0.39841804872314834
+      ],
+      "portal": "0.983434-0.915074-0.398418",
+      "latest_payload_present": true
+    },
+    "4": {
+      "dimension": 4,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": -4.025542281908162,
+      "best_observed_input": [
+        0.5777656143780968,
+        0.4287717415443063,
+        0.4258258674882194,
+        0.24900741466191134
+      ],
+      "candidate": [
+        0.4165690415395525,
+        0.38980352788582956,
+        0.36534747494126507,
+        0.41855430471769484
+      ],
+      "portal": "0.416569-0.389804-0.365347-0.418554",
+      "latest_payload_present": true
+    },
+    "5": {
+      "dimension": 4,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.04,
+      "best_observed_output": 1421.0424648914295,
+      "best_observed_input": [
+        0.170782,
+        0.903004,
+        0.868389,
+        0.899803
+      ],
+      "candidate": [
+        0.14639511076155542,
+        0.9593799429470852,
+        0.9790433623704758,
+        1.0
+      ],
+      "portal": "0.146395-0.959380-0.979043-1.000000",
+      "latest_payload_present": true
+    },
+    "6": {
+      "dimension": 5,
+      "method": "random_forest_trust_region",
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.05,
+      "best_observed_output": -0.5406455142504304,
+      "best_observed_input": [
+        0.500293,
+        0.324863,
+        0.385852,
+        0.89339,
+        0.038568
+      ],
+      "candidate": [
+        0.5170221324641973,
+        0.32247919892917815,
+        0.37912025603696986,
+        0.8978849388322896,
+        0.04104581310483797
+      ],
+      "portal": "0.517022-0.322479-0.379120-0.897885-0.041046",
+      "latest_payload_present": true
+    },
+    "7": {
+      "dimension": 6,
+      "method": "random_forest_trust_region",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.1,
+      "best_observed_output": 1.3649683044991994,
+      "best_observed_input": [
+        0.057895541971385245,
+        0.49167221863901367,
+        0.24742222374867484,
+        0.21811843639837636,
+        0.42042832954601583,
+        0.7309698428701273
+      ],
+      "candidate": [
+        0.0,
+        0.4848958860464174,
+        0.22495713857149216,
+        0.17250353678040906,
+        0.14843857419024725,
+        0.7398976722359455
+      ],
+      "portal": "0.000000-0.484896-0.224957-0.172504-0.148439-0.739898",
+      "latest_payload_present": true
+    },
+    "8": {
+      "dimension": 8,
+      "method": "random_forest_trust_region",
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.05,
+      "best_observed_output": 9.7575565919116,
+      "best_observed_input": [
+        0.098931,
+        0.036479,
+        0.038852,
+        0.058147,
+        0.608984,
+        0.84281,
+        0.030625,
+        0.425208
+      ],
+      "candidate": [
+        0.0920620618249337,
+        0.04232107022265311,
+        0.053471125951548425,
+        0.06551962333005446,
+        0.5651061514688723,
+        0.833197317178197,
+        0.0636256134834397,
+        0.4097479248543703
+      ],
+      "portal": "0.092062-0.042321-0.053471-0.065520-0.565106-0.833197-0.063626-0.409748",
+      "latest_payload_present": true
+    }
+  }
+}

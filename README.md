@@ -83,3 +83,18 @@ The main objective is to maintain a clear record of:
 - what outputs were returned
 - how the dataset changed over time
 - what optimisation strategy was used and how it evolved
+
+## Weekly Progress
+### Week 1
+Week 1 used an adaptive hybrid strategy. Lower-dimensional functions were handled with scatter plots and local visual reasoning, while higher-dimensional functions used random-forest surrogate guidance. The outcome of that round suggested that a tighter, more sample-efficient approach would be needed for the next stage.
+
+Full notes:
+- [Week 1 Approach](week1/approach.md)
+
+### Week 2
+Week 2 shifted to a trust-region strategy. Strong Week 1 regions were exploited locally, weaker directions were reset toward the best historical basin, and proposed candidates were sanity-checked before submission. Those checks led to a safer manual override for Function 5, which then produced the strongest Week 2 improvement.
+
+Full notes:
+- [Week 2 Approach](week2/approach.md)
+- [Week 2 Notes](week2/notes.md)
+- [Week 2 Post-Results Reflection](week2/post_results_reflection.md)

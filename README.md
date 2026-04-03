@@ -38,6 +38,42 @@ Each function is:
 
 Over time, the dataset grows as new weekly query points are submitted and their outputs are returned.
 
+## Career Relevance
+This capstone is directly relevant to my current role as a Senior Engineering Manager in online ads experimentation at Meta. A large part of experimentation work in practice involves making decisions under uncertainty, balancing exploration against exploitation, and improving systems without having full visibility into the underlying response surface in advance. That is very similar to the operating conditions in this project.
+
+The value of the capstone is not only in the specific optimisation methods, but in the decision process it develops. It reinforces how to use limited evidence, structure iteration, sanity-check model outputs, and refine a strategy over time rather than over-trusting any single model recommendation. Those are highly transferable skills for experimentation systems, ranking, measurement, and other ML-adjacent product and platform decisions.
+
+## Inputs And Outputs
+Each week, the project receives one proposed input per function and later returns one scalar output per function.
+
+Inputs:
+- one query per function per round
+- each query is an input vector with values constrained to the unit interval
+- dimensionality increases by function, from 2D up to 8D
+- the portal format is a hyphen-separated decimal string such as `0.123456-0.654321`
+
+Outputs:
+- one scalar response value for each submitted query
+- the returned value acts as the performance signal used for optimisation
+- larger values are better because every function is a maximisation task
+
+Examples:
+- 2D query: `0.735000-0.770000`
+- 4D query: `0.576000-0.429000-0.426000-0.225000`
+- 8D query: `0.076137-0.036885-0.051524-0.069041-0.640532-0.823614-0.026805-0.370276`
+
+## Challenge Constraints
+The main objective is to maximise each unknown function while working under tight information and query constraints.
+
+Key constraints:
+- the true function form is hidden
+- feedback is delayed until after submission
+- only one new query can be submitted per function in each round
+- the total number of rounds is limited, so each query has to be used carefully
+- dimensionality increases across the functions, which makes higher-dimensional search substantially harder
+
+These constraints make the project a practical exploration versus exploitation problem rather than a standard supervised learning task.
+
 ## Decision Log
 | Week | Main Strategy | What Changed | Outcome / Interpretation | Notes |
 |---|---|---|---|---|
@@ -75,3 +111,17 @@ The main objective is to maintain a clear record of:
 - what outputs were returned
 - how the dataset changed over time
 - what optimisation strategy was used and how it evolved
+
+## Technical Approach
+Across the first three rounds, the strategy evolved from a broader adaptive search toward a more disciplined trust-region workflow.
+
+Methods considered or used:
+- local visual reasoning for lower-dimensional functions
+- surrogate modelling with random forests for higher-dimensional functions
+- Gaussian-process-style reasoning for lower-dimensional trust-region search
+- manual sanity checks on distance from the best known basin, nearby outcomes, and boundary behaviour
+- Bayesian-optimisation-inspired thinking about exploration versus exploitation, even when not using a full formal acquisition loop
+
+I have also treated this section as a living record of the decision process. The emphasis is not on committing early to one perfect optimiser, but on updating the method as more observations arrive. In practice, that has meant using more exploration at the beginning, then gradually shifting toward tighter local refinement as the query budget becomes more valuable.
+
+Other model families, including regression-style approximations, SVM-style region classification, and more formal Bayesian optimisation methods, are relevant as supporting tools. At this stage, the most effective pattern has been a combination of surrogate guidance, visual inspection for low-dimensional cases, and explicit heuristics that prevent unstable or unjustified jumps.

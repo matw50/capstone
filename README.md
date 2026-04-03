@@ -97,11 +97,23 @@ The repository is organised to support the weekly optimisation cycle:
 - `REPO_INVENTORY.md`: notes on the current repository structure and script usage
 
 ## Scripts
-### `scripts/fill_week_from_text.py`
-Populates a week scaffold from a pasted text block containing submitted inputs and returned outputs.
+### [`scripts/fill_week_from_text.py`](scripts/fill_week_from_text.py)
+Populates a `weekN/` scaffold from a pasted text block containing submitted inputs and returned outputs. This is the quickest way to turn portal feedback into structured repo files.
 
-### `scripts/append_week_results.py`
-Reads `initial_data` and a `weekN/results.json` file, then writes appended `.npy` arrays to a chosen output directory.
+### [`scripts/append_week_results.py`](scripts/append_week_results.py)
+Reads `initial_data` and a `weekN/results.json` file, then writes appended `.npy` arrays to a chosen output directory. This keeps the weekly accumulated datasets ready for the next round of analysis.
+
+### [`scripts/generate_candidate_queries.py`](scripts/generate_candidate_queries.py)
+Generates raw next-round candidate queries from the accumulated data. It uses a trust-region strategy, with Gaussian-process-style search for lower-dimensional functions and random-forest-guided search for higher-dimensional ones.
+
+### [`scripts/sanity_check_candidates.py`](scripts/sanity_check_candidates.py)
+Runs lightweight checks on proposed submissions before they are locked. It reports distance from the best-known point, trust-region adherence, nearby observed outcomes, and boundary behaviour.
+
+### [`scripts/plot_convergence.py`](scripts/plot_convergence.py)
+Generates convergence plots for all functions, showing observed outputs over time, best-so-far curves, weekly submission markers, and the current best point. These plots are used to review whether a function is still improving locally or needs a reset.
+
+### [`scripts/plot_low_dim_views.py`](scripts/plot_low_dim_views.py)
+Generates exploratory visuals for the lower-dimensional functions. It creates 2D scatter plots for Functions 1 and 2, a 3D scatter plot for Function 3, and a pairwise scatter matrix for Function 4.
 
 ## Approach
 The aim of this repository is to support a disciplined experimental workflow rather than a single fixed optimiser. Different optimisation methods may be used over time depending on the dimension and behaviour of each function, including local search, surrogate models, and Bayesian-optimisation-inspired reasoning.

@@ -38,20 +38,12 @@ Each function is:
 
 Over time, the dataset grows as new weekly query points are submitted and their outputs are returned.
 
-## Progress Summary
-### Week 1
-Week 1 used an adaptive balance between exploitation and limited exploration. Lower-dimensional functions were approached with scatter plots and local visual reasoning, while higher-dimensional functions used random-forest surrogate guidance. The main outcome was that Functions 5, 6, and 8 responded well to local refinement, while Functions 1, 3, and 7 showed that the initial direction was not yet strong enough. This week established the first clear separation between momentum functions, cautious-refinement functions, and recovery functions.
-
-Full Week 1 notes:
-- [Approach](week1/approach.md)
-
-### Week 2
-Week 2 shifted to a more disciplined trust-region strategy because the remaining query budget became more valuable. The approach was to exploit tightly where Week 1 improved, refine cautiously where Week 1 was close but not better, and return to the best historical region where Week 1 underperformed. Additional sanity checks were introduced, including distance from the best point, trust-region adherence, nearby observed outcomes, and boundary behaviour. These checks directly changed the proposed Week 2 query for Function 5, replacing a more aggressive edge-seeking point with a safer local exploitation move.
-
-Full Week 2 notes:
-- [Approach](week2/approach.md)
-- [Notes](week2/notes.md)
-- [Reflection](week2/reflection.md)
+## Decision Log
+| Week | Main Strategy | What Changed | Outcome / Interpretation | Notes |
+|---|---|---|---|---|
+| 1 | Adaptive hybrid: local visual reasoning for lower-dimensional functions, random-forest surrogate guidance for higher-dimensional functions | Started with broad exploitation plus limited exploration because only the initial observations were available | Functions 5, 6, and 8 responded well; Functions 1, 3, and 7 showed that the initial direction was not yet strong enough | [Week 1 Approach](week1/approach.md) |
+| 2 | Trust-region strategy | Shifted to tighter local search: exploit where Week 1 improved, refine cautiously where it was close, and reset toward the best historical basin where Week 1 underperformed | The sanity checks led to a safer manual override for Function 5, which then produced the strongest Week 2 improvement | [Week 2 Approach](week2/approach.md), [Week 2 Notes](week2/notes.md), [Week 2 Post-Results Reflection](week2/post_results_reflection.md) |
+| 3 | Manually blended trust-region submission | Kept the trust-region framework but overrode unstable raw model suggestions, especially for lower-dimensional functions, using sanity checks and convergence review | Current Week 3 set is designed to stay local, avoid unjustified basin jumps, and preserve momentum where evidence is strongest | [Week 3 Notes](week3/notes.md), [Week 3 Inputs](week3/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -83,18 +75,3 @@ The main objective is to maintain a clear record of:
 - what outputs were returned
 - how the dataset changed over time
 - what optimisation strategy was used and how it evolved
-
-## Weekly Progress
-### Week 1
-Week 1 used an adaptive hybrid strategy. Lower-dimensional functions were handled with scatter plots and local visual reasoning, while higher-dimensional functions used random-forest surrogate guidance. The outcome of that round suggested that a tighter, more sample-efficient approach would be needed for the next stage.
-
-Full notes:
-- [Week 1 Approach](week1/approach.md)
-
-### Week 2
-Week 2 shifted to a trust-region strategy. Strong Week 1 regions were exploited locally, weaker directions were reset toward the best historical basin, and proposed candidates were sanity-checked before submission. Those checks led to a safer manual override for Function 5, which then produced the strongest Week 2 improvement.
-
-Full notes:
-- [Week 2 Approach](week2/approach.md)
-- [Week 2 Notes](week2/notes.md)
-- [Week 2 Post-Results Reflection](week2/post_results_reflection.md)

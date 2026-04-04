@@ -129,15 +129,19 @@ The main objective is to maintain a clear record of:
 - what optimisation strategy was used and how it evolved
 
 ## Technical Approach
-Across the first three rounds, the strategy evolved from a broader adaptive search toward a more disciplined trust-region workflow.
+Across the first four rounds, the strategy evolved from a broader adaptive search toward a more disciplined trust-region workflow.
 
 Methods considered or used:
 - local visual reasoning for lower-dimensional functions
 - surrogate modelling with random forests for higher-dimensional functions
 - Gaussian-process-style reasoning for lower-dimensional trust-region search
 - manual sanity checks on distance from the best known basin, nearby outcomes, and boundary behaviour
+- explicit trust-region adherence checks on every proposed candidate
+- nearest-neighbour outcome checks to verify whether a candidate still sits inside a strong local basin
+- classifier-based region checks using logistic regression and an RBF SVM as secondary evidence in later rounds
+- a rule that classifier outputs must not override the geometric and basin-aware checks when they conflict
 - Bayesian-optimisation-inspired thinking about exploration versus exploitation, even when not using a full formal acquisition loop
 
 I have also treated this section as a living record of the decision process. The emphasis is not on committing early to one perfect optimiser, but on updating the method as more observations arrive. In practice, that has meant using more exploration at the beginning, then gradually shifting toward tighter local refinement as the query budget becomes more valuable.
 
-Other model families, including regression-style approximations, SVM-style region classification, and more formal Bayesian optimisation methods, are relevant as supporting tools. At this stage, the most effective pattern has been a combination of surrogate guidance, visual inspection for low-dimensional cases, and explicit heuristics that prevent unstable or unjustified jumps.
+Other model families, including regression-style approximations, SVM-style region classification, and more formal Bayesian optimisation methods, are relevant as supporting tools. By Week 4, the most effective pattern had become a layered decision process: generate raw candidates from the trust-region model, run geometric sanity checks first, add classifier-style region checks second, and only then produce a manually blended final submission. In practice, that combination of surrogate guidance, visual inspection for low-dimensional cases, and explicit rules against unstable basin jumps has worked better than trusting any single model output on its own.

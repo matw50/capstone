@@ -2,6 +2,54 @@
 
 This repository tracks data, weekly submissions, returned outputs, and helper scripts for the capstone black-box optimisation challenge.
 
+## Current Status
+| Item | Status |
+|---|---|
+| Latest completed round | Week 3 results recorded |
+| Next submission prepared | Week 4 |
+| Current optimisation phase | Late-stage trust-region refinement |
+| Main operating pattern | Local exploitation with manual sanity checks |
+| Extra validation in latest round | Logistic regression and RBF SVM region checks |
+
+## Best Results So Far
+| Function | Best Output So Far | Source | Current Read |
+|---|---|---|---|
+| 1 | `7.710875114502849e-16` | Initial data | Sparse narrow peak |
+| 2 | `0.6112052157614438` | Initial data | Stable high-performing basin |
+| 3 | `-0.034835313350078584` | Initial data | Improving recovery basin, not yet best |
+| 4 | `-4.025542281908162` | Initial data | Reset-to-best-basin case |
+| 5 | `2675.1205400108825` | Week 3 | Strongest momentum function |
+| 6 | `-0.5406455142504304` | Week 1 | Soft local exploitation case |
+| 7 | `1.5735371355272594` | Week 3 | Strong momentum after recovery |
+| 8 | `9.7841491208186` | Week 2 | Strong validated local basin |
+
+## Reproduce Latest Round
+To reproduce the current Week 4 submission from the recorded Week 3 data:
+
+1. Generate raw candidates:
+```bash
+/opt/anaconda3/bin/python scripts/generate_candidate_queries.py \
+  --repo-root . \
+  --through-week week3 \
+  --output-file week4/candidates.json
+```
+2. Run geometric sanity checks:
+```bash
+/opt/anaconda3/bin/python scripts/sanity_check_candidates.py \
+  --repo-root . \
+  --through-week week3 \
+  --candidate-file week4/candidates.json
+```
+3. Run classifier region checks:
+```bash
+/opt/anaconda3/bin/python scripts/classifier_region_check.py \
+  --repo-root . \
+  --through-week week3 \
+  --candidate-file week4/candidates.json \
+  --svm
+```
+4. Apply the manual blending rules in [week4/reproduction.md](week4/reproduction.md) to produce [week4/inputs.json](week4/inputs.json).
+
 ## Programme Context
 This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
 
@@ -73,6 +121,11 @@ Key constraints:
 - dimensionality increases across the functions, which makes higher-dimensional search substantially harder
 
 These constraints make the project a practical exploration versus exploitation problem rather than a standard supervised learning task.
+
+## Lessons Learned So Far
+- Raw model outputs are useful starting points, but they are not reliable enough to submit unchanged in every round.
+- Trust-region logic has been much more effective than broad search once a few credible basins emerged.
+- Classifier-style region checks help as supporting evidence, especially in later rounds, but should not override geometric and basin-aware sanity checks.
 
 ## Decision Log
 | Week | Main Strategy | What Changed | Outcome / Interpretation | Notes And Reproduction |

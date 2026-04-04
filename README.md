@@ -109,6 +109,9 @@ Generates raw next-round candidate queries from the accumulated data. It uses a 
 ### [`scripts/sanity_check_candidates.py`](scripts/sanity_check_candidates.py)
 Runs lightweight checks on proposed submissions before they are locked. It reports distance from the best-known point, trust-region adherence, nearby observed outcomes, and boundary behaviour.
 
+### [`scripts/classifier_region_check.py`](scripts/classifier_region_check.py)
+Adds a secondary region-classification check for proposed candidates. It converts each function into a temporary high-performing versus not high-performing classification problem, then scores candidates using logistic regression and, optionally, an RBF-kernel SVM.
+
 ### [`scripts/plot_convergence.py`](scripts/plot_convergence.py)
 Generates convergence plots for all functions, showing observed outputs over time, best-so-far curves, weekly submission markers, and the current best point. These plots are used to review whether a function is still improving locally or needs a reset.
 

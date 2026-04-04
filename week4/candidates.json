@@ -1,0 +1,178 @@
+{
+  "through_week": "week3",
+  "strategy": "trust_region",
+  "recommendations": {
+    "1": {
+      "dimension": 2,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": 7.710875114502849e-16,
+      "best_observed_input": [
+        0.7310236309563586,
+        0.7329998764152272
+      ],
+      "candidate": [
+        0.5327231095242918,
+        0.7784647811324976
+      ],
+      "portal": "0.532723-0.778465",
+      "latest_payload_present": true
+    },
+    "2": {
+      "dimension": 2,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": 0.6112052157614438,
+      "best_observed_input": [
+        0.7026365569244406,
+        0.9265641975455574
+      ],
+      "candidate": [
+        0.7096629774058313,
+        0.015134757138796973
+      ],
+      "portal": "0.709663-0.015135",
+      "latest_payload_present": true
+    },
+    "3": {
+      "dimension": 3,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": -0.034835313350078584,
+      "best_observed_input": [
+        0.49258141463713434,
+        0.6115931882759961,
+        0.3401763860035727
+      ],
+      "candidate": [
+        0.9919622524372147,
+        0.9374468329187746,
+        0.4137964696006855
+      ],
+      "portal": "0.991962-0.937447-0.413796",
+      "latest_payload_present": true
+    },
+    "4": {
+      "dimension": 4,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": -4.025542281908162,
+      "best_observed_input": [
+        0.5777656143780968,
+        0.4287717415443063,
+        0.4258258674882194,
+        0.24900741466191134
+      ],
+      "candidate": [
+        0.39841227426548587,
+        0.4655510000327484,
+        0.3903149375060469,
+        0.4288567022002422
+      ],
+      "portal": "0.398412-0.465551-0.390315-0.428857",
+      "latest_payload_present": true
+    },
+    "5": {
+      "dimension": 4,
+      "method": "gaussian_process_trust_region_ucb",
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.04,
+      "best_observed_output": 2675.1205400108825,
+      "best_observed_input": [
+        0.145,
+        0.945,
+        0.945,
+        0.955
+      ],
+      "candidate": [
+        0.06644685349346237,
+        0.9724625594583489,
+        1.0,
+        1.0
+      ],
+      "portal": "0.066447-0.972463-1.000000-1.000000",
+      "latest_payload_present": true
+    },
+    "6": {
+      "dimension": 5,
+      "method": "random_forest_trust_region",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.1,
+      "best_observed_output": -0.5406455142504304,
+      "best_observed_input": [
+        0.500293,
+        0.324863,
+        0.385852,
+        0.89339,
+        0.038568
+      ],
+      "candidate": [
+        0.5413170648747833,
+        0.31859414876187836,
+        0.24847364835838903,
+        0.87992605297574,
+        0.03765574790120289
+      ],
+      "portal": "0.541317-0.318594-0.248474-0.879926-0.037656",
+      "latest_payload_present": true
+    },
+    "7": {
+      "dimension": 6,
+      "method": "random_forest_trust_region",
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.05,
+      "best_observed_output": 1.5735371355272594,
+      "best_observed_input": [
+        0.049,
+        0.492,
+        0.236,
+        0.196,
+        0.284,
+        0.736
+      ],
+      "candidate": [
+        0.049023293925362525,
+        0.38666810918440475,
+        0.23544802710430607,
+        0.19854916338541703,
+        0.2877916115129469,
+        0.7298897364953263
+      ],
+      "portal": "0.049023-0.386668-0.235448-0.198549-0.287792-0.729890",
+      "latest_payload_present": true
+    },
+    "8": {
+      "dimension": 8,
+      "method": "random_forest_trust_region",
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.1,
+      "best_observed_output": 9.7841491208186,
+      "best_observed_input": [
+        0.092062,
+        0.042321,
+        0.053471,
+        0.06552,
+        0.565106,
+        0.833197,
+        0.063626,
+        0.409748
+      ],
+      "candidate": [
+        0.08108871274525355,
+        0.03495566696630986,
+        0.058262304109368966,
+        0.06942648776744427,
+        0.5855103376017452,
+        0.8128391936772095,
+        0.034002702890593275,
+        0.40361441157787104
+      ],
+      "portal": "0.081089-0.034956-0.058262-0.069426-0.585510-0.812839-0.034003-0.403614",
+      "latest_payload_present": true
+    }
+  }
+}

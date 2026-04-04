@@ -92,9 +92,12 @@ The repository is organised to support the weekly optimisation cycle:
 
 ## Repository Layout
 - `initial_data/`: original `.npy` arrays for each function
-- `week1/`: completed week 1 submission, outputs, and appended arrays
-- `week2/` to `week13/`: scaffold folders for future rounds
-- `scripts/`: helper scripts for filling week folders and appending results
+- `week1/`: Week 1 submission, outputs, appended datasets, lower-dimensional plots, approach notes, and reproduction notes
+- `week2/`: Week 2 submission, outputs, appended datasets, raw candidates, lower-dimensional plots, notes, reflections, and reproduction notes
+- `week3/`: Week 3 submission, outputs, appended datasets, raw candidates, lower-dimensional plots, convergence plots, notes, and reproduction notes
+- `week4/`: Week 4 submission, raw candidates, approach notes, reproduction notes, and placeholder output files ready for returned results
+- `week5/` to `week13/`: scaffold folders for future rounds
+- `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `REPO_INVENTORY.md`: notes on the current repository structure and script usage
 
 ## Scripts

@@ -5,23 +5,23 @@ This repository tracks data, weekly submissions, returned outputs, and helper sc
 ## Current Status
 | Item | Status |
 |---|---|
-| Latest completed round | Week 5 results recorded |
-| Next submission prepared | Week 6 |
-| Current optimisation phase | Historical-best anchored trust-region refinement |
+| Latest completed round | Week 6 results recorded |
+| Next submission prepared | Not yet |
+| Current optimisation phase | Paused after Week 6 recording |
 | Main operating pattern | Local exploitation with manual sanity checks |
 | Extra validation in latest round | Logistic regression, RBF SVM, and experimental MLP ensemble checks |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
 |---|---|---|---|
-| 1 | `7.710875114502849e-16` | Initial data | Sparse narrow peak |
-| 2 | `0.6804759634712958` | Week 5 | New local momentum after historical-best anchoring |
-| 3 | `-0.034835313350078584` | Initial data | Improving recovery basin, not yet best |
-| 4 | `-4.025542281908162` | Initial data | Reset-to-best-basin case |
-| 5 | `2962.2983942628757` | Week 5 | Strongest momentum function |
-| 6 | `-0.5406455142504304` | Week 1 | Correction case |
-| 7 | `1.6645971234129806` | Week 5 | Strong momentum after recovery |
-| 8 | `9.7841491208186` | Week 2 | Strong validated local basin |
+| 1 | `1.7043369097736036e-15` | Week 6 | Sparse narrow peak, improved by ultra-local probing |
+| 2 | `0.7729097325485852` | Week 6 | Local momentum after historical-best anchoring |
+| 3 | `-0.03140224643128403` | Week 6 | Recovery basin now improved beyond the initial best |
+| 4 | `-3.992035882485815` | Week 6 | Reset-to-best-basin refinement beat the initial best |
+| 5 | `3114.916159936784` | Week 6 | Strongest momentum function |
+| 6 | `-0.5406455142504304` | Week 1 | Week 6 correction probe underperformed |
+| 7 | `1.7077885403964521` | Week 6 | Strong momentum after recovery |
+| 8 | `9.7841491208186` | Week 2 | Week 6 remained very close to the validated local basin |
 
 ## Reproduce Latest Round
 To reproduce the current Week 6 submission from the recorded Week 5 data:
@@ -142,7 +142,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 3 | Manually blended trust-region submission | Kept the trust-region framework but overrode unstable raw model suggestions, especially for lower-dimensional functions, using sanity checks and convergence review | Current Week 3 set is designed to stay local, avoid unjustified basin jumps, and preserve momentum where evidence is strongest | [Week 3 Notes](week3/notes.md), [Week 3 Reproduction](week3/reproduction.md), [Week 3 Inputs](week3/inputs.json) |
 | 4 | Late-stage trust-region with classifier-assisted review | Added logistic-regression and SVM region checks as secondary evidence, but kept trust-region, neighbour, and boundary checks as the primary filters before blending the final submission | Week 4 produced new bests for Functions 5 and 7, confirming the hard-exploitation logic there. Function 4 improved again but did not beat the historical best, and Function 8 remained very close to its best basin. | [Week 4 Approach](week4/approach.md), [Week 4 Notes](week4/notes.md), [Week 4 Reproduction](week4/reproduction.md), [Week 4 Inputs](week4/inputs.json) |
 | 5 | Historical-best anchored trust-region submission | Adapted the rule so the historical best point is the default anchor, with recent results used as directional evidence rather than automatically becoming the next search centre | Week 5 produced new bests for Functions 2, 5, and 7. Function 6 remained stalled, which led to the Week 6 correction probe. | [Week 5 Approach](week5/approach.md), [Week 5 Notes](week5/notes.md), [Week 5 Reproduction](week5/reproduction.md), [Week 5 Inputs](week5/inputs.json) |
-| 6 | Historical-best anchoring with Function 6 correction | Kept the historical-best anchoring rule, but added a deliberate lower-`x2`, lower-`x3` correction probe for Function 6 after repeated near-identical local nudges failed | The prepared Week 6 set passes trust-region checks and has no boundary flags. It keeps hard exploitation for Functions 2, 5, and 7 while keeping Function 6 as the only deliberate correction case. | [Week 6 Approach](week6/approach.md), [Week 6 Notes](week6/notes.md), [Week 6 Reproduction](week6/reproduction.md), [Week 6 Inputs](week6/inputs.json) |
+| 6 | Historical-best anchoring with Function 6 correction | Kept the historical-best anchoring rule, but added a deliberate lower-`x2`, lower-`x3` correction probe for Function 6 after repeated near-identical local nudges failed | Week 6 produced new bests for Functions 1, 2, 3, 4, 5, and 7. Function 8 stayed very close to its historical best. Function 6 underperformed, making it the clear outlier in the round. | [Week 6 Approach](week6/approach.md), [Week 6 Notes](week6/notes.md), [Week 6 Reproduction](week6/reproduction.md), [Week 6 Inputs](week6/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -159,7 +159,7 @@ The repository is organised to support the weekly optimisation cycle:
 - `week3/`: Week 3 submission, outputs, appended datasets, raw candidates, lower-dimensional plots, convergence plots, notes, and reproduction notes
 - `week4/`: Week 4 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week5/`: Week 5 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
-- `week6/`: prepared Week 6 submission, raw candidates, approach notes, and reproduction notes
+- `week6/`: Week 6 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week7/` to `week13/`: scaffold folders for future rounds
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `REPO_INVENTORY.md`: notes on the current repository structure and script usage
@@ -199,7 +199,7 @@ The main objective is to maintain a clear record of:
 - what optimisation strategy was used and how it evolved
 
 ## Technical Approach
-Across the first five rounds, the strategy evolved from a broader adaptive search toward a more disciplined trust-region workflow.
+Across the first six rounds, the strategy evolved from a broader adaptive search toward a more disciplined trust-region workflow.
 
 Methods considered or used:
 - local visual reasoning for lower-dimensional functions
@@ -219,4 +219,4 @@ Other model families, including regression-style approximations, SVM-style regio
 
 By Week 5, the rule was adapted again: when an earlier point remains the historical best, the next query is anchored on that historical best rather than the most recent query. Recent results are still useful, but mainly as directional evidence for how to perturb the best-known basin.
 
-By Week 6, Function 6 became the main exception to the standard local-nudge pattern. It keeps the best-known high-`x4`, low-`x5` structure, but deliberately probes lower `x2` and lower `x3` because repeated tiny moves around the same point did not improve the result.
+By Week 6, Function 6 became the main exception to the standard local-nudge pattern. It kept the best-known high-`x4`, low-`x5` structure, but deliberately probed lower `x2` and lower `x3` because repeated tiny moves around the same point did not improve the result. The returned Week 6 output showed that this correction probe underperformed, while the same round produced new bests for six of the other seven functions.

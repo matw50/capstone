@@ -50,3 +50,16 @@ The final blended `week6/inputs.json` was checked after manual adjustment.
 - Function 6: `0.500000-0.300000-0.365000-0.900000-0.030000`
 - Function 7: `0.052000-0.471000-0.242000-0.202000-0.302000-0.730000`
 - Function 8: `0.091000-0.041500-0.053900-0.065900-0.567000-0.831000-0.060000-0.409000`
+
+## Returned Week 6 Outputs
+
+- Function 1: `1.7043369097736036e-15`
+- Function 2: `0.7729097325485852`
+- Function 3: `-0.03140224643128403`
+- Function 4: `-3.992035882485815`
+- Function 5: `3114.916159936784`
+- Function 6: `-0.6974251396129195`
+- Function 7: `1.7077885403964521`
+- Function 8: `9.78406571`
+
+Week 6 produced new best observed outputs for Functions 1, 2, 3, 4, 5, and 7. Function 8 was very close to its historical best, while Function 6 was worse than the prior best.

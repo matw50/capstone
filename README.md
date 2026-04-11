@@ -9,7 +9,7 @@ This repository tracks data, weekly submissions, returned outputs, and helper sc
 | Next submission prepared | Week 5 |
 | Current optimisation phase | Historical-best anchored trust-region refinement |
 | Main operating pattern | Local exploitation with manual sanity checks |
-| Extra validation in latest round | Logistic regression and RBF SVM region checks |
+| Extra validation in latest round | Logistic regression, RBF SVM, and experimental MLP ensemble checks |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
@@ -49,6 +49,13 @@ To reproduce the current Week 5 submission from the recorded Week 4 data:
   --svm
 ```
 4. Apply the manual blending rules in [week5/reproduction.md](week5/reproduction.md) to produce [week5/inputs.json](week5/inputs.json).
+5. Optionally run the experimental neural-net surrogate check on the final blended inputs:
+```bash
+/opt/anaconda3/bin/python scripts/neural_net_surrogate_check.py \
+  --repo-root . \
+  --through-week week4 \
+  --candidate-file week5/inputs.json
+```
 
 ## Programme Context
 This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
@@ -171,6 +178,9 @@ Runs lightweight checks on proposed submissions before they are locked. It repor
 ### [`scripts/classifier_region_check.py`](scripts/classifier_region_check.py)
 Adds a secondary region-classification check for proposed candidates. It converts each function into a temporary high-performing versus not high-performing classification problem, then scores candidates using logistic regression and, optionally, an RBF-kernel SVM.
 
+### [`scripts/neural_net_surrogate_check.py`](scripts/neural_net_surrogate_check.py)
+Runs an experimental small neural-network surrogate check. It fits a bootstrap ensemble of regularised MLP regressors and reports the predicted output, uncertainty, and percentile of a proposed candidate. This is used only as a secondary sanity check because the datasets are still small.
+
 ### [`scripts/plot_convergence.py`](scripts/plot_convergence.py)
 Generates convergence plots for all functions, showing observed outputs over time, best-so-far curves, weekly submission markers, and the current best point. These plots are used to review whether a function is still improving locally or needs a reset.
 
@@ -197,6 +207,7 @@ Methods considered or used:
 - explicit trust-region adherence checks on every proposed candidate
 - nearest-neighbour outcome checks to verify whether a candidate still sits inside a strong local basin
 - classifier-based region checks using logistic regression and an RBF SVM as secondary evidence in later rounds
+- experimental neural-network surrogate checks using small bootstrapped MLP ensembles as another secondary signal
 - a rule that classifier outputs must not override the geometric and basin-aware checks when they conflict
 - Bayesian-optimisation-inspired thinking about exploration versus exploitation, even when not using a full formal acquisition loop
 

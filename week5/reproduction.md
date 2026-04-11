@@ -57,3 +57,16 @@ That rule set yields the following adjustments to produce `week5/inputs.json`:
 
 ## Final Output
 - Output file: `week5/inputs.json`
+
+## Optional Post-Blend Neural-Net Check
+
+After `week5/inputs.json` has been created, run:
+
+```bash
+/opt/anaconda3/bin/python scripts/neural_net_surrogate_check.py \
+  --repo-root . \
+  --through-week week4 \
+  --candidate-file week5/inputs.json
+```
+
+This is an experimental secondary check. It should not override the trust-region, neighbour, and boundary checks.

@@ -30,6 +30,22 @@ The final blended `week5/inputs.json` was checked again after the manual adjustm
 - Function 3 remained the lower-confidence classifier case, but it stayed very close to the historical best and passed the primary geometric checks.
 - Function 1 remained sparse, but the final point was extremely close to the best historical point and passed the trust-region check.
 
+## Experimental Neural-Net Check
+A small bootstrap ensemble of regularised MLP regressors was also run as an experimental secondary check. This did not change the final submission, because the dataset is still small and the neural net should not override the trust-region and neighbour checks.
+
+| Function | NN Mean Prediction | NN Std | Predicted Percentile | Interpretation |
+|---|---:|---:|---:|---|
+| 1 | `-0.000198` | `0.000176` | `0.071` | Not useful for this sparse function; keep the geometric local rule. |
+| 2 | `0.542967` | `0.025858` | `0.786` | Supports a good region but not above the historical best. |
+| 3 | `-0.054835` | `0.018787` | `0.684` | Lower-confidence case, consistent with caution. |
+| 4 | `-5.416710` | `0.655331` | `0.912` | High percentile but noisy absolute prediction; keep historical-best anchoring. |
+| 5 | `2678.594528` | `217.655765` | `0.958` | Supports the high-performing basin, but not a reason to exceed the trust region. |
+| 6 | `-0.577562` | `0.016325` | `0.917` | Supports recentering near the Week 1 best but not aggressive movement. |
+| 7 | `1.421007` | `0.292213` | `0.941` | Supports the strong basin but shows uncertainty, so keep a small local move. |
+| 8 | `9.764244` | `0.012706` | `0.932` | Supports the basin and agrees with continued local refinement. |
+
+Overall, the neural-net check is useful as an ensemble-style sanity check, especially for Functions 5, 7, and 8, but it is not reliable enough to become the primary optimiser.
+
 ## Final Week 5 Submission Set
 
 - Function 1: `0.731800-0.735000`

@@ -5,8 +5,8 @@ This repository tracks data, weekly submissions, returned outputs, and helper sc
 ## Current Status
 | Item | Status |
 |---|---|
-| Latest completed round | Week 3 results recorded |
-| Next submission prepared | Week 4 |
+| Latest completed round | Week 4 results recorded |
+| Next submission prepared | Week 5 not yet generated |
 | Current optimisation phase | Late-stage trust-region refinement |
 | Main operating pattern | Local exploitation with manual sanity checks |
 | Extra validation in latest round | Logistic regression and RBF SVM region checks |
@@ -18,9 +18,9 @@ This repository tracks data, weekly submissions, returned outputs, and helper sc
 | 2 | `0.6112052157614438` | Initial data | Stable high-performing basin |
 | 3 | `-0.034835313350078584` | Initial data | Improving recovery basin, not yet best |
 | 4 | `-4.025542281908162` | Initial data | Reset-to-best-basin case |
-| 5 | `2675.1205400108825` | Week 3 | Strongest momentum function |
+| 5 | `2815.841162616493` | Week 4 | Strongest momentum function |
 | 6 | `-0.5406455142504304` | Week 1 | Soft local exploitation case |
-| 7 | `1.5735371355272594` | Week 3 | Strong momentum after recovery |
+| 7 | `1.6197843029490568` | Week 4 | Strong momentum after recovery |
 | 8 | `9.7841491208186` | Week 2 | Strong validated local basin |
 
 ## Reproduce Latest Round
@@ -133,7 +133,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 1 | Adaptive hybrid: local visual reasoning for lower-dimensional functions, random-forest surrogate guidance for higher-dimensional functions | Started with broad exploitation plus limited exploration because only the initial observations were available | Functions 5, 6, and 8 responded well; Functions 1, 3, and 7 showed that the initial direction was not yet strong enough | [Week 1 Approach](week1/approach.md), [Week 1 Reproduction](week1/reproduction.md), [Week 1 Inputs](week1/inputs.json) |
 | 2 | Trust-region strategy | Shifted to tighter local search: exploit where Week 1 improved, refine cautiously where it was close, and reset toward the best historical basin where Week 1 underperformed | The sanity checks led to a safer manual override for Function 5, which then produced the strongest Week 2 improvement | [Week 2 Approach](week2/approach.md), [Week 2 Notes](week2/notes.md), [Week 2 Reproduction](week2/reproduction.md), [Week 2 Inputs](week2/inputs.json) |
 | 3 | Manually blended trust-region submission | Kept the trust-region framework but overrode unstable raw model suggestions, especially for lower-dimensional functions, using sanity checks and convergence review | Current Week 3 set is designed to stay local, avoid unjustified basin jumps, and preserve momentum where evidence is strongest | [Week 3 Notes](week3/notes.md), [Week 3 Reproduction](week3/reproduction.md), [Week 3 Inputs](week3/inputs.json) |
-| 4 | Late-stage trust-region with classifier-assisted review | Added logistic-regression and SVM region checks as secondary evidence, but kept trust-region, neighbour, and boundary checks as the primary filters before blending the final submission | The new classifier checks were useful for Functions 5 to 8, but they did not justify changing the core late-stage logic. The final Week 4 set stays local and basin-aware. | [Week 4 Approach](week4/approach.md), [Week 4 Notes](week4/notes.md), [Week 4 Reproduction](week4/reproduction.md), [Week 4 Inputs](week4/inputs.json) |
+| 4 | Late-stage trust-region with classifier-assisted review | Added logistic-regression and SVM region checks as secondary evidence, but kept trust-region, neighbour, and boundary checks as the primary filters before blending the final submission | Week 4 produced new bests for Functions 5 and 7, confirming the hard-exploitation logic there. Function 4 improved again but did not beat the historical best, and Function 8 remained very close to its best basin. | [Week 4 Approach](week4/approach.md), [Week 4 Notes](week4/notes.md), [Week 4 Reproduction](week4/reproduction.md), [Week 4 Inputs](week4/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -148,7 +148,7 @@ The repository is organised to support the weekly optimisation cycle:
 - `week1/`: Week 1 submission, outputs, appended datasets, lower-dimensional plots, approach notes, and reproduction notes
 - `week2/`: Week 2 submission, outputs, appended datasets, raw candidates, lower-dimensional plots, notes, reflections, and reproduction notes
 - `week3/`: Week 3 submission, outputs, appended datasets, raw candidates, lower-dimensional plots, convergence plots, notes, and reproduction notes
-- `week4/`: Week 4 submission, raw candidates, approach notes, reproduction notes, and placeholder output files ready for returned results
+- `week4/`: Week 4 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week5/` to `week13/`: scaffold folders for future rounds
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `REPO_INVENTORY.md`: notes on the current repository structure and script usage

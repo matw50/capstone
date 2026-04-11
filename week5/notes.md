@@ -56,3 +56,12 @@ Overall, the neural-net check is useful as an ensemble-style sanity check, espec
 - Function 6: `0.495000-0.325000-0.388000-0.894000-0.038500`
 - Function 7: `0.051000-0.478000-0.240000-0.200000-0.296000-0.732000`
 - Function 8: `0.089300-0.040400-0.054700-0.066500-0.570000-0.828000-0.054000-0.408000`
+
+## Returned Results
+Week 5 produced new bests for Functions 2, 5, and 7:
+
+- Function 2: `0.6804759634712958`
+- Function 5: `2962.2983942628757`
+- Function 7: `1.6645971234129806`
+
+Functions 3, 4, and 8 remained close to their historical best basins. Function 1 improved relative to recent sparse probes but did not beat the original best. Function 6 remained the weakest case and motivated the Week 6 correction probe.

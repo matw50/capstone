@@ -135,9 +135,11 @@ def main() -> None:
             key: value["candidate"]
             for key, value in candidate_payload["recommendations"].items()
         }
+    elif all(str(function_id) in candidate_payload for function_id in range(1, 9)):
+        candidate_functions = candidate_payload
     else:
         raise KeyError(
-            "Candidate file must contain either 'functions' or 'recommendations'."
+            "Candidate file must contain 'functions', 'recommendations', or top-level function IDs."
         )
     results = {
         "through_week": args.through_week,

@@ -90,7 +90,9 @@ def load_candidates(candidate_file: Path) -> dict[str, list[float]]:
         return payload["functions"]
     if "recommendations" in payload:
         return {key: value["candidate"] for key, value in payload["recommendations"].items()}
-    raise KeyError("Candidate file must contain either 'functions' or 'recommendations'.")
+    if all(str(function_id) in payload for function_id in range(1, 9)):
+        return payload
+    raise KeyError("Candidate file must contain 'functions', 'recommendations', or top-level function IDs.")
 
 
 def make_labels(y: np.ndarray, top_fraction: float) -> np.ndarray:

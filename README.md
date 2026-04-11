@@ -6,8 +6,8 @@ This repository tracks data, weekly submissions, returned outputs, and helper sc
 | Item | Status |
 |---|---|
 | Latest completed round | Week 4 results recorded |
-| Next submission prepared | Week 5 not yet generated |
-| Current optimisation phase | Late-stage trust-region refinement |
+| Next submission prepared | Week 5 |
+| Current optimisation phase | Historical-best anchored trust-region refinement |
 | Main operating pattern | Local exploitation with manual sanity checks |
 | Extra validation in latest round | Logistic regression and RBF SVM region checks |
 
@@ -24,31 +24,31 @@ This repository tracks data, weekly submissions, returned outputs, and helper sc
 | 8 | `9.7841491208186` | Week 2 | Strong validated local basin |
 
 ## Reproduce Latest Round
-To reproduce the current Week 4 submission from the recorded Week 3 data:
+To reproduce the current Week 5 submission from the recorded Week 4 data:
 
 1. Generate raw candidates:
 ```bash
 /opt/anaconda3/bin/python scripts/generate_candidate_queries.py \
   --repo-root . \
-  --through-week week3 \
-  --output-file week4/candidates.json
+  --through-week week4 \
+  --output-file week5/candidates.json
 ```
 2. Run geometric sanity checks:
 ```bash
 /opt/anaconda3/bin/python scripts/sanity_check_candidates.py \
   --repo-root . \
-  --through-week week3 \
-  --candidate-file week4/candidates.json
+  --through-week week4 \
+  --candidate-file week5/candidates.json
 ```
 3. Run classifier region checks:
 ```bash
 /opt/anaconda3/bin/python scripts/classifier_region_check.py \
   --repo-root . \
-  --through-week week3 \
-  --candidate-file week4/candidates.json \
+  --through-week week4 \
+  --candidate-file week5/candidates.json \
   --svm
 ```
-4. Apply the manual blending rules in [week4/reproduction.md](week4/reproduction.md) to produce [week4/inputs.json](week4/inputs.json).
+4. Apply the manual blending rules in [week5/reproduction.md](week5/reproduction.md) to produce [week5/inputs.json](week5/inputs.json).
 
 ## Programme Context
 This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
@@ -134,6 +134,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 2 | Trust-region strategy | Shifted to tighter local search: exploit where Week 1 improved, refine cautiously where it was close, and reset toward the best historical basin where Week 1 underperformed | The sanity checks led to a safer manual override for Function 5, which then produced the strongest Week 2 improvement | [Week 2 Approach](week2/approach.md), [Week 2 Notes](week2/notes.md), [Week 2 Reproduction](week2/reproduction.md), [Week 2 Inputs](week2/inputs.json) |
 | 3 | Manually blended trust-region submission | Kept the trust-region framework but overrode unstable raw model suggestions, especially for lower-dimensional functions, using sanity checks and convergence review | Current Week 3 set is designed to stay local, avoid unjustified basin jumps, and preserve momentum where evidence is strongest | [Week 3 Notes](week3/notes.md), [Week 3 Reproduction](week3/reproduction.md), [Week 3 Inputs](week3/inputs.json) |
 | 4 | Late-stage trust-region with classifier-assisted review | Added logistic-regression and SVM region checks as secondary evidence, but kept trust-region, neighbour, and boundary checks as the primary filters before blending the final submission | Week 4 produced new bests for Functions 5 and 7, confirming the hard-exploitation logic there. Function 4 improved again but did not beat the historical best, and Function 8 remained very close to its best basin. | [Week 4 Approach](week4/approach.md), [Week 4 Notes](week4/notes.md), [Week 4 Reproduction](week4/reproduction.md), [Week 4 Inputs](week4/inputs.json) |
+| 5 | Historical-best anchored trust-region submission | Adapted the rule so the historical best point is the default anchor, with recent results used as directional evidence rather than automatically becoming the next search centre | The prepared Week 5 set passes the trust-region and boundary checks for all functions. Classifier checks are supportive overall, with Function 3 remaining the main lower-confidence case. | [Week 5 Approach](week5/approach.md), [Week 5 Notes](week5/notes.md), [Week 5 Reproduction](week5/reproduction.md), [Week 5 Inputs](week5/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -149,7 +150,8 @@ The repository is organised to support the weekly optimisation cycle:
 - `week2/`: Week 2 submission, outputs, appended datasets, raw candidates, lower-dimensional plots, notes, reflections, and reproduction notes
 - `week3/`: Week 3 submission, outputs, appended datasets, raw candidates, lower-dimensional plots, convergence plots, notes, and reproduction notes
 - `week4/`: Week 4 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
-- `week5/` to `week13/`: scaffold folders for future rounds
+- `week5/`: prepared Week 5 submission, raw candidates, approach notes, and reproduction notes
+- `week6/` to `week13/`: scaffold folders for future rounds
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `REPO_INVENTORY.md`: notes on the current repository structure and script usage
 
@@ -201,3 +203,5 @@ Methods considered or used:
 I have also treated this section as a living record of the decision process. The emphasis is not on committing early to one perfect optimiser, but on updating the method as more observations arrive. In practice, that has meant using more exploration at the beginning, then gradually shifting toward tighter local refinement as the query budget becomes more valuable.
 
 Other model families, including regression-style approximations, SVM-style region classification, and more formal Bayesian optimisation methods, are relevant as supporting tools. By Week 4, the most effective pattern had become a layered decision process: generate raw candidates from the trust-region model, run geometric sanity checks first, add classifier-style region checks second, and only then produce a manually blended final submission. In practice, that combination of surrogate guidance, visual inspection for low-dimensional cases, and explicit rules against unstable basin jumps has worked better than trusting any single model output on its own.
+
+By Week 5, the rule was adapted again: when an earlier point remains the historical best, the next query is anchored on that historical best rather than the most recent query. Recent results are still useful, but mainly as directional evidence for how to perturb the best-known basin.

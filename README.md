@@ -53,11 +53,21 @@ Current result:
 - win rate: `66.7%`
 - final target hits: `2` for the capstone policy, `0` for random continuation
 
+Updated state-policy result:
+- concrete decision rules were added after reviewing the first benchmark run
+- development benchmark on instance `1`: `54` wins, `16` losses, `2` ties
+- development win rate: `75.0%`
+- holdout benchmark on unseen instances `2,3,4,5`: `210` wins, `55` losses, `23` ties
+- holdout win rate: `72.9%`
+- interpretation: the updated rules improved the development benchmark and held up well on unseen instances, which suggests the change is not just benchmark overfitting
+
 Artifacts:
 - [Benchmark README](benchmarks/coco/README.md)
 - [Benchmark Summary](benchmarks/coco/week6_style_budget13/summary.json)
 - [Benchmark Results CSV](benchmarks/coco/week6_style_budget13/results.csv)
 - [Benchmark Histories](benchmarks/coco/week6_style_budget13/histories.json)
+- [State Policy Dev Summary](benchmarks/coco/state_policy_dev_instance1_v5/summary.json)
+- [State Policy Holdout Summary](benchmarks/coco/state_policy_holdout_instances2to5_v5/summary.json)
 
 ## Weekly Index
 | Week | Status | Folder | Notes | Reproduction | Results |
@@ -222,7 +232,7 @@ The repository is organised to support the weekly optimisation cycle:
 
 ## Scripts
 ### [`scripts/run_coco_benchmark.py`](scripts/run_coco_benchmark.py)
-Runs the current capstone policy against the COCO/BBOB benchmark suite using a capstone-like budget. It compares the policy against a random continuation baseline and writes a CSV plus JSON summaries under `benchmarks/coco/`.
+Runs the current capstone policy against the COCO/BBOB benchmark suite using a capstone-like budget. It compares the policy against a random continuation baseline, prints progress and ETA while it runs, and writes a CSV plus JSON summaries under `benchmarks/coco/`.
 
 ### [`scripts/scaffold_week_structure.py`](scripts/scaffold_week_structure.py)
 Creates or standardizes the core files expected in each `weekN/` folder. It is useful when setting up future rounds or repairing scaffold consistency after the repository structure changes.
@@ -234,7 +244,7 @@ Populates a `weekN/` scaffold from a pasted text block containing submitted inpu
 Reads `initial_data` and a `weekN/results.json` file, then writes appended `.npy` arrays to a chosen output directory. This keeps the weekly accumulated datasets ready for the next round of analysis.
 
 ### [`scripts/generate_candidate_queries.py`](scripts/generate_candidate_queries.py)
-Generates raw next-round candidate queries from the accumulated data. It uses a trust-region strategy, with Gaussian-process-style search for lower-dimensional functions and random-forest-guided search for higher-dimensional ones.
+Generates raw next-round candidate queries from the accumulated data. It now uses a state-machine trust-region policy with explicit `bootstrap`, `momentum`, `refine`, `stagnant`, and `recovery` modes, combining Gaussian-process-style search for lower-dimensional functions with random-forest-guided search for higher-dimensional ones.
 
 ### [`scripts/sanity_check_candidates.py`](scripts/sanity_check_candidates.py)
 Runs lightweight checks on proposed submissions before they are locked. It reports distance from the best-known point, trust-region adherence, nearby observed outcomes, and boundary behaviour.
@@ -284,3 +294,11 @@ By Week 5, the rule was adapted again: when an earlier point remains the histori
 By Week 6, Function 6 became the main exception to the standard local-nudge pattern. It kept the best-known high-`x4`, low-`x5` structure, but deliberately probed lower `x2` and lower `x3` because repeated tiny moves around the same point did not improve the result. The returned Week 6 output showed that this correction probe underperformed, while the same round produced new bests for six of the other seven functions.
 
 To test whether this hand-built policy generalizes beyond the capstone data, I also benchmarked it externally on COCO/BBOB with a capstone-like budget of `10` random initial evaluations plus `13` sequential guided evaluations. The current policy beat a random continuation baseline on two-thirds of the tested BBOB problems, which gives some evidence that the local trust-region logic is doing useful work beyond the specific course functions.
+
+After reviewing those benchmark results, I turned the strategy into a clearer decision-rule policy:
+- `momentum`: if the latest query set a new best, exploit locally around that point
+- `refine`: after one non-improving round, return to the historical best basin and make a smaller local move
+- `stagnant`: after two non-improving rounds, allow one bounded exploratory probe by comparing a local exploit candidate, a wider surrogate candidate, and a second-basin candidate when one exists
+- `recovery`: if that exploratory probe also fails, reset to the best known basin and stop making broader jumps
+
+That rule set improved the development COCO/BBOB benchmark from a `66.7%` win rate against random continuation to `75.0%`, and it still achieved a `72.9%` holdout win rate on unseen instances. That is not proof that the policy is optimal, but it is a useful signal that the added decision rules improved robustness rather than merely overfitting the first benchmark run.

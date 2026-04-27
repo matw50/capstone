@@ -88,7 +88,15 @@ Checks proposed candidate points against practical late-stage heuristics, includ
 - boundary/extreme-value flags
 
 ### `scripts/run_coco_benchmark.py`
-Runs the current capstone policy against the COCO/BBOB benchmark suite with a capstone-like evaluation budget and compares it against a random continuation baseline.
+Runs the current capstone policy against the COCO/BBOB benchmark suite with a capstone-like evaluation budget and compares it against a random continuation baseline. The script now also prints progress and ETA during longer runs.
+
+### Policy note
+The candidate-generation workflow is now a state-machine policy:
+- `bootstrap`: no guided evaluations yet
+- `momentum`: latest query improved the best score
+- `refine`: one non-improving round
+- `stagnant`: two non-improving rounds, allowing one bounded exploratory probe
+- `recovery`: failed exploratory probe, so return to the best known basin
 
 Example:
 ```bash

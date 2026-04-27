@@ -7,8 +7,10 @@ The benchmark mirrors the capstone structure:
 - compare against a random-search continuation baseline
 
 The capstone policy itself is imported from `generate_candidate_queries.py`:
+- state-machine trust-region policy
 - GP trust-region search for dimensions <= 4
 - RF trust-region search for dimensions > 4
+- one bounded stagnation probe before recovery
 
 Example:
     /opt/anaconda3/bin/python scripts/run_coco_benchmark.py \
@@ -24,6 +26,7 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import time
 import warnings
 from pathlib import Path
 
@@ -31,10 +34,10 @@ import cocoex
 import numpy as np
 from sklearn.exceptions import ConvergenceWarning
 
-from generate_candidate_queries import latest_improved_best, suggest_with_gp, suggest_with_rf
+from generate_candidate_queries import choose_policy_candidate
 
 
-METHOD_CAPSTONE = "capstone_local_policy"
+METHOD_CAPSTONE = "capstone_state_policy"
 METHOD_RANDOM = "random_continuation"
 
 
@@ -85,6 +88,12 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help="Optional output directory. Default: benchmarks/coco/week6_style_budget<budget>",
     )
+    parser.add_argument(
+        "--log-every",
+        type=int,
+        default=6,
+        help="Print progress every N problems. Default: 6",
+    )
     return parser.parse_args()
 
 
@@ -119,13 +128,11 @@ def initial_design(problem: cocoex.Problem, n_points: int, rng: np.random.Genera
 def choose_capstone_candidate(
     x_unit: np.ndarray,
     y_reward: np.ndarray,
+    n_initial: int,
     rng: np.random.Generator,
 ) -> tuple[np.ndarray, str]:
-    improved = latest_improved_best(y_reward)
-    if x_unit.shape[1] <= 4:
-        candidate, method, _radius = suggest_with_gp(x_unit, y_reward, improved, rng)
-    else:
-        candidate, method, _radius = suggest_with_rf(x_unit, y_reward, improved, rng)
+    candidate, metadata = choose_policy_candidate(x_unit, y_reward, n_initial, rng)
+    method = str(metadata["selected_method"])
     return np.clip(candidate, 0.0, 1.0), method
 
 
@@ -134,6 +141,7 @@ def run_method(
     method_name: str,
     x_init: np.ndarray,
     y_init: np.ndarray,
+    n_initial: int,
     sequential_budget: int,
     rng: np.random.Generator,
 ) -> dict:
@@ -144,7 +152,7 @@ def run_method(
 
     for _step in range(sequential_budget):
         if method_name == METHOD_CAPSTONE:
-            candidate, proposal_method = choose_capstone_candidate(x_unit, y_reward, rng)
+            candidate, proposal_method = choose_capstone_candidate(x_unit, y_reward, n_initial, rng)
         elif method_name == METHOD_RANDOM:
             candidate = rng.uniform(0.0, 1.0, size=problem.dimension)
             proposal_method = "random_uniform"
@@ -228,8 +236,10 @@ def main() -> None:
 
     suite = cocoex.Suite(args.suite, "", suite_filter(dimensions, instances))
     suite_random = cocoex.Suite(args.suite, "", suite_filter(dimensions, instances))
+    total_problems = len(suite)
     rows: list[dict] = []
     histories: dict[str, dict[str, list[float] | list[str]]] = {}
+    start_time = time.time()
 
     for suite_position, problem in enumerate(suite):
         problem_key = problem.id
@@ -245,6 +255,7 @@ def main() -> None:
             method_name=METHOD_CAPSTONE,
             x_init=x_init,
             y_init=y_init,
+            n_initial=args.initial_design,
             sequential_budget=args.sequential_budget,
             rng=cap_rng,
         )
@@ -256,6 +267,7 @@ def main() -> None:
             method_name=METHOD_RANDOM,
             x_init=x_init_random,
             y_init=y_init_random,
+            n_initial=args.initial_design,
             sequential_budget=args.sequential_budget,
             rng=rnd_rng,
         )
@@ -285,6 +297,21 @@ def main() -> None:
             problem.free()
         if hasattr(problem_random, "free"):
             problem_random.free()
+
+        if (
+            (suite_position + 1) % args.log_every == 0
+            or suite_position + 1 == total_problems
+        ):
+            elapsed = time.time() - start_time
+            completed = suite_position + 1
+            per_problem = elapsed / completed
+            remaining = total_problems - completed
+            eta_seconds = per_problem * remaining
+            print(
+                f"[progress] completed {completed}/{total_problems} problems "
+                f"in {elapsed:.1f}s, eta {eta_seconds:.1f}s",
+                flush=True,
+            )
 
     pairwise = summarize_pairwise(rows)
     summary = {

@@ -2,6 +2,19 @@
 
 This repository tracks data, weekly submissions, returned outputs, and helper scripts for the capstone black-box optimisation challenge.
 
+## Environment Setup
+
+Install the Python dependencies with:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+The repository currently uses:
+- `numpy` for array handling and geometric checks
+- `scikit-learn` for surrogate models, classifier checks, and the experimental MLP surrogate
+- `matplotlib` for convergence and low-dimensional plots
+
 ## Current Status
 | Item | Status |
 |---|---|
@@ -22,6 +35,46 @@ This repository tracks data, weekly submissions, returned outputs, and helper sc
 | 6 | `-0.5406455142504304` | Week 1 | Week 6 correction probe underperformed |
 | 7 | `1.7077885403964521` | Week 6 | Strong momentum after recovery |
 | 8 | `9.7841491208186` | Week 2 | Week 6 remained very close to the validated local basin |
+
+## External Benchmarking
+To sanity-check whether the current capstone policy behaves like a useful optimizer outside the course portal, I added a COCO/BBOB benchmark harness.
+
+Benchmark framing:
+- use the Week 6 style local policy
+- start from `10` random initial evaluations
+- allow `13` sequential guided evaluations
+- compare against a random continuation baseline
+
+Current result:
+- requested dimensions: `2,3,4,5,6,8`
+- actual dimensions available in standard `bbob`: `2,3,5`
+- problems evaluated: `72`
+- capstone policy versus random continuation: `48` wins, `17` losses, `7` ties
+- win rate: `66.7%`
+- final target hits: `2` for the capstone policy, `0` for random continuation
+
+Artifacts:
+- [Benchmark README](benchmarks/coco/README.md)
+- [Benchmark Summary](benchmarks/coco/week6_style_budget13/summary.json)
+- [Benchmark Results CSV](benchmarks/coco/week6_style_budget13/results.csv)
+- [Benchmark Histories](benchmarks/coco/week6_style_budget13/histories.json)
+
+## Weekly Index
+| Week | Status | Folder | Notes | Reproduction | Results |
+|---|---|---|---|---|---|
+| 1 | Completed | [week1](week1/) | [notes](week1/notes.md) | [reproduction](week1/reproduction.md) | [results](week1/results.json) |
+| 2 | Completed | [week2](week2/) | [notes](week2/notes.md) | [reproduction](week2/reproduction.md) | [results](week2/results.json) |
+| 3 | Completed | [week3](week3/) | [notes](week3/notes.md) | [reproduction](week3/reproduction.md) | [results](week3/results.json) |
+| 4 | Completed | [week4](week4/) | [notes](week4/notes.md) | [reproduction](week4/reproduction.md) | [results](week4/results.json) |
+| 5 | Completed | [week5](week5/) | [notes](week5/notes.md) | [reproduction](week5/reproduction.md) | [results](week5/results.json) |
+| 6 | Completed | [week6](week6/) | [notes](week6/notes.md) | [reproduction](week6/reproduction.md) | [results](week6/results.json) |
+| 7 | Scaffold | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
+| 8 | Scaffold | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
+| 9 | Scaffold | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
+| 10 | Scaffold | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
+| 11 | Scaffold | [week11](week11/) | [notes](week11/notes.md) | [reproduction](week11/reproduction.md) | [results](week11/results.json) |
+| 12 | Scaffold | [week12](week12/) | [notes](week12/notes.md) | [reproduction](week12/reproduction.md) | [results](week12/results.json) |
+| 13 | Scaffold | [week13](week13/) | [notes](week13/notes.md) | [reproduction](week13/reproduction.md) | [results](week13/results.json) |
 
 ## Reproduce Latest Round
 To reproduce the current Week 6 submission from the recorded Week 5 data:
@@ -148,9 +201,10 @@ These constraints make the project a practical exploration versus exploitation p
 The repository is organised to support the weekly optimisation cycle:
 
 1. Start from the original arrays stored in `initial_data/`.
-2. Record each round of submitted points and returned outputs in a `weekN/` folder.
-3. Generate appended `.npy` files for that week so the updated dataset is ready for the next round.
-4. Use the helper scripts in `scripts/` to keep the workflow repeatable and organised.
+2. Scaffold or standardize the target `weekN/` folder so the core files are present.
+3. Record each round of submitted points and returned outputs in that `weekN/` folder.
+4. Generate appended `.npy` files for that week so the updated dataset is ready for the next round.
+5. Use the helper scripts in `scripts/` to keep the workflow repeatable and organised.
 
 ## Repository Layout
 - `initial_data/`: original `.npy` arrays for each function
@@ -160,11 +214,19 @@ The repository is organised to support the weekly optimisation cycle:
 - `week4/`: Week 4 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week5/`: Week 5 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week6/`: Week 6 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
-- `week7/` to `week13/`: scaffold folders for future rounds
+- `week7/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
+- `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
+- `requirements.txt`: lightweight Python dependency list for reproducing the workflow
 - `REPO_INVENTORY.md`: notes on the current repository structure and script usage
 
 ## Scripts
+### [`scripts/run_coco_benchmark.py`](scripts/run_coco_benchmark.py)
+Runs the current capstone policy against the COCO/BBOB benchmark suite using a capstone-like budget. It compares the policy against a random continuation baseline and writes a CSV plus JSON summaries under `benchmarks/coco/`.
+
+### [`scripts/scaffold_week_structure.py`](scripts/scaffold_week_structure.py)
+Creates or standardizes the core files expected in each `weekN/` folder. It is useful when setting up future rounds or repairing scaffold consistency after the repository structure changes.
+
 ### [`scripts/fill_week_from_text.py`](scripts/fill_week_from_text.py)
 Populates a `weekN/` scaffold from a pasted text block containing submitted inputs and returned outputs. This is the quickest way to turn portal feedback into structured repo files.
 
@@ -220,3 +282,5 @@ Other model families, including regression-style approximations, SVM-style regio
 By Week 5, the rule was adapted again: when an earlier point remains the historical best, the next query is anchored on that historical best rather than the most recent query. Recent results are still useful, but mainly as directional evidence for how to perturb the best-known basin.
 
 By Week 6, Function 6 became the main exception to the standard local-nudge pattern. It kept the best-known high-`x4`, low-`x5` structure, but deliberately probed lower `x2` and lower `x3` because repeated tiny moves around the same point did not improve the result. The returned Week 6 output showed that this correction probe underperformed, while the same round produced new bests for six of the other seven functions.
+
+To test whether this hand-built policy generalizes beyond the capstone data, I also benchmarked it externally on COCO/BBOB with a capstone-like budget of `10` random initial evaluations plus `13` sequential guided evaluations. The current policy beat a random continuation baseline on two-thirds of the tested BBOB problems, which gives some evidence that the local trust-region logic is doing useful work beyond the specific course functions.

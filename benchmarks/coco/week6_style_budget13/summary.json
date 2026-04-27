@@ -1,0 +1,51 @@
+{
+  "suite": "bbob",
+  "requested_dimensions": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    8
+  ],
+  "instances": [
+    1
+  ],
+  "initial_design": 10,
+  "sequential_budget": 13,
+  "seed": 42,
+  "n_problems": 72,
+  "actual_dimensions": [
+    2,
+    3,
+    5
+  ],
+  "methods": [
+    "capstone_local_policy",
+    "random_continuation"
+  ],
+  "pairwise_vs_random": {
+    "wins": 48,
+    "losses": 17,
+    "ties": 7,
+    "total_compared": 72,
+    "win_rate": 0.6666666666666666,
+    "by_dimension": {
+      "2": {
+        "wins": 15,
+        "losses": 7,
+        "ties": 2
+      },
+      "3": {
+        "wins": 19,
+        "losses": 1,
+        "ties": 4
+      },
+      "5": {
+        "wins": 14,
+        "losses": 9,
+        "ties": 1
+      }
+    }
+  }
+}

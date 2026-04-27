@@ -19,7 +19,8 @@ Current top-level dependencies:
 - `initial_data/function_<n>/initial_inputs.npy`: original input arrays for each function
 - `initial_data/function_<n>/initial_outputs.npy`: original output arrays for each function
 - `week1/` to `week6/`: completed rounds with recorded submissions, returned outputs, and appended `.npy` files
-- `week7/` to `week13/`: standardized scaffold folders for future rounds
+- `week7/`: submitted round with final inputs, raw candidates, approach notes, and pending outputs
+- `week8/` to `week13/`: standardized scaffold folders for future rounds
 - `benchmarks/`: external benchmark runs used to sanity-check the policy outside the capstone portal
 - `scripts/`: helper scripts for maintaining the weekly workflow
 - `requirements.txt`: lightweight dependency file for reproducing the workflow
@@ -38,6 +39,7 @@ Each `weekN/` folder is intended to contain:
 
 Optional files include:
 - `candidates.json`: raw model-generated candidate points before manual blending
+- `submission.txt`: portal-ready hyphen-separated submission strings
 - plot folders such as `lower_dim/` or `convergence/`
 
 ## Scripts
@@ -69,10 +71,11 @@ python3 scripts/append_week_results.py --repo-root . --week week2 --output-dir u
 ```
 
 ### `scripts/generate_candidate_queries.py`
-Generates candidate query points for the next round using a trust-region strategy.
+Generates candidate query points for the next round using the current state-policy trust-region strategy.
 - lower-dimensional functions use local Gaussian Process search
 - higher-dimensional functions use local Random Forest search
 - trust-region radius adapts depending on whether the latest query improved the best value
+- explicit policy states now include `bootstrap`, `momentum`, `refine`, `stagnant`, and `recovery`
 
 Example:
 ```bash
@@ -106,6 +109,7 @@ python3 scripts/sanity_check_candidates.py --repo-root . --through-week week1 --
 ## Notes
 - The repository now contains the core helper scripts needed for the current workflow.
 - Week scaffolds are now standardized so future rounds start with the same core files.
+- Week 7 has been submitted and documented, but `outputs.json` and `results.json` remain placeholders until the portal returns the next outputs.
 - One possible future improvement would be to let `append_week_results.py` optionally write directly into `weekN/function_<n>/` so the generated `.npy` files land beside the JSON records without needing a separate output path.
 - Another useful future improvement would be a script that combines all three steps: fill a week from pasted text, generate the appended `.npy` files for that week, and produce draft candidate queries for the next week.
 

@@ -19,10 +19,10 @@ The repository currently uses:
 | Item | Status |
 |---|---|
 | Latest completed round | Week 6 results recorded |
-| Next submission prepared | Not yet |
-| Current optimisation phase | Paused after Week 6 recording |
-| Main operating pattern | Local exploitation with manual sanity checks |
-| Extra validation in latest round | Logistic regression, RBF SVM, and experimental MLP ensemble checks |
+| Latest submission sent | Week 7 submitted, awaiting results |
+| Current optimisation phase | State-policy local exploitation with manual basin-preserving overrides |
+| Main operating pattern | Local trust-region search plus manual sanity checks |
+| Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, and experimental MLP ensemble checks |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
@@ -78,7 +78,7 @@ Artifacts:
 | 4 | Completed | [week4](week4/) | [notes](week4/notes.md) | [reproduction](week4/reproduction.md) | [results](week4/results.json) |
 | 5 | Completed | [week5](week5/) | [notes](week5/notes.md) | [reproduction](week5/reproduction.md) | [results](week5/results.json) |
 | 6 | Completed | [week6](week6/) | [notes](week6/notes.md) | [reproduction](week6/reproduction.md) | [results](week6/results.json) |
-| 7 | Scaffold | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
+| 7 | Submitted, awaiting results | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
 | 8 | Scaffold | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
 | 9 | Scaffold | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
 | 10 | Scaffold | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
@@ -87,37 +87,37 @@ Artifacts:
 | 13 | Scaffold | [week13](week13/) | [notes](week13/notes.md) | [reproduction](week13/reproduction.md) | [results](week13/results.json) |
 
 ## Reproduce Latest Round
-To reproduce the current Week 6 submission from the recorded Week 5 data:
+To reproduce the current Week 7 submission from the recorded Week 6 data:
 
 1. Generate raw candidates:
 ```bash
 /opt/anaconda3/bin/python scripts/generate_candidate_queries.py \
   --repo-root . \
-  --through-week week5 \
-  --output-file week6/candidates.json
+  --through-week week6 \
+  --output-file week7/candidates.json
 ```
 2. Run geometric sanity checks:
 ```bash
 /opt/anaconda3/bin/python scripts/sanity_check_candidates.py \
   --repo-root . \
-  --through-week week5 \
-  --candidate-file week6/candidates.json
+  --through-week week6 \
+  --candidate-file week7/candidates.json
 ```
 3. Run classifier region checks:
 ```bash
 /opt/anaconda3/bin/python scripts/classifier_region_check.py \
   --repo-root . \
-  --through-week week5 \
-  --candidate-file week6/candidates.json \
+  --through-week week6 \
+  --candidate-file week7/candidates.json \
   --svm
 ```
-4. Apply the manual blending rules in [week6/reproduction.md](week6/reproduction.md) to produce [week6/inputs.json](week6/inputs.json).
+4. Apply the state-policy and manual blending rules in [week7/reproduction.md](week7/reproduction.md) to produce [week7/inputs.json](week7/inputs.json).
 5. Optionally run the experimental neural-net surrogate check on the final blended inputs:
 ```bash
 /opt/anaconda3/bin/python scripts/neural_net_surrogate_check.py \
   --repo-root . \
-  --through-week week5 \
-  --candidate-file week6/inputs.json
+  --through-week week6 \
+  --candidate-file week7/inputs.json
 ```
 
 ## Programme Context
@@ -206,6 +206,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 4 | Late-stage trust-region with classifier-assisted review | Added logistic-regression and SVM region checks as secondary evidence, but kept trust-region, neighbour, and boundary checks as the primary filters before blending the final submission | Week 4 produced new bests for Functions 5 and 7, confirming the hard-exploitation logic there. Function 4 improved again but did not beat the historical best, and Function 8 remained very close to its best basin. | [Week 4 Approach](week4/approach.md), [Week 4 Notes](week4/notes.md), [Week 4 Reproduction](week4/reproduction.md), [Week 4 Inputs](week4/inputs.json) |
 | 5 | Historical-best anchored trust-region submission | Adapted the rule so the historical best point is the default anchor, with recent results used as directional evidence rather than automatically becoming the next search centre | Week 5 produced new bests for Functions 2, 5, and 7. Function 6 remained stalled, which led to the Week 6 correction probe. | [Week 5 Approach](week5/approach.md), [Week 5 Notes](week5/notes.md), [Week 5 Reproduction](week5/reproduction.md), [Week 5 Inputs](week5/inputs.json) |
 | 6 | Historical-best anchoring with Function 6 correction | Kept the historical-best anchoring rule, but added a deliberate lower-`x2`, lower-`x3` correction probe for Function 6 after repeated near-identical local nudges failed | Week 6 produced new bests for Functions 1, 2, 3, 4, 5, and 7. Function 8 stayed very close to its historical best. Function 6 underperformed, making it the clear outlier in the round. | [Week 6 Approach](week6/approach.md), [Week 6 Notes](week6/notes.md), [Week 6 Reproduction](week6/reproduction.md), [Week 6 Inputs](week6/inputs.json) |
+| 7 | Benchmark-backed state-policy with manual basin-preserving overrides | Converted the benchmark lessons into explicit `momentum`, `refine`, and `recovery` rules, then still clipped raw candidates back toward proven basins when the capstone evidence was narrower than the generic benchmark suggested | Week 7 has been submitted and is awaiting outputs. The final set is intentionally conservative for Functions 1, 4, 6, and 8, where raw proposals still looked too aggressive. | [Week 7 Approach](week7/approach.md), [Week 7 Notes](week7/notes.md), [Week 7 Reproduction](week7/reproduction.md), [Week 7 Inputs](week7/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -224,7 +225,8 @@ The repository is organised to support the weekly optimisation cycle:
 - `week4/`: Week 4 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week5/`: Week 5 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week6/`: Week 6 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
-- `week7/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
+- `week7/`: Week 7 submission package, raw candidates, approach notes, and reproduction notes, currently awaiting outputs
+- `week8/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `requirements.txt`: lightweight Python dependency list for reproducing the workflow
@@ -271,7 +273,7 @@ The main objective is to maintain a clear record of:
 - what optimisation strategy was used and how it evolved
 
 ## Technical Approach
-Across the first six rounds, the strategy evolved from a broader adaptive search toward a more disciplined trust-region workflow.
+Across the first seven rounds of preparation, the strategy evolved from a broader adaptive search toward a more disciplined trust-region workflow.
 
 Methods considered or used:
 - local visual reasoning for lower-dimensional functions

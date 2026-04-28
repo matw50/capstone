@@ -19,8 +19,10 @@ Current top-level dependencies:
 - `initial_data/function_<n>/initial_inputs.npy`: original input arrays for each function
 - `initial_data/function_<n>/initial_outputs.npy`: original output arrays for each function
 - `week1/` to `week7/`: completed rounds with recorded submissions, returned outputs, and appended `.npy` files when generated
-- `week8/` to `week13/`: standardized scaffold folders for future rounds
+- `week8/`: prepared candidate submission, raw candidates, approach notes, and reproduction steps
+- `week9/` to `week13/`: standardized scaffold folders for future rounds
 - `benchmarks/`: external benchmark runs used to sanity-check the policy outside the capstone portal
+- `reports/`: generated diagnostic and backtest reports used to review progress, sensitivity, and policy behaviour before later submissions
 - `scripts/`: helper scripts for maintaining the weekly workflow
 - `requirements.txt`: lightweight dependency file for reproducing the workflow
 
@@ -42,6 +44,26 @@ Optional files include:
 - plot folders such as `lower_dim/` or `convergence/`
 
 ## Scripts
+### `scripts/analyze_progress_diagnostics.py`
+Creates a markdown and JSON report from the accumulated capstone history. The report summarizes best-so-far status, current policy state, recent coordinate sensitivity, and historical round outcomes.
+
+Example:
+```bash
+/opt/anaconda3/bin/python scripts/analyze_progress_diagnostics.py --repo-root . --through-week week7 --output-dir reports/week7_diagnostics
+```
+
+### `scripts/backtest_state_policy.py`
+Runs a leakage-safe historical replay of the state-policy generator. For each historical week boundary, it uses only the observations available at that point, generates the candidate the current policy would have proposed, and compares it with the actual next submission using locality and nearest-neighbour support proxies.
+
+Example:
+```bash
+/opt/anaconda3/bin/python scripts/backtest_state_policy.py --repo-root . --from-week week1 --through-week week7 --output-dir reports/week7_backtest
+```
+
+Latest report:
+- `reports/week7_backtest/state_policy_backtest.md`
+- `reports/week7_backtest/state_policy_backtest.json`
+
 ### `scripts/scaffold_week_structure.py`
 Creates or standardizes the core scaffold files for one or more future week folders.
 
@@ -75,6 +97,7 @@ Generates candidate query points for the next round using the current state-poli
 - higher-dimensional functions use local Random Forest search
 - trust-region radius adapts depending on whether the latest query improved the best value
 - explicit policy states now include `bootstrap`, `momentum`, `refine`, `stagnant`, and `recovery`
+- an experimental `--policy-variant ranked` mode is available, but current benchmark evidence favours the default `state` mode for live submissions
 
 Example:
 ```bash
@@ -90,7 +113,7 @@ Checks proposed candidate points against practical late-stage heuristics, includ
 - boundary/extreme-value flags
 
 ### `scripts/run_coco_benchmark.py`
-Runs the current capstone policy against the COCO/BBOB benchmark suite with a capstone-like evaluation budget and compares it against a random continuation baseline. The script now also prints progress and ETA during longer runs.
+Runs the current capstone policy against the COCO/BBOB benchmark suite with a capstone-like evaluation budget and compares it against a random continuation baseline. It can also compare the default state policy with the experimental ranked policy. The script now prints progress and ETA during longer runs.
 
 ### Policy note
 The candidate-generation workflow is now a state-machine policy:
@@ -108,7 +131,7 @@ python3 scripts/sanity_check_candidates.py --repo-root . --through-week week1 --
 ## Notes
 - The repository now contains the core helper scripts needed for the current workflow.
 - Week scaffolds are now standardized so future rounds start with the same core files.
-- Week 7 results have been recorded. The next workflow step is to review Week 7 outcomes before preparing Week 8 candidates.
+- Week 7 results have been recorded and the Week 8 candidate submission has been prepared.
 - One possible future improvement would be to let `append_week_results.py` optionally write directly into `weekN/function_<n>/` so the generated `.npy` files land beside the JSON records without needing a separate output path.
 - Another useful future improvement would be a script that combines all three steps: fill a week from pasted text, generate the appended `.npy` files for that week, and produce draft candidate queries for the next week.
 

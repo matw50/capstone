@@ -1,0 +1,1130 @@
+{
+  "bbob_f001_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        82.33771894050436,
+        81.07947238091309,
+        81.0791776154139
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        82.33771894050436,
+        82.12140517841215,
+        82.12140517841215
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        82.33771894050436,
+        82.33771894050436,
+        82.33771894050436
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f002_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        1557775.4049545743,
+        1535556.1552312656,
+        1144760.7549046788
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        1557775.4049545743,
+        1557775.4049545743,
+        1063383.896768113
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        1557775.4049545743,
+        1557775.4049545743,
+        1557775.4049545743
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f003_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        -438.38372852807214,
+        -443.77926685943464,
+        -443.77926685943464
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        -438.38372852807214,
+        -438.38372852807214,
+        -443.5715778162181
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        -438.38372852807214,
+        -438.38372852807214,
+        -438.38372852807214
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f004_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        -415.0636705629401,
+        -426.8025836042472,
+        -426.8025836042472
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        -415.0636705629401,
+        -415.0636705629401,
+        -419.4717930357483
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "directional_continuation",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        -415.0636705629401,
+        -415.0636705629401,
+        -415.0636705629401
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f005_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        9.027438355128524,
+        2.441439650611972,
+        -1.2633053216769348
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        9.027438355128524,
+        7.475747628101132,
+        4.484828966538771
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        9.027438355128524,
+        9.027438355128524,
+        9.027438355128524
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f006_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        3075.1974457683236,
+        337.2610145523021,
+        38.94696315367031
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        3075.1974457683236,
+        1373.7949054783487,
+        503.956523760915
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        3075.1974457683236,
+        3075.1974457683236,
+        2687.3594377853706
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f007_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        101.43044001569321,
+        101.43044001569321,
+        95.00863388735908
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        101.43044001569321,
+        99.38439909761988,
+        94.32587149819872
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        101.43044001569321,
+        101.43044001569321,
+        101.43044001569321
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f008_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        653.894596048546,
+        653.894596048546,
+        201.29292614364186
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        653.894596048546,
+        653.894596048546,
+        388.90622593135197
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        653.894596048546,
+        620.8670462487171,
+        620.8670462487171
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f009_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        206.1267166270145,
+        198.7639654599257,
+        145.67510158710425
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        206.1267166270145,
+        206.1267166270145,
+        200.1229327897775
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        206.1267166270145,
+        206.1267166270145,
+        206.1267166270145
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f010_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        66569.93438352962,
+        66569.93438352962,
+        12749.402914945189
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        66569.93438352962,
+        4385.204150626169,
+        2168.148146934721
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        66569.93438352962,
+        66569.93438352962,
+        66569.93438352962
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f011_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        482291.1295969095,
+        2060.648401330476,
+        2060.648401330476
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        482291.1295969095,
+        262626.8549393966,
+        149342.9126932338
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        482291.1295969095,
+        482291.1295969095,
+        482291.1295969095
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f012_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        856647.402492513,
+        241705.12720564357,
+        241705.12720564357
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        856647.402492513,
+        495086.6337572654,
+        495086.6337572654
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        856647.402492513,
+        856647.402492513,
+        856647.402492513
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f013_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        474.1257041673791,
+        435.73425697761877,
+        325.68736023604254
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        474.1257041673791,
+        423.6905269186767,
+        368.30109320240285
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "directional_continuation",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        474.1257041673791,
+        474.1257041673791,
+        106.16075026428527
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f014_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        -50.92256408718372,
+        -50.92256408718372,
+        -51.59611678466911
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        -50.92256408718372,
+        -50.92256408718372,
+        -50.92256408718372
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        -50.92256408718372,
+        -50.92256408718372,
+        -50.92256408718372
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f015_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        1020.2988889702896,
+        1020.2988889702896,
+        1020.2988889702896
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        1020.2988889702896,
+        1017.7273709174256,
+        1017.7273709174256
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        1020.2988889702896,
+        1020.2988889702896,
+        1020.2988889702896
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f016_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        138.7520686784831,
+        136.60640244696185,
+        77.1387623218145
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        138.7520686784831,
+        138.7520686784831,
+        82.40433756891608
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        138.7520686784831,
+        138.7520686784831,
+        138.7520686784831
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f017_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        -14.934451497547698,
+        -16.07339874428568,
+        -16.07339874428568
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        -14.934451497547698,
+        -15.355437506232251,
+        -15.480872090755264
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        -14.934451497547698,
+        -14.934451497547698,
+        -14.934451497547698
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f018_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        144.98775190047118,
+        144.98775190047118,
+        144.98775190047118
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        144.98775190047118,
+        144.98775190047118,
+        144.98775190047118
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        144.98775190047118,
+        -2.0220330495626033,
+        -2.0220330495626033
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f019_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        -92.60744603485271,
+        -92.60744603485271,
+        -92.60744603485271
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        -92.60744603485271,
+        -93.7016358513319,
+        -97.84293445434469
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        -92.60744603485271,
+        -92.60744603485271,
+        -92.60744603485271
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f020_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        -422.83916623903553,
+        -424.3991229633141,
+        -424.3991229633141
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        -422.83916623903553,
+        -427.4225271327816,
+        -427.4225271327816
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb_micro_best"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        -422.83916623903553,
+        -422.83916623903553,
+        -422.83916623903553
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f021_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        41.3057875758911,
+        41.3057875758911,
+        41.3057875758911
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        41.3057875758911,
+        41.3057875758911,
+        41.3057875758911
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "directional_continuation",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        41.3057875758911,
+        41.3057875758911,
+        41.3057875758911
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f022_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        -974.8303075806766,
+        -997.9433590308379,
+        -997.9982337658515
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        -974.8303075806766,
+        -998.2735257335231,
+        -998.73247330217
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb_micro_best",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        -974.8303075806766,
+        -974.8303075806766,
+        -993.042409469762
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f023_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        17.332305589994906,
+        17.332305589994906,
+        17.332305589994906
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        17.332305589994906,
+        17.332305589994906,
+        17.332305589994906
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        17.332305589994906,
+        17.332305589994906,
+        12.968024256685034
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  },
+  "bbob_f024_i01_d02": {
+    "capstone_state_policy": {
+      "history_best_f": [
+        130.22637808836905,
+        130.22637808836905,
+        122.57908188988296
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "gaussian_process_state_ucb"
+      ]
+    },
+    "capstone_ranked_policy": {
+      "history_best_f": [
+        130.22637808836905,
+        128.6790147661183,
+        128.6790147661183
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "gaussian_process_state_ucb",
+        "directional_continuation"
+      ]
+    },
+    "random_continuation": {
+      "history_best_f": [
+        130.22637808836905,
+        130.22637808836905,
+        130.22637808836905
+      ],
+      "proposal_methods": [
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "initial_design",
+        "random_uniform",
+        "random_uniform"
+      ]
+    }
+  }
+}

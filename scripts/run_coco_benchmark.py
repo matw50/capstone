@@ -8,6 +8,7 @@ The benchmark mirrors the capstone structure:
 
 The capstone policy itself is imported from `generate_candidate_queries.py`:
 - state-machine trust-region policy
+- ranked three-candidate selection layer
 - GP trust-region search for dimensions <= 4
 - RF trust-region search for dimensions > 4
 - one bounded stagnation probe before recovery
@@ -34,10 +35,11 @@ import cocoex
 import numpy as np
 from sklearn.exceptions import ConvergenceWarning
 
-from generate_candidate_queries import choose_policy_candidate
+from generate_candidate_queries import choose_policy_candidate, choose_ranked_policy_candidate
 
 
-METHOD_CAPSTONE = "capstone_state_policy"
+METHOD_STATE = "capstone_state_policy"
+METHOD_RANKED = "capstone_ranked_policy"
 METHOD_RANDOM = "random_continuation"
 
 
@@ -86,7 +88,7 @@ def parse_args() -> argparse.Namespace:
         "--output-dir",
         type=Path,
         default=None,
-        help="Optional output directory. Default: benchmarks/coco/week6_style_budget<budget>",
+        help="Optional output directory. Default: benchmarks/coco/policy_comparison_budget<budget>",
     )
     parser.add_argument(
         "--log-every",
@@ -94,11 +96,35 @@ def parse_args() -> argparse.Namespace:
         default=6,
         help="Print progress every N problems. Default: 6",
     )
+    parser.add_argument(
+        "--methods",
+        default="state,ranked,random",
+        help="Comma-separated benchmark methods. Choices: state, ranked, random. Default: state,ranked,random",
+    )
     return parser.parse_args()
 
 
 def parse_int_list(text: str) -> list[int]:
     return [int(part.strip()) for part in text.split(",") if part.strip()]
+
+
+def parse_method_list(text: str) -> list[str]:
+    mapping = {
+        "state": METHOD_STATE,
+        "ranked": METHOD_RANKED,
+        "random": METHOD_RANDOM,
+    }
+    methods: list[str] = []
+    for part in text.split(","):
+        key = part.strip().lower()
+        if not key:
+            continue
+        if key not in mapping:
+            raise ValueError(f"Unknown benchmark method: {part}")
+        methods.append(mapping[key])
+    if not methods:
+        raise ValueError("At least one benchmark method must be specified.")
+    return methods
 
 
 def suite_filter(dimensions: list[int], instances: list[int]) -> str:
@@ -118,11 +144,15 @@ def evaluate_unit(problem: cocoex.Problem, unit_point: np.ndarray) -> float:
 
 def initial_design(problem: cocoex.Problem, n_points: int, rng: np.random.Generator) -> tuple[np.ndarray, np.ndarray]:
     x_unit = rng.uniform(0.0, 1.0, size=(n_points, problem.dimension))
-    y_reward = np.empty(n_points, dtype=float)
-    for i in range(n_points):
+    return x_unit, evaluate_design(problem, x_unit)
+
+
+def evaluate_design(problem: cocoex.Problem, x_unit: np.ndarray) -> np.ndarray:
+    y_reward = np.empty(x_unit.shape[0], dtype=float)
+    for i in range(x_unit.shape[0]):
         fval = evaluate_unit(problem, x_unit[i])
         y_reward[i] = -fval
-    return x_unit, y_reward
+    return y_reward
 
 
 def choose_capstone_candidate(
@@ -130,8 +160,14 @@ def choose_capstone_candidate(
     y_reward: np.ndarray,
     n_initial: int,
     rng: np.random.Generator,
+    method_name: str,
 ) -> tuple[np.ndarray, str]:
-    candidate, metadata = choose_policy_candidate(x_unit, y_reward, n_initial, rng)
+    if method_name == METHOD_STATE:
+        candidate, metadata = choose_policy_candidate(x_unit, y_reward, n_initial, rng)
+    elif method_name == METHOD_RANKED:
+        candidate, metadata = choose_ranked_policy_candidate(x_unit, y_reward, n_initial, rng)
+    else:
+        raise ValueError(f"Unknown capstone method: {method_name}")
     method = str(metadata["selected_method"])
     return np.clip(candidate, 0.0, 1.0), method
 
@@ -151,8 +187,14 @@ def run_method(
     proposal_methods: list[str] = ["initial_design"] * len(y_reward)
 
     for _step in range(sequential_budget):
-        if method_name == METHOD_CAPSTONE:
-            candidate, proposal_method = choose_capstone_candidate(x_unit, y_reward, n_initial, rng)
+        if method_name in {METHOD_STATE, METHOD_RANKED}:
+            candidate, proposal_method = choose_capstone_candidate(
+                x_unit,
+                y_reward,
+                n_initial,
+                rng,
+                method_name,
+            )
         elif method_name == METHOD_RANDOM:
             candidate = rng.uniform(0.0, 1.0, size=problem.dimension)
             proposal_method = "random_uniform"
@@ -178,7 +220,7 @@ def run_method(
     }
 
 
-def summarize_pairwise(rows: list[dict]) -> dict:
+def summarize_pairwise(rows: list[dict], lhs_method: str, rhs_method: str) -> dict:
     paired: dict[str, dict[str, dict]] = {}
     for row in rows:
         paired.setdefault(row["problem_id"], {})[row["method"]] = row
@@ -189,20 +231,20 @@ def summarize_pairwise(rows: list[dict]) -> dict:
     by_dimension: dict[int, dict[str, int]] = {}
 
     for problem_id, methods in paired.items():
-        if METHOD_CAPSTONE not in methods or METHOD_RANDOM not in methods:
+        if lhs_method not in methods or rhs_method not in methods:
             continue
-        cap = methods[METHOD_CAPSTONE]
-        rnd = methods[METHOD_RANDOM]
-        dim = int(cap["dimension"])
+        lhs = methods[lhs_method]
+        rhs = methods[rhs_method]
+        dim = int(lhs["dimension"])
         by_dimension.setdefault(dim, {"wins": 0, "losses": 0, "ties": 0})
 
-        cap_best_f = float(cap["best_f"])
-        rnd_best_f = float(rnd["best_f"])
+        lhs_best_f = float(lhs["best_f"])
+        rhs_best_f = float(rhs["best_f"])
 
-        if cap_best_f < rnd_best_f:
+        if lhs_best_f < rhs_best_f:
             wins += 1
             by_dimension[dim]["wins"] += 1
-        elif cap_best_f > rnd_best_f:
+        elif lhs_best_f > rhs_best_f:
             losses += 1
             by_dimension[dim]["losses"] += 1
         else:
@@ -211,6 +253,8 @@ def summarize_pairwise(rows: list[dict]) -> dict:
 
     total = wins + losses + ties
     return {
+        "lhs_method": lhs_method,
+        "rhs_method": rhs_method,
         "wins": wins,
         "losses": losses,
         "ties": ties,
@@ -225,54 +269,57 @@ def main() -> None:
     repo_root = args.repo_root.resolve()
     dimensions = parse_int_list(args.dimensions)
     instances = parse_int_list(args.instances)
+    methods = parse_method_list(args.methods)
 
     warnings.filterwarnings("ignore", category=ConvergenceWarning)
 
     if args.output_dir is None:
-        output_dir = repo_root / "benchmarks" / "coco" / f"week6_style_budget{args.sequential_budget}"
+        output_dir = repo_root / "benchmarks" / "coco" / f"policy_comparison_budget{args.sequential_budget}"
     else:
         output_dir = args.output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    suite = cocoex.Suite(args.suite, "", suite_filter(dimensions, instances))
-    suite_random = cocoex.Suite(args.suite, "", suite_filter(dimensions, instances))
-    total_problems = len(suite)
+    primary_method = methods[0]
+    primary_suite = cocoex.Suite(args.suite, "", suite_filter(dimensions, instances))
+    secondary_suites = {
+        method: cocoex.Suite(args.suite, "", suite_filter(dimensions, instances))
+        for method in methods[1:]
+    }
+    total_problems = len(primary_suite)
     rows: list[dict] = []
     histories: dict[str, dict[str, list[float] | list[str]]] = {}
     start_time = time.time()
 
-    for suite_position, problem in enumerate(suite):
-        problem_key = problem.id
-        init_rng = np.random.default_rng(args.seed + 10_000 + problem.index)
-        cap_rng = np.random.default_rng(args.seed + 20_000 + problem.index)
-        rnd_rng = np.random.default_rng(args.seed + 30_000 + problem.index)
+    for suite_position, primary_problem in enumerate(primary_suite):
+        problem_key = primary_problem.id
+        init_rng = np.random.default_rng(args.seed + 10_000 + primary_problem.index)
+        x_init_unit = init_rng.uniform(0.0, 1.0, size=(args.initial_design, primary_problem.dimension))
 
-        x_init, y_init = initial_design(problem, args.initial_design, init_rng)
-        initial_best_f = float(np.min(-y_init))
+        method_results: list[tuple[cocoex.Problem, dict]] = []
+        initial_best_f: float | None = None
 
-        capstone_result = run_method(
-            problem=problem,
-            method_name=METHOD_CAPSTONE,
-            x_init=x_init,
-            y_init=y_init,
-            n_initial=args.initial_design,
-            sequential_budget=args.sequential_budget,
-            rng=cap_rng,
-        )
+        for method_offset, method_name in enumerate(methods):
+            if method_name == primary_method:
+                problem = primary_problem
+            else:
+                problem = secondary_suites[method_name].get_problem(suite_position)
 
-        problem_random = suite_random.get_problem(suite_position)
-        x_init_random, y_init_random = initial_design(problem_random, args.initial_design, np.random.default_rng(args.seed + 10_000 + problem.index))
-        random_result = run_method(
-            problem=problem_random,
-            method_name=METHOD_RANDOM,
-            x_init=x_init_random,
-            y_init=y_init_random,
-            n_initial=args.initial_design,
-            sequential_budget=args.sequential_budget,
-            rng=rnd_rng,
-        )
+            y_init = evaluate_design(problem, x_init_unit)
+            if initial_best_f is None:
+                initial_best_f = float(np.min(-y_init))
+            method_rng = np.random.default_rng(args.seed + (20_000 * (method_offset + 1)) + primary_problem.index)
+            result = run_method(
+                problem=problem,
+                method_name=method_name,
+                x_init=x_init_unit,
+                y_init=y_init,
+                n_initial=args.initial_design,
+                sequential_budget=args.sequential_budget,
+                rng=method_rng,
+            )
+            method_results.append((problem, result))
 
-        for result in (capstone_result, random_result):
+        for problem, result in method_results:
             row = {
                 "suite": args.suite,
                 "problem_id": problem_key,
@@ -293,10 +340,9 @@ def main() -> None:
                 "proposal_methods": result["proposal_methods"],
             }
 
-        if hasattr(problem, "free"):
-            problem.free()
-        if hasattr(problem_random, "free"):
-            problem_random.free()
+        for problem, _result in method_results:
+            if hasattr(problem, "free"):
+                problem.free()
 
         if (
             (suite_position + 1) % args.log_every == 0
@@ -313,7 +359,14 @@ def main() -> None:
                 flush=True,
             )
 
-    pairwise = summarize_pairwise(rows)
+    pairwise: dict[str, dict] = {}
+    if METHOD_RANKED in methods and METHOD_STATE in methods:
+        pairwise["ranked_vs_state"] = summarize_pairwise(rows, METHOD_RANKED, METHOD_STATE)
+    if METHOD_RANKED in methods and METHOD_RANDOM in methods:
+        pairwise["ranked_vs_random"] = summarize_pairwise(rows, METHOD_RANKED, METHOD_RANDOM)
+    if METHOD_STATE in methods and METHOD_RANDOM in methods:
+        pairwise["state_vs_random"] = summarize_pairwise(rows, METHOD_STATE, METHOD_RANDOM)
+
     summary = {
         "suite": args.suite,
         "requested_dimensions": dimensions,
@@ -323,8 +376,8 @@ def main() -> None:
         "seed": args.seed,
         "n_problems": len({row["problem_id"] for row in rows}),
         "actual_dimensions": sorted({int(row["dimension"]) for row in rows}),
-        "methods": [METHOD_CAPSTONE, METHOD_RANDOM],
-        "pairwise_vs_random": pairwise,
+        "methods": methods,
+        "pairwise": pairwise,
     }
 
     csv_path = output_dir / "results.csv"

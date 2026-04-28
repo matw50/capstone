@@ -2,6 +2,8 @@
 
 This folder stores the working files for week 8 of the capstone black-box optimisation challenge.
 
+Status: candidate submission prepared.
+
 Core files:
 - `inputs.json`: submitted query point for each function
 - `outputs.json`: returned output value for each function
@@ -9,6 +11,7 @@ Core files:
 - `approach.md`: high-level strategy for the round
 - `notes.md`: round-specific observations and decisions
 - `reproduction.md`: exact steps used to reproduce the submission
+- `submission.txt`: portal-ready hyphen-separated submission strings
 
 Optional files:
 - `candidates.json`: raw model-generated candidate queries before manual review

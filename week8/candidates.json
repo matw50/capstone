@@ -1,0 +1,317 @@
+{
+  "through_week": "week7",
+  "strategy": "state_trust_region",
+  "policy_variant": "state",
+  "recommendations": {
+    "1": {
+      "dimension": 2,
+      "method": "gaussian_process_state_ucb",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.7298,
+        0.7298
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.04,
+      "best_observed_output": 4.250433342725532e-15,
+      "best_observed_input": [
+        0.7298,
+        0.7298
+      ],
+      "candidate": [
+        0.697791532135926,
+        0.7551143165842923
+      ],
+      "portal": "0.697792-0.755114",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.04,
+          "support_percentile": 0.7647058823529411,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "2": {
+      "dimension": 2,
+      "method": "gaussian_process_state_ucb",
+      "state": "refine",
+      "non_improving_streak": 1,
+      "anchor_type": "historical_best",
+      "anchor": [
+        0.696,
+        0.934
+      ],
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.06,
+      "best_observed_output": 0.7729097325485852,
+      "best_observed_input": [
+        0.696,
+        0.934
+      ],
+      "candidate": [
+        0.6856277350533938,
+        0.98
+      ],
+      "portal": "0.685628-0.980000",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.06,
+          "support_percentile": 0.9411764705882353,
+          "boundary_ok": false
+        }
+      ]
+    },
+    "3": {
+      "dimension": 3,
+      "method": "gaussian_process_state_ucb",
+      "state": "refine",
+      "non_improving_streak": 1,
+      "anchor_type": "historical_best",
+      "anchor": [
+        0.492,
+        0.604,
+        0.343
+      ],
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.06,
+      "best_observed_output": -0.03140224643128403,
+      "best_observed_input": [
+        0.492,
+        0.604,
+        0.343
+      ],
+      "candidate": [
+        0.46472381011550246,
+        0.5541158955087561,
+        0.3094800718304545
+      ],
+      "portal": "0.464724-0.554116-0.309480",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.06,
+          "support_percentile": 0.8181818181818182,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "4": {
+      "dimension": 4,
+      "method": "gaussian_process_state_ucb",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.5783,
+        0.4288,
+        0.4258,
+        0.253
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.04,
+      "best_observed_output": -3.962742151304709,
+      "best_observed_input": [
+        0.5783,
+        0.4288,
+        0.4258,
+        0.253
+      ],
+      "candidate": [
+        0.544687986568588,
+        0.4427636017686485,
+        0.43930089594047056,
+        0.27371174033097556
+      ],
+      "portal": "0.544688-0.442764-0.439301-0.273712",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.04,
+          "support_percentile": 0.9459459459459459,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "5": {
+      "dimension": 4,
+      "method": "gaussian_process_state_ucb",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.11,
+        0.965,
+        0.965,
+        0.975
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.04,
+      "best_observed_output": 3273.8921448849183,
+      "best_observed_input": [
+        0.11,
+        0.965,
+        0.965,
+        0.975
+      ],
+      "candidate": [
+        0.072079628170195,
+        0.9790857491883308,
+        0.9790857491883308,
+        0.9850612494202363
+      ],
+      "portal": "0.072080-0.979086-0.979086-0.985061",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.04,
+          "support_percentile": 0.9629629629629629,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "6": {
+      "dimension": 5,
+      "method": "random_forest_state_policy",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.5003,
+        0.325,
+        0.386,
+        0.893,
+        0.039
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.05,
+      "best_observed_output": -0.4993080476858224,
+      "best_observed_input": [
+        0.5003,
+        0.325,
+        0.386,
+        0.893,
+        0.039
+      ],
+      "candidate": [
+        0.447798436181239,
+        0.3257869381744479,
+        0.4015721409453842,
+        0.8879611254796983,
+        0.038708976221056714
+      ],
+      "portal": "0.447798-0.325787-0.401572-0.887961-0.038709",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "random_forest_state_policy",
+          "radius": 0.05,
+          "support_percentile": 0.9259259259259259,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "7": {
+      "dimension": 6,
+      "method": "random_forest_state_policy",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.053,
+        0.464,
+        0.244,
+        0.204,
+        0.308,
+        0.728
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.05,
+      "best_observed_output": 1.7491755214029385,
+      "best_observed_input": [
+        0.053,
+        0.464,
+        0.244,
+        0.204,
+        0.308,
+        0.728
+      ],
+      "candidate": [
+        0.05419772516012175,
+        0.45768707646556395,
+        0.2483874354199796,
+        0.2081272585126048,
+        0.30414791683892944,
+        0.7086113542291985
+      ],
+      "portal": "0.054198-0.457687-0.248387-0.208127-0.304148-0.708611",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "random_forest_state_policy",
+          "radius": 0.05,
+          "support_percentile": 0.9459459459459459,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "8": {
+      "dimension": 8,
+      "method": "random_forest_state_policy",
+      "state": "recovery",
+      "non_improving_streak": 5,
+      "anchor_type": "historical_best",
+      "anchor": [
+        0.092062,
+        0.042321,
+        0.053471,
+        0.06552,
+        0.565106,
+        0.833197,
+        0.063626,
+        0.409748
+      ],
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": 9.7841491208186,
+      "best_observed_input": [
+        0.092062,
+        0.042321,
+        0.053471,
+        0.06552,
+        0.565106,
+        0.833197,
+        0.063626,
+        0.409748
+      ],
+      "candidate": [
+        0.05765118056596539,
+        0.03775147412877425,
+        0.05013780861833467,
+        0.06554775215655954,
+        0.6419190681364891,
+        0.8280139576602248,
+        0.03984395314777122,
+        0.40381446081136735
+      ],
+      "portal": "0.057651-0.037751-0.050138-0.065548-0.641919-0.828014-0.039844-0.403814",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "random_forest_state_policy",
+          "radius": 0.08,
+          "support_percentile": 0.8723404255319149,
+          "boundary_ok": true
+        }
+      ]
+    }
+  }
+}

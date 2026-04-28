@@ -1,0 +1,108 @@
+{
+  "suite": "bbob",
+  "requested_dimensions": [
+    2,
+    3,
+    4,
+    5,
+    6,
+    8
+  ],
+  "instances": [
+    1
+  ],
+  "initial_design": 10,
+  "sequential_budget": 13,
+  "seed": 42,
+  "n_problems": 72,
+  "actual_dimensions": [
+    2,
+    3,
+    5
+  ],
+  "methods": [
+    "capstone_state_policy",
+    "capstone_ranked_policy",
+    "random_continuation"
+  ],
+  "pairwise": {
+    "ranked_vs_state": {
+      "lhs_method": "capstone_ranked_policy",
+      "rhs_method": "capstone_state_policy",
+      "wins": 24,
+      "losses": 44,
+      "ties": 4,
+      "total_compared": 72,
+      "win_rate": 0.3333333333333333,
+      "by_dimension": {
+        "2": {
+          "wins": 7,
+          "losses": 15,
+          "ties": 2
+        },
+        "3": {
+          "wins": 9,
+          "losses": 14,
+          "ties": 1
+        },
+        "5": {
+          "wins": 8,
+          "losses": 15,
+          "ties": 1
+        }
+      }
+    },
+    "ranked_vs_random": {
+      "lhs_method": "capstone_ranked_policy",
+      "rhs_method": "random_continuation",
+      "wins": 50,
+      "losses": 21,
+      "ties": 1,
+      "total_compared": 72,
+      "win_rate": 0.6944444444444444,
+      "by_dimension": {
+        "2": {
+          "wins": 19,
+          "losses": 5,
+          "ties": 0
+        },
+        "3": {
+          "wins": 21,
+          "losses": 2,
+          "ties": 1
+        },
+        "5": {
+          "wins": 10,
+          "losses": 14,
+          "ties": 0
+        }
+      }
+    },
+    "state_vs_random": {
+      "lhs_method": "capstone_state_policy",
+      "rhs_method": "random_continuation",
+      "wins": 51,
+      "losses": 19,
+      "ties": 2,
+      "total_compared": 72,
+      "win_rate": 0.7083333333333334,
+      "by_dimension": {
+        "2": {
+          "wins": 20,
+          "losses": 4,
+          "ties": 0
+        },
+        "3": {
+          "wins": 21,
+          "losses": 1,
+          "ties": 2
+        },
+        "5": {
+          "wins": 10,
+          "losses": 14,
+          "ties": 0
+        }
+      }
+    }
+  }
+}

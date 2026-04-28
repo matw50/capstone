@@ -1,0 +1,71 @@
+{
+  "suite": "bbob",
+  "requested_dimensions": [
+    2
+  ],
+  "instances": [
+    1
+  ],
+  "initial_design": 4,
+  "sequential_budget": 2,
+  "seed": 42,
+  "n_problems": 24,
+  "actual_dimensions": [
+    2
+  ],
+  "methods": [
+    "capstone_state_policy",
+    "capstone_ranked_policy",
+    "random_continuation"
+  ],
+  "pairwise": {
+    "ranked_vs_state": {
+      "lhs_method": "capstone_ranked_policy",
+      "rhs_method": "capstone_state_policy",
+      "wins": 7,
+      "losses": 14,
+      "ties": 3,
+      "total_compared": 24,
+      "win_rate": 0.2916666666666667,
+      "by_dimension": {
+        "2": {
+          "wins": 7,
+          "losses": 14,
+          "ties": 3
+        }
+      }
+    },
+    "ranked_vs_random": {
+      "lhs_method": "capstone_ranked_policy",
+      "rhs_method": "random_continuation",
+      "wins": 19,
+      "losses": 3,
+      "ties": 2,
+      "total_compared": 24,
+      "win_rate": 0.7916666666666666,
+      "by_dimension": {
+        "2": {
+          "wins": 19,
+          "losses": 3,
+          "ties": 2
+        }
+      }
+    },
+    "state_vs_random": {
+      "lhs_method": "capstone_state_policy",
+      "rhs_method": "random_continuation",
+      "wins": 18,
+      "losses": 3,
+      "ties": 3,
+      "total_compared": 24,
+      "win_rate": 0.75,
+      "by_dimension": {
+        "2": {
+          "wins": 18,
+          "losses": 3,
+          "ties": 3
+        }
+      }
+    }
+  }
+}

@@ -29,10 +29,12 @@ from __future__ import annotations
 
 import argparse
 import json
+import warnings
 from pathlib import Path
 
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.exceptions import ConvergenceWarning
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import ConstantKernel, Matern, WhiteKernel
 
@@ -68,6 +70,12 @@ def parse_args() -> argparse.Namespace:
         type=int,
         default=42,
         help="Random seed. Default: 42",
+    )
+    parser.add_argument(
+        "--policy-variant",
+        choices=("state", "ranked"),
+        default="state",
+        help="Candidate selection policy to use. Default: state",
     )
     return parser.parse_args()
 
@@ -245,6 +253,100 @@ def choose_second_basin_center(x: np.ndarray, y: np.ndarray, main_anchor: np.nda
         return None
     best_idx = candidate_idx[int(np.argmax(y[candidate_idx]))]
     return x[best_idx]
+
+
+def safe_percentile(values: np.ndarray, score: float) -> float:
+    return float(np.mean(values <= score))
+
+
+def successful_direction(x: np.ndarray, y: np.ndarray, n_initial: int) -> np.ndarray | None:
+    if len(x) < 2:
+        return None
+
+    if latest_improved_best(y):
+        delta = x[-1] - x[-2]
+    else:
+        best_idx = int(np.argmax(y))
+        if best_idx <= 0 or best_idx < n_initial:
+            return None
+        delta = x[best_idx] - x[best_idx - 1]
+
+    norm = float(np.linalg.norm(delta))
+    if norm <= 1e-12:
+        return None
+    return delta / norm
+
+
+def continuation_scale(state: str) -> float:
+    if state == STATE_MOMENTUM:
+        return 0.75
+    if state == STATE_REFINE:
+        return 0.50
+    if state == STATE_STAGNANT:
+        return 0.45
+    if state == STATE_RECOVERY:
+        return 0.35
+    return 0.45
+
+
+def alignment_score(candidate: np.ndarray, center: np.ndarray, direction: np.ndarray | None) -> float:
+    if direction is None:
+        return 0.5
+
+    step = candidate - center
+    norm = float(np.linalg.norm(step))
+    if norm <= 1e-12:
+        return 0.5
+
+    cosine = float(np.dot(step / norm, direction))
+    return max(0.0, min(1.0, 0.5 * (cosine + 1.0)))
+
+
+def fit_ranking_model(
+    x: np.ndarray,
+    y: np.ndarray,
+    rng: np.random.Generator,
+) -> tuple[str, object]:
+    dim = x.shape[1]
+
+    if dim <= 4:
+        kernel = ConstantKernel(1.0, (1e-3, 1e3)) * Matern(
+            length_scale=np.ones(dim),
+            length_scale_bounds=(1e-2, 1.5),
+            nu=2.5,
+        ) + WhiteKernel(noise_level=1e-5, noise_level_bounds=(1e-8, 1e-1))
+        model = GaussianProcessRegressor(
+            kernel=kernel,
+            normalize_y=True,
+            n_restarts_optimizer=0,
+            random_state=int(rng.integers(0, 1_000_000)),
+        )
+        model.fit(x, y)
+        return "gp", model
+
+    model = RandomForestRegressor(
+        n_estimators=150,
+        random_state=int(rng.integers(0, 1_000_000)),
+        n_jobs=-1,
+        min_samples_leaf=1,
+    )
+    model.fit(x, y)
+    return "rf", model
+
+
+def ranking_model_percentile(
+    candidate: np.ndarray,
+    y: np.ndarray,
+    model_kind: str,
+    model: object,
+) -> tuple[float, float]:
+    candidate_2d = candidate.reshape(1, -1)
+    if model_kind == "gp":
+        mu, sigma = model.predict(candidate_2d, return_std=True)
+        signal = float(mu[0] + 0.2 * sigma[0])
+    else:
+        signal = float(model.predict(candidate_2d)[0])
+    return signal, safe_percentile(y, signal)
 
 
 def build_candidate_pool(
@@ -504,6 +606,178 @@ def choose_policy_candidate(
     return np.array(selected["candidate"], dtype=float), metadata
 
 
+def choose_ranked_policy_candidate(
+    x: np.ndarray,
+    y: np.ndarray,
+    n_initial: int,
+    rng: np.random.Generator,
+) -> tuple[np.ndarray, dict[str, object]]:
+    state = determine_policy_state(y, n_initial)
+    streak = non_improving_streak(y, n_initial)
+    latest_improved = len(y) > n_initial and latest_improved_best(y)
+
+    best_idx = int(np.argmax(y))
+    historical_best = x[best_idx]
+    latest_point = x[-1]
+    anchor = latest_point if state == STATE_MOMENTUM else historical_best
+    anchor_type = "latest" if state == STATE_MOMENTUM else "historical_best"
+    base_radius = float(state_parameters(state, x.shape[1])["radius"])
+    trend_direction = successful_direction(x, y, n_initial)
+    model_kind, ranking_model = fit_ranking_model(x, y, rng)
+
+    candidates_to_compare: list[dict[str, object]] = []
+
+    if trend_direction is not None:
+        continuation_candidate = np.clip(
+            anchor + trend_direction * base_radius * continuation_scale(state),
+            0.0,
+            1.0,
+        )
+        candidates_to_compare.append(
+            {
+                "candidate": continuation_candidate,
+                "method": "directional_continuation",
+                "radius": base_radius,
+                "score": None,
+                "center": anchor,
+                "source": "continuation",
+            }
+        )
+
+    micro_radius = min(
+        base_radius * 0.5,
+        0.03 if x.shape[1] <= 4 else 0.04,
+    )
+    micro_radius = max(micro_radius, 0.015 if x.shape[1] <= 4 else 0.02)
+    micro_candidate, micro_method, _micro_radius, micro_score = propose_candidate(
+        x=x,
+        y=y,
+        center=historical_best,
+        state=STATE_REFINE,
+        rng=rng,
+        radius_override=micro_radius,
+        beta_override=0.4,
+    )
+    candidates_to_compare.append(
+        {
+            "candidate": micro_candidate,
+            "method": f"{micro_method}_micro_best",
+            "radius": micro_radius,
+            "score": micro_score,
+            "center": historical_best,
+            "source": "micro_best",
+        }
+    )
+
+    surrogate_candidate, surrogate_method, surrogate_radius, surrogate_score = propose_candidate(
+        x=x,
+        y=y,
+        center=anchor,
+        state=state,
+        rng=rng,
+    )
+    candidates_to_compare.append(
+        {
+            "candidate": surrogate_candidate,
+            "method": surrogate_method,
+            "radius": surrogate_radius,
+            "score": surrogate_score,
+            "center": anchor,
+            "source": "surrogate",
+        }
+    )
+
+    ranked: list[dict[str, object]] = []
+    for option in candidates_to_compare:
+        raw_candidate = np.array(option["candidate"], dtype=float)
+        center = np.array(option["center"], dtype=float)
+        radius = float(option["radius"])
+
+        candidate = np.clip(raw_candidate, 0.0, 1.0)
+        candidate = project_to_radius(candidate, center, radius * 1.1)
+
+        valid_boundary = boundary_supported(candidate, x, y, latest_improved)
+        if not valid_boundary:
+            candidate = np.clip(candidate, 0.02, 0.98)
+            candidate = project_to_radius(candidate, center, radius)
+
+        support_percentile = nearest_neighbor_support_percentile(candidate, x, y)
+        surrogate_signal, surrogate_percentile = ranking_model_percentile(
+            candidate=candidate,
+            y=y,
+            model_kind=model_kind,
+            model=ranking_model,
+        )
+        distance = float(np.linalg.norm(candidate - center))
+        distance_score = max(0.0, 1.0 - (distance / max(radius * 1.1, 1e-9)))
+        trend_score = alignment_score(candidate, center, trend_direction)
+        boundary_penalty = 0.0 if valid_boundary else 0.25
+
+        composite_score = (
+            0.45 * support_percentile
+            + 0.35 * surrogate_percentile
+            + 0.15 * distance_score
+            + 0.05 * trend_score
+            - boundary_penalty
+        )
+
+        ranked.append(
+            {
+                "candidate": candidate,
+                "method": option["method"],
+                "radius": radius,
+                "score": option["score"],
+                "source": option["source"],
+                "center": center.tolist(),
+                "support_percentile": support_percentile,
+                "surrogate_signal": surrogate_signal,
+                "surrogate_percentile": surrogate_percentile,
+                "distance_score": distance_score,
+                "trend_score": trend_score,
+                "boundary_ok": valid_boundary,
+                "composite_score": composite_score,
+            }
+        )
+
+    ranked.sort(
+        key=lambda item: (
+            item["composite_score"],
+            item["support_percentile"],
+            item["surrogate_percentile"],
+        ),
+        reverse=True,
+    )
+    selected = ranked[0]
+
+    metadata = {
+        "state": state,
+        "non_improving_streak": streak,
+        "anchor_type": anchor_type,
+        "anchor": anchor.tolist(),
+        "candidate_options": [
+            {
+                "method": item["method"],
+                "source": item["source"],
+                "radius": item["radius"],
+                "center": item["center"],
+                "support_percentile": item["support_percentile"],
+                "surrogate_signal": item["surrogate_signal"],
+                "surrogate_percentile": item["surrogate_percentile"],
+                "distance_score": item["distance_score"],
+                "trend_score": item["trend_score"],
+                "boundary_ok": item["boundary_ok"],
+                "composite_score": item["composite_score"],
+            }
+            for item in ranked
+        ],
+        "selected_method": selected["method"],
+        "selected_source": selected["source"],
+        "trust_region_radius": float(selected["radius"]),
+        "ranking_model_kind": model_kind,
+    }
+    return np.array(selected["candidate"], dtype=float), metadata
+
+
 def format_query(point: np.ndarray) -> str:
     return "-".join(f"{value:.6f}" for value in point)
 
@@ -512,10 +786,12 @@ def main() -> None:
     args = parse_args()
     repo_root = args.repo_root.resolve()
     rng = np.random.default_rng(args.seed)
+    warnings.filterwarnings("ignore", category=ConvergenceWarning)
 
     results = {
         "through_week": args.through_week,
-        "strategy": "trust_region",
+        "strategy": f"{args.policy_variant}_trust_region",
+        "policy_variant": args.policy_variant,
         "recommendations": {},
     }
 
@@ -524,7 +800,10 @@ def main() -> None:
         n_initial = count_initial_observations(repo_root, function_id)
         dim = x.shape[1]
         improved = len(y) > n_initial and latest_improved_best(y)
-        candidate, policy = choose_policy_candidate(x, y, n_initial, rng)
+        if args.policy_variant == "ranked":
+            candidate, policy = choose_ranked_policy_candidate(x, y, n_initial, rng)
+        else:
+            candidate, policy = choose_policy_candidate(x, y, n_initial, rng)
 
         results["recommendations"][str(function_id)] = {
             "dimension": dim,
@@ -542,6 +821,10 @@ def main() -> None:
             "latest_payload_present": latest_payload is not None,
             "candidate_options": policy["candidate_options"],
         }
+        if "selected_source" in policy:
+            results["recommendations"][str(function_id)]["selected_source"] = policy["selected_source"]
+        if "ranking_model_kind" in policy:
+            results["recommendations"][str(function_id)]["ranking_model_kind"] = policy["ranking_model_kind"]
 
     output = json.dumps(results, indent=2) + "\n"
     print(output)

@@ -19,10 +19,10 @@ The repository currently uses:
 | Item | Status |
 |---|---|
 | Latest completed round | Week 7 results recorded |
-| Next submission prepared | Not yet |
-| Current optimisation phase | Reviewing Week 7 outcomes before Week 8 candidate generation |
+| Next submission prepared | Week 8 candidate submission prepared |
+| Current optimisation phase | Awaiting Week 8 portal submission/results |
 | Main operating pattern | Local trust-region search plus manual sanity checks |
-| Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, and experimental MLP ensemble checks |
+| Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, experimental MLP ensemble checks, COCO/BBOB benchmarking, and historical backtesting |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
@@ -61,6 +61,12 @@ Updated state-policy result:
 - holdout win rate: `72.9%`
 - interpretation: the updated rules improved the development benchmark and held up well on unseen instances, which suggests the change is not just benchmark overfitting
 
+Ranked-policy experiment:
+- I also tested a more complex ranked candidate-selection layer that compared local, wider, and second-basin candidates using surrogate score, neighbour support, alignment, and boundary checks
+- smoke benchmark: ranked policy beat the state policy on `7` of `24` problems, lost on `14`, and tied on `3`
+- development benchmark: ranked policy beat the state policy on `24` of `72` problems, lost on `44`, and tied on `4`
+- interpretation: the ranked layer beat random continuation, but it underperformed the simpler state-policy approach, so it is documented as an explored but rejected option for current capstone submissions
+
 Artifacts:
 - [Benchmark README](benchmarks/coco/README.md)
 - [Benchmark Summary](benchmarks/coco/week6_style_budget13/summary.json)
@@ -68,6 +74,9 @@ Artifacts:
 - [Benchmark Histories](benchmarks/coco/week6_style_budget13/histories.json)
 - [State Policy Dev Summary](benchmarks/coco/state_policy_dev_instance1_v5/summary.json)
 - [State Policy Holdout Summary](benchmarks/coco/state_policy_holdout_instances2to5_v5/summary.json)
+- [Ranked Policy Smoke Summary](benchmarks/coco/ranked_smoke/summary.json)
+- [Ranked Policy Dev Summary](benchmarks/coco/ranked_policy_dev_instance1/summary.json)
+- [Week 7 State Policy Backtest](reports/week7_backtest/state_policy_backtest.md)
 
 ## Weekly Index
 | Week | Status | Folder | Notes | Reproduction | Results |
@@ -79,7 +88,7 @@ Artifacts:
 | 5 | Completed | [week5](week5/) | [notes](week5/notes.md) | [reproduction](week5/reproduction.md) | [results](week5/results.json) |
 | 6 | Completed | [week6](week6/) | [notes](week6/notes.md) | [reproduction](week6/reproduction.md) | [results](week6/results.json) |
 | 7 | Completed | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
-| 8 | Scaffold | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
+| 8 | Prepared | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
 | 9 | Scaffold | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
 | 10 | Scaffold | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
 | 11 | Scaffold | [week11](week11/) | [notes](week11/notes.md) | [reproduction](week11/reproduction.md) | [results](week11/results.json) |
@@ -87,38 +96,49 @@ Artifacts:
 | 13 | Scaffold | [week13](week13/) | [notes](week13/notes.md) | [reproduction](week13/reproduction.md) | [results](week13/results.json) |
 
 ## Reproduce Latest Round
-To reproduce the current Week 7 submission from the recorded Week 6 data:
+To reproduce the prepared Week 8 submission from the recorded Week 7 data:
 
 1. Generate raw candidates:
 ```bash
 /opt/anaconda3/bin/python scripts/generate_candidate_queries.py \
   --repo-root . \
-  --through-week week6 \
-  --output-file week7/candidates.json
+  --through-week week7 \
+  --output-file week8/candidates.json \
+  --seed 42 \
+  --policy-variant state
 ```
-2. Run geometric sanity checks:
+2. Run the true historical backtest:
+```bash
+/opt/anaconda3/bin/python scripts/backtest_state_policy.py \
+  --repo-root . \
+  --from-week week1 \
+  --through-week week7 \
+  --output-dir reports/week7_backtest
+```
+3. Run geometric sanity checks:
 ```bash
 /opt/anaconda3/bin/python scripts/sanity_check_candidates.py \
   --repo-root . \
-  --through-week week6 \
-  --candidate-file week7/candidates.json
+  --through-week week7 \
+  --candidate-file week8/candidates.json
 ```
-3. Run classifier region checks:
+4. Run classifier region checks:
 ```bash
 /opt/anaconda3/bin/python scripts/classifier_region_check.py \
   --repo-root . \
-  --through-week week6 \
-  --candidate-file week7/candidates.json \
+  --through-week week7 \
+  --candidate-file week8/candidates.json \
   --svm
 ```
-4. Apply the state-policy and manual blending rules in [week7/reproduction.md](week7/reproduction.md) to produce [week7/inputs.json](week7/inputs.json).
-5. Optionally run the experimental neural-net surrogate check on the final blended inputs:
+5. Run the experimental neural-net surrogate check:
 ```bash
 /opt/anaconda3/bin/python scripts/neural_net_surrogate_check.py \
   --repo-root . \
-  --through-week week6 \
-  --candidate-file week7/inputs.json
+  --through-week week7 \
+  --candidate-file week8/candidates.json
 ```
+6. Apply the backtest-informed manual blending rules in [week8/reproduction.md](week8/reproduction.md) to produce [week8/inputs.json](week8/inputs.json).
+7. Re-run the same sanity, classifier, and neural-network checks on [week8/inputs.json](week8/inputs.json).
 
 ## Programme Context
 This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
@@ -207,6 +227,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 5 | Historical-best anchored trust-region submission | Adapted the rule so the historical best point is the default anchor, with recent results used as directional evidence rather than automatically becoming the next search centre | Week 5 produced new bests for Functions 2, 5, and 7. Function 6 remained stalled, which led to the Week 6 correction probe. | [Week 5 Approach](week5/approach.md), [Week 5 Notes](week5/notes.md), [Week 5 Reproduction](week5/reproduction.md), [Week 5 Inputs](week5/inputs.json) |
 | 6 | Historical-best anchoring with Function 6 correction | Kept the historical-best anchoring rule, but added a deliberate lower-`x2`, lower-`x3` correction probe for Function 6 after repeated near-identical local nudges failed | Week 6 produced new bests for Functions 1, 2, 3, 4, 5, and 7. Function 8 stayed very close to its historical best. Function 6 underperformed, making it the clear outlier in the round. | [Week 6 Approach](week6/approach.md), [Week 6 Notes](week6/notes.md), [Week 6 Reproduction](week6/reproduction.md), [Week 6 Inputs](week6/inputs.json) |
 | 7 | Benchmark-backed state-policy with manual basin-preserving overrides | Converted the benchmark lessons into explicit `momentum`, `refine`, and `recovery` rules, then clipped raw candidates back toward proven basins when the capstone evidence was narrower than the generic benchmark suggested | Week 7 produced new bests for Functions 1, 4, 5, 6, and 7. Function 6 was the biggest strategic win because the recovery reset beat all previous observations. Functions 2 and 3 dipped, while Function 8 stayed almost exactly on its best basin. | [Week 7 Approach](week7/approach.md), [Week 7 Notes](week7/notes.md), [Week 7 Reproduction](week7/reproduction.md), [Week 7 Inputs](week7/inputs.json) |
+| 8 | Backtest-informed micro-local trust-region submission | Added a true historical backtest. It showed that the raw state-policy generator is directionally useful but usually wider than the successful manual submissions, so final candidates were clipped tightly around proven basins. | Submission prepared. Momentum: Functions 1, 4, 5, 6, 7. Refine: Functions 2, 3. Recovery: Function 8. | [Week 8 Approach](week8/approach.md), [Week 8 Notes](week8/notes.md), [Week 8 Reproduction](week8/reproduction.md), [Week 8 Inputs](week8/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -226,8 +247,10 @@ The repository is organised to support the weekly optimisation cycle:
 - `week5/`: Week 5 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week6/`: Week 6 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week7/`: Week 7 completed round with submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
-- `week8/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
+- `week8/`: prepared candidate submission, raw candidates, approach notes, and reproduction steps
+- `week9/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
+- `reports/`: generated diagnostic reports used before preparing later-round submissions
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `requirements.txt`: lightweight Python dependency list for reproducing the workflow
 - `REPO_INVENTORY.md`: notes on the current repository structure and script usage
@@ -235,6 +258,12 @@ The repository is organised to support the weekly optimisation cycle:
 ## Scripts
 ### [`scripts/run_coco_benchmark.py`](scripts/run_coco_benchmark.py)
 Runs the current capstone policy against the COCO/BBOB benchmark suite using a capstone-like budget. It compares the policy against a random continuation baseline, prints progress and ETA while it runs, and writes a CSV plus JSON summaries under `benchmarks/coco/`.
+
+### [`scripts/analyze_progress_diagnostics.py`](scripts/analyze_progress_diagnostics.py)
+Generates a pre-submission diagnostic report from the accumulated capstone results. It summarizes the current policy state for each function, recent coordinate sensitivity, and historical round behaviour. The Week 7 report is saved at [reports/week7_diagnostics/progress_diagnostics.md](reports/week7_diagnostics/progress_diagnostics.md).
+
+### [`scripts/backtest_state_policy.py`](scripts/backtest_state_policy.py)
+Runs a leakage-safe historical replay of the current state-policy generator. At each historical week boundary, it uses only the data available at that point, generates the policy candidate, and compares it with the actual next submission using locality and nearest-neighbour support. The Week 7 report is saved at [reports/week7_backtest/state_policy_backtest.md](reports/week7_backtest/state_policy_backtest.md).
 
 ### [`scripts/scaffold_week_structure.py`](scripts/scaffold_week_structure.py)
 Creates or standardizes the core files expected in each `weekN/` folder. It is useful when setting up future rounds or repairing scaffold consistency after the repository structure changes.
@@ -295,6 +324,8 @@ By Week 5, the rule was adapted again: when an earlier point remains the histori
 
 By Week 6, Function 6 became the main exception to the standard local-nudge pattern. It kept the best-known high-`x4`, low-`x5` structure, but deliberately probed lower `x2` and lower `x3` because repeated tiny moves around the same point did not improve the result. The returned Week 6 output showed that this correction probe underperformed, while the same round produced new bests for six of the other seven functions.
 
+By Week 7, the recovery reset for Function 6 worked and produced a new best. Week 7 also produced new bests for Functions 1, 4, 5, and 7. Functions 2 and 3 dipped after Week 6, and Function 8 remained almost flat against its historical best. To prepare for Week 8, I added a coordinate-sensitivity and progress diagnostic report. Its current read is: keep local momentum for Functions 1, 4, 5, 6, and 7; refine back toward the Week 6 best regions for Functions 2 and 3; and treat Function 8 as a recovery/reset-to-best-basin case.
+
 To test whether this hand-built policy generalizes beyond the capstone data, I also benchmarked it externally on COCO/BBOB with a capstone-like budget of `10` random initial evaluations plus `13` sequential guided evaluations. The current policy beat a random continuation baseline on two-thirds of the tested BBOB problems, which gives some evidence that the local trust-region logic is doing useful work beyond the specific course functions.
 
 After reviewing those benchmark results, I turned the strategy into a clearer decision-rule policy:
@@ -304,3 +335,9 @@ After reviewing those benchmark results, I turned the strategy into a clearer de
 - `recovery`: if that exploratory probe also fails, reset to the best known basin and stop making broader jumps
 
 That rule set improved the development COCO/BBOB benchmark from a `66.7%` win rate against random continuation to `75.0%`, and it still achieved a `72.9%` holdout win rate on unseen instances. That is not proof that the policy is optimal, but it is a useful signal that the added decision rules improved robustness rather than merely overfitting the first benchmark run.
+
+For Week 7 review, I added a true historical backtest of the state-policy generator. The backtest replays each week boundary using only information available at that time, then compares the generated candidate with the actual next submission. Because the portal never evaluates the counterfactual candidate, the backtest uses proxy checks rather than pretending to know the missing output. The key learning was that the state labels are directionally useful, but the raw generator is usually wider than the hand-blended submissions that worked best. Across 48 historical replays, the policy candidate was more local than the actual submission only `14.58%` of the time, with a mean nearest-neighbour support delta of `-0.049`. For Week 8, this means the generator should remain a signal source, not an automatic submitter. The final submission should continue to apply micro-local clipping around proven basins unless the diagnostics provide a strong reason to widen the search.
+
+I also explored a ranking-based policy variant that selects between multiple candidate types rather than accepting the base state-policy recommendation. This was a useful engineering experiment because it made the selection criteria explicit, but the COCO/BBOB results did not justify adopting it. On the development benchmark, the ranked variant lost to the simpler state policy on `44` of `72` comparable problems and won only `24`. The decision for now is to keep the ranked policy available in the script for future experimentation, but not use it for live capstone submissions.
+
+The Week 8 candidate submission applies that backtest lesson directly. Raw candidates were generated with the state-policy script, but the final submitted points were manually clipped into tighter trust regions around the best observed basins. Functions 1, 4, 5, 6, and 7 are treated as momentum cases. Functions 2 and 3 are refine cases anchored on their Week 6 bests. Function 8 is a recovery case anchored tightly on its Week 2 best basin. The final Week 8 rationale is documented in [week8/approach.md](week8/approach.md), with exact reproduction steps in [week8/reproduction.md](week8/reproduction.md).

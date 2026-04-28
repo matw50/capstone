@@ -18,8 +18,7 @@ Current top-level dependencies:
 ## Current Structure
 - `initial_data/function_<n>/initial_inputs.npy`: original input arrays for each function
 - `initial_data/function_<n>/initial_outputs.npy`: original output arrays for each function
-- `week1/` to `week6/`: completed rounds with recorded submissions, returned outputs, and appended `.npy` files
-- `week7/`: submitted round with final inputs, raw candidates, approach notes, and pending outputs
+- `week1/` to `week7/`: completed rounds with recorded submissions, returned outputs, and appended `.npy` files when generated
 - `week8/` to `week13/`: standardized scaffold folders for future rounds
 - `benchmarks/`: external benchmark runs used to sanity-check the policy outside the capstone portal
 - `scripts/`: helper scripts for maintaining the weekly workflow
@@ -109,7 +108,7 @@ python3 scripts/sanity_check_candidates.py --repo-root . --through-week week1 --
 ## Notes
 - The repository now contains the core helper scripts needed for the current workflow.
 - Week scaffolds are now standardized so future rounds start with the same core files.
-- Week 7 has been submitted and documented, but `outputs.json` and `results.json` remain placeholders until the portal returns the next outputs.
+- Week 7 results have been recorded. The next workflow step is to review Week 7 outcomes before preparing Week 8 candidates.
 - One possible future improvement would be to let `append_week_results.py` optionally write directly into `weekN/function_<n>/` so the generated `.npy` files land beside the JSON records without needing a separate output path.
 - Another useful future improvement would be a script that combines all three steps: fill a week from pasted text, generate the appended `.npy` files for that week, and produce draft candidate queries for the next week.
 

@@ -18,23 +18,23 @@ The repository currently uses:
 ## Current Status
 | Item | Status |
 |---|---|
-| Latest completed round | Week 6 results recorded |
-| Latest submission sent | Week 7 submitted, awaiting results |
-| Current optimisation phase | State-policy local exploitation with manual basin-preserving overrides |
+| Latest completed round | Week 7 results recorded |
+| Next submission prepared | Not yet |
+| Current optimisation phase | Reviewing Week 7 outcomes before Week 8 candidate generation |
 | Main operating pattern | Local trust-region search plus manual sanity checks |
 | Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, and experimental MLP ensemble checks |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
 |---|---|---|---|
-| 1 | `1.7043369097736036e-15` | Week 6 | Sparse narrow peak, improved by ultra-local probing |
+| 1 | `4.250433342725532e-15` | Week 7 | Sparse narrow peak, improved again by ultra-local probing |
 | 2 | `0.7729097325485852` | Week 6 | Local momentum after historical-best anchoring |
 | 3 | `-0.03140224643128403` | Week 6 | Recovery basin now improved beyond the initial best |
-| 4 | `-3.992035882485815` | Week 6 | Reset-to-best-basin refinement beat the initial best |
-| 5 | `3114.916159936784` | Week 6 | Strongest momentum function |
-| 6 | `-0.5406455142504304` | Week 1 | Week 6 correction probe underperformed |
-| 7 | `1.7077885403964521` | Week 6 | Strong momentum after recovery |
-| 8 | `9.7841491208186` | Week 2 | Week 6 remained very close to the validated local basin |
+| 4 | `-3.962742151304709` | Week 7 | Reset-to-best-basin refinement continues to pay off |
+| 5 | `3273.8921448849183` | Week 7 | Strongest momentum function, still improving |
+| 6 | `-0.4993080476858224` | Week 7 | Recovery reset worked and created a new best |
+| 7 | `1.7491755214029385` | Week 7 | Strong momentum after recovery |
+| 8 | `9.7841491208186` | Week 2 | Week 7 remained essentially flat against the validated local basin |
 
 ## External Benchmarking
 To sanity-check whether the current capstone policy behaves like a useful optimizer outside the course portal, I added a COCO/BBOB benchmark harness.
@@ -78,7 +78,7 @@ Artifacts:
 | 4 | Completed | [week4](week4/) | [notes](week4/notes.md) | [reproduction](week4/reproduction.md) | [results](week4/results.json) |
 | 5 | Completed | [week5](week5/) | [notes](week5/notes.md) | [reproduction](week5/reproduction.md) | [results](week5/results.json) |
 | 6 | Completed | [week6](week6/) | [notes](week6/notes.md) | [reproduction](week6/reproduction.md) | [results](week6/results.json) |
-| 7 | Submitted, awaiting results | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
+| 7 | Completed | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
 | 8 | Scaffold | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
 | 9 | Scaffold | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
 | 10 | Scaffold | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
@@ -206,7 +206,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 4 | Late-stage trust-region with classifier-assisted review | Added logistic-regression and SVM region checks as secondary evidence, but kept trust-region, neighbour, and boundary checks as the primary filters before blending the final submission | Week 4 produced new bests for Functions 5 and 7, confirming the hard-exploitation logic there. Function 4 improved again but did not beat the historical best, and Function 8 remained very close to its best basin. | [Week 4 Approach](week4/approach.md), [Week 4 Notes](week4/notes.md), [Week 4 Reproduction](week4/reproduction.md), [Week 4 Inputs](week4/inputs.json) |
 | 5 | Historical-best anchored trust-region submission | Adapted the rule so the historical best point is the default anchor, with recent results used as directional evidence rather than automatically becoming the next search centre | Week 5 produced new bests for Functions 2, 5, and 7. Function 6 remained stalled, which led to the Week 6 correction probe. | [Week 5 Approach](week5/approach.md), [Week 5 Notes](week5/notes.md), [Week 5 Reproduction](week5/reproduction.md), [Week 5 Inputs](week5/inputs.json) |
 | 6 | Historical-best anchoring with Function 6 correction | Kept the historical-best anchoring rule, but added a deliberate lower-`x2`, lower-`x3` correction probe for Function 6 after repeated near-identical local nudges failed | Week 6 produced new bests for Functions 1, 2, 3, 4, 5, and 7. Function 8 stayed very close to its historical best. Function 6 underperformed, making it the clear outlier in the round. | [Week 6 Approach](week6/approach.md), [Week 6 Notes](week6/notes.md), [Week 6 Reproduction](week6/reproduction.md), [Week 6 Inputs](week6/inputs.json) |
-| 7 | Benchmark-backed state-policy with manual basin-preserving overrides | Converted the benchmark lessons into explicit `momentum`, `refine`, and `recovery` rules, then still clipped raw candidates back toward proven basins when the capstone evidence was narrower than the generic benchmark suggested | Week 7 has been submitted and is awaiting outputs. The final set is intentionally conservative for Functions 1, 4, 6, and 8, where raw proposals still looked too aggressive. | [Week 7 Approach](week7/approach.md), [Week 7 Notes](week7/notes.md), [Week 7 Reproduction](week7/reproduction.md), [Week 7 Inputs](week7/inputs.json) |
+| 7 | Benchmark-backed state-policy with manual basin-preserving overrides | Converted the benchmark lessons into explicit `momentum`, `refine`, and `recovery` rules, then clipped raw candidates back toward proven basins when the capstone evidence was narrower than the generic benchmark suggested | Week 7 produced new bests for Functions 1, 4, 5, 6, and 7. Function 6 was the biggest strategic win because the recovery reset beat all previous observations. Functions 2 and 3 dipped, while Function 8 stayed almost exactly on its best basin. | [Week 7 Approach](week7/approach.md), [Week 7 Notes](week7/notes.md), [Week 7 Reproduction](week7/reproduction.md), [Week 7 Inputs](week7/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -225,7 +225,7 @@ The repository is organised to support the weekly optimisation cycle:
 - `week4/`: Week 4 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week5/`: Week 5 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week6/`: Week 6 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
-- `week7/`: Week 7 submission package, raw candidates, approach notes, and reproduction notes, currently awaiting outputs
+- `week7/`: Week 7 completed round with submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week8/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results

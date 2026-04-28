@@ -45,3 +45,16 @@ The final blended `week7/inputs.json` was checked after manual adjustment.
 - Function 6: `0.500300-0.325000-0.386000-0.893000-0.039000`
 - Function 7: `0.053000-0.464000-0.244000-0.204000-0.308000-0.728000`
 - Function 8: `0.091500-0.041900-0.053700-0.065700-0.566100-0.832100-0.061800-0.409400`
+
+## Returned Week 7 Outputs
+
+- Function 1: `4.250433342725532e-15`
+- Function 2: `0.7227908397061406`
+- Function 3: `-0.05017215361785152`
+- Function 4: `-3.962742151304709`
+- Function 5: `3273.8921448849183`
+- Function 6: `-0.4993080476858224`
+- Function 7: `1.7491755214029385`
+- Function 8: `9.784121999`
+
+Week 7 produced new best observed outputs for Functions 1, 4, 5, 6, and 7. Function 6 was the most important strategic improvement because the recovery reset beat the previous Week 1 best. Function 8 remained extremely close to its historical best. Functions 2 and 3 underperformed relative to Week 6, so they should be reviewed carefully before generating Week 8.

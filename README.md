@@ -19,8 +19,8 @@ The repository currently uses:
 | Item | Status |
 |---|---|
 | Latest completed round | Week 8 results recorded |
-| Next submission prepared | Not yet |
-| Current optimisation phase | Reviewing Week 8 outcomes before Week 9 candidate generation |
+| Next submission prepared | Week 9 submitted, awaiting results |
+| Current optimisation phase | Waiting for Week 9 portal outputs |
 | Main operating pattern | Local trust-region search plus manual sanity checks |
 | Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, experimental MLP ensemble checks, COCO/BBOB benchmarking, and historical backtesting |
 
@@ -91,7 +91,7 @@ Artifacts:
 | 6 | Completed | [week6](week6/) | [notes](week6/notes.md) | [reproduction](week6/reproduction.md) | [results](week6/results.json) |
 | 7 | Completed | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
 | 8 | Completed | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
-| 9 | Scaffold | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
+| 9 | Submitted | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
 | 10 | Scaffold | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
 | 11 | Scaffold | [week11](week11/) | [notes](week11/notes.md) | [reproduction](week11/reproduction.md) | [results](week11/results.json) |
 | 12 | Scaffold | [week12](week12/) | [notes](week12/notes.md) | [reproduction](week12/reproduction.md) | [results](week12/results.json) |
@@ -230,6 +230,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 6 | Historical-best anchoring with Function 6 correction | Kept the historical-best anchoring rule, but added a deliberate lower-`x2`, lower-`x3` correction probe for Function 6 after repeated near-identical local nudges failed | Week 6 produced new bests for Functions 1, 2, 3, 4, 5, and 7. Function 8 stayed very close to its historical best. Function 6 underperformed, making it the clear outlier in the round. | [Week 6 Approach](week6/approach.md), [Week 6 Notes](week6/notes.md), [Week 6 Reproduction](week6/reproduction.md), [Week 6 Inputs](week6/inputs.json) |
 | 7 | Benchmark-backed state-policy with manual basin-preserving overrides | Converted the benchmark lessons into explicit `momentum`, `refine`, and `recovery` rules, then clipped raw candidates back toward proven basins when the capstone evidence was narrower than the generic benchmark suggested | Week 7 produced new bests for Functions 1, 4, 5, 6, and 7. Function 6 was the biggest strategic win because the recovery reset beat all previous observations. Functions 2 and 3 dipped, while Function 8 stayed almost exactly on its best basin. | [Week 7 Approach](week7/approach.md), [Week 7 Notes](week7/notes.md), [Week 7 Reproduction](week7/reproduction.md), [Week 7 Inputs](week7/inputs.json) |
 | 8 | Backtest-informed micro-local trust-region submission | Added a true historical backtest. It showed that the raw state-policy generator is directionally useful but usually wider than the successful manual submissions, so final candidates were clipped tightly around proven basins. | Week 8 produced new bests for Functions 1, 4, 5, and 7. Functions 2, 3, 6, and 8 missed, setting up stagnant/refine/recovery handling for Week 9. | [Week 8 Approach](week8/approach.md), [Week 8 Notes](week8/notes.md), [Week 8 Reproduction](week8/reproduction.md), [Week 8 Inputs](week8/inputs.json) |
+| 9 | Week 8-state-adapted blended submission | Kept micro-local exploitation for momentum functions, allowed one bounded alternative for stagnant Function 2, returned Function 6 to its Week 7 best basin, and kept Function 8 anchored near its Week 2 best. | Submitted and awaiting outputs. Momentum: Functions 1, 4, 5, 7. Stagnant: Functions 2, 3. Refine: Function 6. Recovery: Function 8. | [Week 9 Approach](week9/approach.md), [Week 9 Notes](week9/notes.md), [Week 9 Reproduction](week9/reproduction.md), [Week 9 Inputs](week9/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -250,7 +251,8 @@ The repository is organised to support the weekly optimisation cycle:
 - `week6/`: Week 6 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week7/`: Week 7 completed round with submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week8/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
-- `week9/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
+- `week9/`: submitted round with raw candidates, final submission, approach notes, and reproduction steps
+- `week10/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `reports/`: generated diagnostic reports used before preparing later-round submissions
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results

@@ -2,7 +2,7 @@
 
 This folder stores the working files for week 8 of the capstone black-box optimisation challenge.
 
-Status: candidate submission prepared.
+Status: completed.
 
 Core files:
 - `inputs.json`: submitted query point for each function

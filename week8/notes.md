@@ -1,6 +1,6 @@
 # Week 8 Notes
 
-Status: candidate submission prepared
+Status: completed
 
 ## What Week 7 Taught Us
 Week 7 created new bests for Functions 1, 4, 5, 6, and 7. Function 6 was especially important because the recovery reset finally improved on the earlier best basin. Functions 2 and 3 dipped after their Week 6 bests, so they should be treated as refine cases rather than momentum cases. Function 8 stayed extremely close to its Week 2 best but did not beat it, so the safest strategy remains recovery around the known best basin.
@@ -50,3 +50,26 @@ The neural-network surrogate was conservative:
 - it did not predict most final points above the historical best
 - this is expected given the small sample sizes and the fact that the final policy intentionally takes micro-local refinement steps
 - the MLP output is used as a caution signal, not as a primary decision rule
+
+## Returned Results
+| Function | Week 8 Output | Previous Best | Outcome |
+| --- | ---: | ---: | --- |
+| 1 | `7.15841792430019e-15` | `4.250433342725532e-15` | New best |
+| 2 | `0.666645236194811` | `0.7729097325485852` | Miss |
+| 3 | `-0.037502198178544936` | `-0.03140224643128403` | Miss |
+| 4 | `-3.9368650702716717` | `-3.962742151304709` | New best |
+| 5 | `3439.429323444504` | `3273.8921448849183` | New best |
+| 6 | `-0.5318287495170636` | `-0.4993080476858224` | Miss |
+| 7 | `1.7885804409132928` | `1.7491755214029385` | New best |
+| 8 | `9.7839380515` | `9.7841491208186` | Miss |
+
+Week 8 produced new bests for Functions 1, 4, 5, and 7. The micro-local strategy clearly helped those functions, especially Function 5, which continued its steady monotonic improvement. Functions 2 and 3 did not recover their Week 6 bests, so they should now be treated as stagnant rather than simple refine cases. Function 6 missed after the Week 7 recovery win, so Week 9 should return toward the Week 7 best basin rather than keep moving away. Function 8 again stayed close to the best basin but did not improve, so it remains a recovery case with very little evidence for a broad jump.
+
+## Week 9 Implication
+The Week 8 diagnostics classify:
+- momentum: Functions 1, 4, 5, and 7
+- stagnant: Functions 2 and 3
+- refine: Function 6
+- recovery: Function 8
+
+For Week 9, the best plan is not to become globally more exploratory. Instead, keep exploiting Functions 1, 4, 5, and 7, compare one bounded alternative for Functions 2 and 3, return Function 6 toward its Week 7 best, and keep Function 8 anchored close to the Week 2 best basin.

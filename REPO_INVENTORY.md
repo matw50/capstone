@@ -18,8 +18,8 @@ Current top-level dependencies:
 ## Current Structure
 - `initial_data/function_<n>/initial_inputs.npy`: original input arrays for each function
 - `initial_data/function_<n>/initial_outputs.npy`: original output arrays for each function
-- `week1/` to `week7/`: completed rounds with recorded submissions, returned outputs, and appended `.npy` files when generated
-- `week8/`: prepared candidate submission, raw candidates, approach notes, and reproduction steps
+- `week1/` to `week8/`: completed rounds with recorded submissions, returned outputs, and appended `.npy` files when generated
+- `week8/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
 - `week9/` to `week13/`: standardized scaffold folders for future rounds
 - `benchmarks/`: external benchmark runs used to sanity-check the policy outside the capstone portal
 - `reports/`: generated diagnostic and backtest reports used to review progress, sensitivity, and policy behaviour before later submissions
@@ -60,9 +60,11 @@ Example:
 /opt/anaconda3/bin/python scripts/backtest_state_policy.py --repo-root . --from-week week1 --through-week week7 --output-dir reports/week7_backtest
 ```
 
-Latest report:
-- `reports/week7_backtest/state_policy_backtest.md`
-- `reports/week7_backtest/state_policy_backtest.json`
+Latest reports:
+- `reports/week8_diagnostics/progress_diagnostics.md`
+- `reports/week8_diagnostics/progress_diagnostics.json`
+- `reports/week8_backtest/state_policy_backtest.md`
+- `reports/week8_backtest/state_policy_backtest.json`
 
 ### `scripts/scaffold_week_structure.py`
 Creates or standardizes the core scaffold files for one or more future week folders.

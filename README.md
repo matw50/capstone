@@ -18,23 +18,23 @@ The repository currently uses:
 ## Current Status
 | Item | Status |
 |---|---|
-| Latest completed round | Week 7 results recorded |
-| Next submission prepared | Week 8 candidate submission prepared |
-| Current optimisation phase | Awaiting Week 8 portal submission/results |
+| Latest completed round | Week 8 results recorded |
+| Next submission prepared | Not yet |
+| Current optimisation phase | Reviewing Week 8 outcomes before Week 9 candidate generation |
 | Main operating pattern | Local trust-region search plus manual sanity checks |
 | Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, experimental MLP ensemble checks, COCO/BBOB benchmarking, and historical backtesting |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
 |---|---|---|---|
-| 1 | `4.250433342725532e-15` | Week 7 | Sparse narrow peak, improved again by ultra-local probing |
+| 1 | `7.15841792430019e-15` | Week 8 | Sparse narrow peak, still improving under ultra-local probing |
 | 2 | `0.7729097325485852` | Week 6 | Local momentum after historical-best anchoring |
 | 3 | `-0.03140224643128403` | Week 6 | Recovery basin now improved beyond the initial best |
-| 4 | `-3.962742151304709` | Week 7 | Reset-to-best-basin refinement continues to pay off |
-| 5 | `3273.8921448849183` | Week 7 | Strongest momentum function, still improving |
-| 6 | `-0.4993080476858224` | Week 7 | Recovery reset worked and created a new best |
-| 7 | `1.7491755214029385` | Week 7 | Strong momentum after recovery |
-| 8 | `9.7841491208186` | Week 2 | Week 7 remained essentially flat against the validated local basin |
+| 4 | `-3.9368650702716717` | Week 8 | Local refinement continues to improve |
+| 5 | `3439.429323444504` | Week 8 | Strongest momentum function, still improving |
+| 6 | `-0.4993080476858224` | Week 7 | Week 8 missed, so return toward the Week 7 best basin |
+| 7 | `1.7885804409132928` | Week 8 | Strong momentum after recovery |
+| 8 | `9.7841491208186` | Week 2 | Week 8 dipped slightly below the validated local basin |
 
 ## External Benchmarking
 To sanity-check whether the current capstone policy behaves like a useful optimizer outside the course portal, I added a COCO/BBOB benchmark harness.
@@ -77,6 +77,8 @@ Artifacts:
 - [Ranked Policy Smoke Summary](benchmarks/coco/ranked_smoke/summary.json)
 - [Ranked Policy Dev Summary](benchmarks/coco/ranked_policy_dev_instance1/summary.json)
 - [Week 7 State Policy Backtest](reports/week7_backtest/state_policy_backtest.md)
+- [Week 8 Progress Diagnostics](reports/week8_diagnostics/progress_diagnostics.md)
+- [Week 8 State Policy Backtest](reports/week8_backtest/state_policy_backtest.md)
 
 ## Weekly Index
 | Week | Status | Folder | Notes | Reproduction | Results |
@@ -88,7 +90,7 @@ Artifacts:
 | 5 | Completed | [week5](week5/) | [notes](week5/notes.md) | [reproduction](week5/reproduction.md) | [results](week5/results.json) |
 | 6 | Completed | [week6](week6/) | [notes](week6/notes.md) | [reproduction](week6/reproduction.md) | [results](week6/results.json) |
 | 7 | Completed | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
-| 8 | Prepared | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
+| 8 | Completed | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
 | 9 | Scaffold | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
 | 10 | Scaffold | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
 | 11 | Scaffold | [week11](week11/) | [notes](week11/notes.md) | [reproduction](week11/reproduction.md) | [results](week11/results.json) |
@@ -227,7 +229,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 5 | Historical-best anchored trust-region submission | Adapted the rule so the historical best point is the default anchor, with recent results used as directional evidence rather than automatically becoming the next search centre | Week 5 produced new bests for Functions 2, 5, and 7. Function 6 remained stalled, which led to the Week 6 correction probe. | [Week 5 Approach](week5/approach.md), [Week 5 Notes](week5/notes.md), [Week 5 Reproduction](week5/reproduction.md), [Week 5 Inputs](week5/inputs.json) |
 | 6 | Historical-best anchoring with Function 6 correction | Kept the historical-best anchoring rule, but added a deliberate lower-`x2`, lower-`x3` correction probe for Function 6 after repeated near-identical local nudges failed | Week 6 produced new bests for Functions 1, 2, 3, 4, 5, and 7. Function 8 stayed very close to its historical best. Function 6 underperformed, making it the clear outlier in the round. | [Week 6 Approach](week6/approach.md), [Week 6 Notes](week6/notes.md), [Week 6 Reproduction](week6/reproduction.md), [Week 6 Inputs](week6/inputs.json) |
 | 7 | Benchmark-backed state-policy with manual basin-preserving overrides | Converted the benchmark lessons into explicit `momentum`, `refine`, and `recovery` rules, then clipped raw candidates back toward proven basins when the capstone evidence was narrower than the generic benchmark suggested | Week 7 produced new bests for Functions 1, 4, 5, 6, and 7. Function 6 was the biggest strategic win because the recovery reset beat all previous observations. Functions 2 and 3 dipped, while Function 8 stayed almost exactly on its best basin. | [Week 7 Approach](week7/approach.md), [Week 7 Notes](week7/notes.md), [Week 7 Reproduction](week7/reproduction.md), [Week 7 Inputs](week7/inputs.json) |
-| 8 | Backtest-informed micro-local trust-region submission | Added a true historical backtest. It showed that the raw state-policy generator is directionally useful but usually wider than the successful manual submissions, so final candidates were clipped tightly around proven basins. | Submission prepared. Momentum: Functions 1, 4, 5, 6, 7. Refine: Functions 2, 3. Recovery: Function 8. | [Week 8 Approach](week8/approach.md), [Week 8 Notes](week8/notes.md), [Week 8 Reproduction](week8/reproduction.md), [Week 8 Inputs](week8/inputs.json) |
+| 8 | Backtest-informed micro-local trust-region submission | Added a true historical backtest. It showed that the raw state-policy generator is directionally useful but usually wider than the successful manual submissions, so final candidates were clipped tightly around proven basins. | Week 8 produced new bests for Functions 1, 4, 5, and 7. Functions 2, 3, 6, and 8 missed, setting up stagnant/refine/recovery handling for Week 9. | [Week 8 Approach](week8/approach.md), [Week 8 Notes](week8/notes.md), [Week 8 Reproduction](week8/reproduction.md), [Week 8 Inputs](week8/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -247,7 +249,7 @@ The repository is organised to support the weekly optimisation cycle:
 - `week5/`: Week 5 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week6/`: Week 6 submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week7/`: Week 7 completed round with submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
-- `week8/`: prepared candidate submission, raw candidates, approach notes, and reproduction steps
+- `week8/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
 - `week9/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `reports/`: generated diagnostic reports used before preparing later-round submissions
@@ -341,3 +343,5 @@ For Week 7 review, I added a true historical backtest of the state-policy genera
 I also explored a ranking-based policy variant that selects between multiple candidate types rather than accepting the base state-policy recommendation. This was a useful engineering experiment because it made the selection criteria explicit, but the COCO/BBOB results did not justify adopting it. On the development benchmark, the ranked variant lost to the simpler state policy on `44` of `72` comparable problems and won only `24`. The decision for now is to keep the ranked policy available in the script for future experimentation, but not use it for live capstone submissions.
 
 The Week 8 candidate submission applies that backtest lesson directly. Raw candidates were generated with the state-policy script, but the final submitted points were manually clipped into tighter trust regions around the best observed basins. Functions 1, 4, 5, 6, and 7 are treated as momentum cases. Functions 2 and 3 are refine cases anchored on their Week 6 bests. Function 8 is a recovery case anchored tightly on its Week 2 best basin. The final Week 8 rationale is documented in [week8/approach.md](week8/approach.md), with exact reproduction steps in [week8/reproduction.md](week8/reproduction.md).
+
+Week 8 results validated the micro-local approach for several functions, producing new bests for Functions 1, 4, 5, and 7. It did not improve Functions 2, 3, 6, or 8. The Week 8 diagnostics now classify Functions 1, 4, 5, and 7 as momentum cases; Functions 2 and 3 as stagnant cases where one bounded alternative can be compared against a local point; Function 6 as a refine case returning toward its Week 7 best; and Function 8 as a recovery case anchored tightly on the Week 2 best basin. The updated backtest through Week 8 still shows the raw state-policy generator is usually wider than the successful hand-blended submissions, with the policy more local than the actual submission only `12.50%` of the time. For Week 9, the rule remains: use the generator for state and direction, but keep final choices basin-aware and conservative unless stagnation clearly justifies one bounded alternative.

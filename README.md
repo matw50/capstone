@@ -67,6 +67,12 @@ Ranked-policy experiment:
 - development benchmark: ranked policy beat the state policy on `24` of `72` problems, lost on `44`, and tied on `4`
 - interpretation: the ranked layer beat random continuation, but it underperformed the simpler state-policy approach, so it is documented as an explored but rejected option for current capstone submissions
 
+Current benchmarking decision:
+- COCO/BBOB is now treated as a policy-change validation tool, not a routine weekly step
+- I will rerun COCO/BBOB only when introducing a materially new rule or candidate-selection policy
+- the weekly default is to use capstone-specific progress diagnostics, historical backtests, sanity checks, and classifier/MLP secondary checks
+- this avoids overfitting the external benchmark and keeps attention on the actual capstone response history
+
 Artifacts:
 - [Benchmark README](benchmarks/coco/README.md)
 - [Benchmark Summary](benchmarks/coco/week6_style_budget13/summary.json)
@@ -351,3 +357,5 @@ The Week 8 candidate submission applies that backtest lesson directly. Raw candi
 Week 8 results validated the micro-local approach for several functions, producing new bests for Functions 1, 4, 5, and 7. It did not improve Functions 2, 3, 6, or 8. The Week 8 diagnostics now classify Functions 1, 4, 5, and 7 as momentum cases; Functions 2 and 3 as stagnant cases where one bounded alternative can be compared against a local point; Function 6 as a refine case returning toward its Week 7 best; and Function 8 as a recovery case anchored tightly on the Week 2 best basin. The updated backtest through Week 8 still shows the raw state-policy generator is usually wider than the successful hand-blended submissions, with the policy more local than the actual submission only `12.50%` of the time. For Week 9, the rule remains: use the generator for state and direction, but keep final choices basin-aware and conservative unless stagnation clearly justifies one bounded alternative.
 
 Week 9 was one of the strongest rounds so far, producing new bests for Functions 1, 3, 4, 5, 6, and 7. The return-to-basin move for Function 6 worked particularly well, and the micro-local continuation strategy remained strong for Functions 1, 4, 5, and 7. Function 3 also improved after staying close to the Week 6/Week 8 basin rather than taking the wider raw candidate. Function 2's bounded alternative failed, so it should now be treated as a recovery case anchored back on the Week 6 best. Function 8 remains very close to its Week 2 best but still has not improved, so broad moves remain hard to justify. The Week 9 diagnostics classify Functions 1, 3, 4, 5, 6, and 7 as momentum cases, and Functions 2 and 8 as recovery cases.
+
+After Week 9, I explicitly decided not to rerun COCO/BBOB as a routine pre-submission step. The capstone now has enough internal evidence that the most useful weekly checks are the function-specific diagnostics and leakage-safe historical backtest. COCO/BBOB remains valuable when testing a new policy idea, such as the ranked selector, but rerunning it every week risks optimizing against the benchmark rather than the eight course functions. The current operating rule is: benchmark externally only when the policy changes; otherwise, use internal diagnostics and manual basin-aware blending.

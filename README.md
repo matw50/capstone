@@ -15,6 +15,10 @@ The repository currently uses:
 - `scikit-learn` for surrogate models, classifier checks, and the experimental MLP surrogate
 - `matplotlib` for convergence and low-dimensional plots
 
+## Documentation
+- [Dataset Datasheet](docs/datasheet.md): documents the motivation, composition, collection process, intended uses, distribution, and maintenance of the BBO capstone dataset.
+- [Model Card](docs/model_card.md): documents the state-policy trust-region optimisation approach, intended use, performance, assumptions, limitations, and responsible AI considerations.
+
 ## Current Status
 | Item | Status |
 |---|---|
@@ -264,6 +268,7 @@ The repository is organised to support the weekly optimisation cycle:
 - `week10/`: submitted round with raw candidates, final submission, approach notes, and reproduction steps
 - `week11/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
+- `docs/`: datasheet and model card documentation
 - `reports/`: generated diagnostic reports used before preparing later-round submissions
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `requirements.txt`: lightweight Python dependency list for reproducing the workflow

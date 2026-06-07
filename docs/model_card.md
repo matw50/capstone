@@ -3,7 +3,7 @@
 ## Overview
 Model name: State-Policy Trust-Region BBO Optimiser
 
-Version: Week 10 submission version
+Version: Week 10 results version
 
 Type: Hybrid black-box optimisation workflow using surrogate-generated candidates, diagnostic checks, historical backtesting, and manual basin-aware blending.
 
@@ -69,20 +69,20 @@ Secondary metrics and diagnostics:
 - classifier high-region prediction
 - historical backtest locality and support deltas
 
-Best observed outputs through Week 9:
+Best observed outputs through Week 10:
 
 | Function | Best Output | Source |
 | --- | ---: | --- |
-| 1 | `1.0336471033861818e-14` | Week 9 |
+| 1 | `1.4866234300522646e-14` | Week 10 |
 | 2 | `0.7729097325485852` | Week 6 |
 | 3 | `-0.03004312377587237` | Week 9 |
-| 4 | `-3.914241793277785` | Week 9 |
-| 5 | `3611.7361248913985` | Week 9 |
+| 4 | `-3.894853077058254` | Week 10 |
+| 5 | `3791.026604594503` | Week 10 |
 | 6 | `-0.4783073181880428` | Week 9 |
-| 7 | `1.8258324483760047` | Week 9 |
-| 8 | `9.7841491208186` | Week 2 |
+| 7 | `1.8607688064809809` | Week 10 |
+| 8 | `9.784294951` | Week 10 |
 
-Week 9 was the strongest round so far, producing new bests for Functions 1, 3, 4, 5, 6, and 7. Function 2 and Function 8 remain the most difficult functions in the later stage.
+Week 10 produced new bests for Functions 1, 4, 5, 7, and 8. Function 8 was especially important because it finally improved beyond the long-standing Week 2 best. Function 2 remains the most difficult later-stage recovery case, while Functions 3 and 6 should return toward their Week 9 best basins after Week 10 misses.
 
 External validation:
 - COCO/BBOB was used to validate policy changes against random continuation

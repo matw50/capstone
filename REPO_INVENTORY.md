@@ -18,9 +18,8 @@ Current top-level dependencies:
 ## Current Structure
 - `initial_data/function_<n>/initial_inputs.npy`: original input arrays for each function
 - `initial_data/function_<n>/initial_outputs.npy`: original output arrays for each function
-- `week1/` to `week9/`: completed rounds with recorded submissions, returned outputs, and appended `.npy` files when generated
-- `week9/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
-- `week10/` to `week13/`: standardized scaffold folders for future rounds
+- `week1/` to `week10/`: completed rounds with recorded submissions, returned outputs, appended `.npy` files, approach notes, and reproduction steps
+- `week11/` to `week13/`: standardized scaffold folders for future rounds
 - `benchmarks/`: external benchmark runs used to sanity-check the policy outside the capstone portal
 - `reports/`: generated diagnostic and backtest reports used to review progress, sensitivity, and policy behaviour before later submissions
 - `scripts/`: helper scripts for maintaining the weekly workflow
@@ -61,10 +60,10 @@ Example:
 ```
 
 Latest reports:
-- `reports/week8_diagnostics/progress_diagnostics.md`
-- `reports/week8_diagnostics/progress_diagnostics.json`
-- `reports/week8_backtest/state_policy_backtest.md`
-- `reports/week8_backtest/state_policy_backtest.json`
+- `reports/week10_diagnostics/progress_diagnostics.md`
+- `reports/week10_diagnostics/progress_diagnostics.json`
+- `reports/week10_backtest/state_policy_backtest.md`
+- `reports/week10_backtest/state_policy_backtest.json`
 
 ### `scripts/scaffold_week_structure.py`
 Creates or standardizes the core scaffold files for one or more future week folders.
@@ -133,7 +132,7 @@ python3 scripts/sanity_check_candidates.py --repo-root . --through-week week1 --
 ## Notes
 - The repository now contains the core helper scripts needed for the current workflow.
 - Week scaffolds are now standardized so future rounds start with the same core files.
-- Week 9 results have been recorded. The next workflow step is to prepare the Week 10 submission.
+- Week 10 results have been recorded. The next workflow step is to prepare the Week 11 submission.
 - One possible future improvement would be to let `append_week_results.py` optionally write directly into `weekN/function_<n>/` so the generated `.npy` files land beside the JSON records without needing a separate output path.
 - Another useful future improvement would be a script that combines all three steps: fill a week from pasted text, generate the appended `.npy` files for that week, and produce draft candidate queries for the next week.
 

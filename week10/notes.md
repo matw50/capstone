@@ -1,6 +1,6 @@
 # Week 10 Notes
 
-Status: submitted
+Status: completed
 
 ## What Week 9 Taught Us
 Week 9 produced new bests for Functions 1, 3, 4, 5, 6, and 7. This strongly supported the micro-local trust-region approach. Function 6 was particularly useful evidence because the Week 9 return-to-basin move produced a new best after Week 8 had missed.
@@ -29,9 +29,21 @@ The final Week 10 inputs passed the main checks:
 
 The only notable flag was Function 5 being near the upper boundary on `x4`. This was accepted because Functions 5 has improved repeatedly while moving in this boundary-adjacent direction.
 
-## Awaiting Results
-After Week 10 outputs return, classify each function as:
-- new best: continue momentum with a smaller local step
-- near miss: refine around the historical best
-- clear miss: reset to best basin
-- repeated miss: allow one bounded alternative only if the function is already stagnant
+## Returned Results
+| Function | Week 10 Output | Previous Best | Outcome |
+|---|---:|---:|---|
+| 1 | `1.4866234300522646e-14` | `1.0336471033861818e-14` | New best |
+| 2 | `0.5643141829384726` | `0.7729097325485852` | Miss, best remains Week 6 |
+| 3 | `-0.04091048355168235` | `-0.03004312377587237` | Miss, best remains Week 9 |
+| 4 | `-3.894853077058254` | `-3.914241793277785` | New best |
+| 5 | `3791.026604594503` | `3611.7361248913985` | New best |
+| 6 | `-0.6311451723650855` | `-0.4783073181880428` | Miss, best remains Week 9 |
+| 7 | `1.8607688064809809` | `1.8258324483760047` | New best |
+| 8 | `9.784294951` | `9.7841491208186` | New best, finally beat Week 2 |
+
+## Week 11 Implications
+Week 10 mostly confirmed the late-stage micro-local strategy. Functions 1, 4, 5, 7, and 8 should be treated as momentum cases, with smaller moves around the latest successful point. Function 8 is the most important positive update because the Week 10 recovery probe finally improved the long-standing Week 2 best.
+
+Function 2 remains the main recovery problem and should reset toward the Week 6 best basin rather than chase the Week 10 point. Functions 3 and 6 should be treated as refine cases returning to their Week 9 best basins, because both missed after recent improvements.
+
+The Week 10 diagnostics and backtest still support the existing decision logic: use generated candidates for state and direction, but keep final submissions conservative, basin-aware, and manually clipped when raw candidates are too wide.

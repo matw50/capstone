@@ -22,23 +22,23 @@ The repository currently uses:
 ## Current Status
 | Item | Status |
 |---|---|
-| Latest completed round | Week 9 results recorded |
-| Next submission prepared | Week 10 submitted, awaiting results |
-| Current optimisation phase | Waiting for Week 10 portal outputs |
+| Latest completed round | Week 10 results recorded |
+| Next submission prepared | Not yet |
+| Current optimisation phase | Reviewing Week 10 outcomes before Week 11 candidate generation |
 | Main operating pattern | Local trust-region search plus manual sanity checks |
 | Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, experimental MLP ensemble checks, COCO/BBOB benchmarking, and historical backtesting |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
 |---|---|---|---|
-| 1 | `1.0336471033861818e-14` | Week 9 | Sparse narrow peak, still improving under ultra-local probing |
+| 1 | `1.4866234300522646e-14` | Week 10 | Sparse narrow peak, still improving under ultra-local probing |
 | 2 | `0.7729097325485852` | Week 6 | Local momentum after historical-best anchoring |
 | 3 | `-0.03004312377587237` | Week 9 | Week 9 basin-preserving move set a new best |
-| 4 | `-3.914241793277785` | Week 9 | Local refinement continues to improve |
-| 5 | `3611.7361248913985` | Week 9 | Strongest momentum function, still improving |
-| 6 | `-0.4783073181880428` | Week 9 | Week 9 return-to-basin move set a new best |
-| 7 | `1.8258324483760047` | Week 9 | Strong momentum after recovery |
-| 8 | `9.7841491208186` | Week 2 | Week 9 stayed close but still below the validated local basin |
+| 4 | `-3.894853077058254` | Week 10 | Local refinement continues to improve |
+| 5 | `3791.026604594503` | Week 10 | Strongest momentum function, still improving |
+| 6 | `-0.4783073181880428` | Week 9 | Week 10 missed, so return toward the Week 9 best basin |
+| 7 | `1.8607688064809809` | Week 10 | Strong momentum after recovery |
+| 8 | `9.784294951` | Week 10 | Week 10 finally improved beyond the long-standing Week 2 best |
 
 ## External Benchmarking
 To sanity-check whether the current capstone policy behaves like a useful optimizer outside the course portal, I added a COCO/BBOB benchmark harness.
@@ -91,6 +91,8 @@ Artifacts:
 - [Week 8 State Policy Backtest](reports/week8_backtest/state_policy_backtest.md)
 - [Week 9 Progress Diagnostics](reports/week9_diagnostics/progress_diagnostics.md)
 - [Week 9 State Policy Backtest](reports/week9_backtest/state_policy_backtest.md)
+- [Week 10 Progress Diagnostics](reports/week10_diagnostics/progress_diagnostics.md)
+- [Week 10 State Policy Backtest](reports/week10_backtest/state_policy_backtest.md)
 
 ## Weekly Index
 | Week | Status | Folder | Notes | Reproduction | Results |
@@ -104,7 +106,7 @@ Artifacts:
 | 7 | Completed | [week7](week7/) | [notes](week7/notes.md) | [reproduction](week7/reproduction.md) | [results](week7/results.json) |
 | 8 | Completed | [week8](week8/) | [notes](week8/notes.md) | [reproduction](week8/reproduction.md) | [results](week8/results.json) |
 | 9 | Completed | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
-| 10 | Submitted | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
+| 10 | Completed | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
 | 11 | Scaffold | [week11](week11/) | [notes](week11/notes.md) | [reproduction](week11/reproduction.md) | [results](week11/results.json) |
 | 12 | Scaffold | [week12](week12/) | [notes](week12/notes.md) | [reproduction](week12/reproduction.md) | [results](week12/results.json) |
 | 13 | Scaffold | [week13](week13/) | [notes](week13/notes.md) | [reproduction](week13/reproduction.md) | [results](week13/results.json) |
@@ -243,7 +245,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 7 | Benchmark-backed state-policy with manual basin-preserving overrides | Converted the benchmark lessons into explicit `momentum`, `refine`, and `recovery` rules, then clipped raw candidates back toward proven basins when the capstone evidence was narrower than the generic benchmark suggested | Week 7 produced new bests for Functions 1, 4, 5, 6, and 7. Function 6 was the biggest strategic win because the recovery reset beat all previous observations. Functions 2 and 3 dipped, while Function 8 stayed almost exactly on its best basin. | [Week 7 Approach](week7/approach.md), [Week 7 Notes](week7/notes.md), [Week 7 Reproduction](week7/reproduction.md), [Week 7 Inputs](week7/inputs.json) |
 | 8 | Backtest-informed micro-local trust-region submission | Added a true historical backtest. It showed that the raw state-policy generator is directionally useful but usually wider than the successful manual submissions, so final candidates were clipped tightly around proven basins. | Week 8 produced new bests for Functions 1, 4, 5, and 7. Functions 2, 3, 6, and 8 missed, setting up stagnant/refine/recovery handling for Week 9. | [Week 8 Approach](week8/approach.md), [Week 8 Notes](week8/notes.md), [Week 8 Reproduction](week8/reproduction.md), [Week 8 Inputs](week8/inputs.json) |
 | 9 | Week 8-state-adapted blended submission | Kept micro-local exploitation for momentum functions, allowed one bounded alternative for stagnant Function 2, returned Function 6 to its Week 7 best basin, and kept Function 8 anchored near its Week 2 best. | Week 9 produced new bests for Functions 1, 3, 4, 5, 6, and 7. Function 2's bounded alternative failed, and Function 8 remains close but below its Week 2 best. | [Week 9 Approach](week9/approach.md), [Week 9 Notes](week9/notes.md), [Week 9 Reproduction](week9/reproduction.md), [Week 9 Inputs](week9/inputs.json) |
-| 10 | Week 9 momentum/recovery blend | Continued micro-local exploitation for Functions 1, 3, 4, 5, 6, and 7; reset Function 2 near the Week 6 best; and kept Function 8 tightly anchored around the Week 2 best. | Submitted and awaiting outputs. The raw generator was used as a signal source, but final choices were manually clipped to proven basins. | [Week 10 Approach](week10/approach.md), [Week 10 Notes](week10/notes.md), [Week 10 Reproduction](week10/reproduction.md), [Week 10 Inputs](week10/inputs.json) |
+| 10 | Week 9 momentum/recovery blend | Continued micro-local exploitation for Functions 1, 3, 4, 5, 6, and 7; reset Function 2 near the Week 6 best; and kept Function 8 tightly anchored around the Week 2 best. | Week 10 produced new bests for Functions 1, 4, 5, 7, and 8. Function 8 finally beat its Week 2 best. Functions 3 and 6 missed and should return toward their Week 9 best basins. | [Week 10 Approach](week10/approach.md), [Week 10 Notes](week10/notes.md), [Week 10 Reproduction](week10/reproduction.md), [Week 10 Inputs](week10/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -265,7 +267,7 @@ The repository is organised to support the weekly optimisation cycle:
 - `week7/`: Week 7 completed round with submission, outputs, appended datasets, raw candidates, approach notes, and reproduction notes
 - `week8/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
 - `week9/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
-- `week10/`: submitted round with raw candidates, final submission, approach notes, and reproduction steps
+- `week10/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
 - `week11/` to `week13/`: standardized scaffold folders for future rounds, including placeholder strategy, notes, and reproduction files
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `docs/`: datasheet and model card documentation
@@ -366,3 +368,5 @@ Week 8 results validated the micro-local approach for several functions, produci
 Week 9 was one of the strongest rounds so far, producing new bests for Functions 1, 3, 4, 5, 6, and 7. The return-to-basin move for Function 6 worked particularly well, and the micro-local continuation strategy remained strong for Functions 1, 4, 5, and 7. Function 3 also improved after staying close to the Week 6/Week 8 basin rather than taking the wider raw candidate. Function 2's bounded alternative failed, so it should now be treated as a recovery case anchored back on the Week 6 best. Function 8 remains very close to its Week 2 best but still has not improved, so broad moves remain hard to justify. The Week 9 diagnostics classify Functions 1, 3, 4, 5, 6, and 7 as momentum cases, and Functions 2 and 8 as recovery cases.
 
 After Week 9, I explicitly decided not to rerun COCO/BBOB as a routine pre-submission step. The capstone now has enough internal evidence that the most useful weekly checks are the function-specific diagnostics and leakage-safe historical backtest. COCO/BBOB remains valuable when testing a new policy idea, such as the ranked selector, but rerunning it every week risks optimizing against the benchmark rather than the eight course functions. The current operating rule is: benchmark externally only when the policy changes; otherwise, use internal diagnostics and manual basin-aware blending.
+
+Week 10 produced new bests for Functions 1, 4, 5, 7, and 8. The most important change was Function 8, where the tightly anchored recovery probe finally improved beyond the long-standing Week 2 best, moving it into momentum for Week 11. Functions 3 and 6 missed after Week 9 bests, so they should be treated as refine cases returning to their Week 9 best basins. Function 2 remains the main recovery problem after another miss. The updated Week 10 backtest still shows that raw state-policy candidates tend to be wider than the successful hand-blended submissions, so the Week 11 process should continue to use internal diagnostics and manual basin-aware blending rather than broad raw model jumps.

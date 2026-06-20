@@ -1,0 +1,1166 @@
+{
+  "through_week": "week11",
+  "recent_moves": 5,
+  "functions": {
+    "1": {
+      "dimension": 2,
+      "observations": 21,
+      "best_output": 2.1298682212075036e-14,
+      "best_input": [
+        0.7285,
+        0.7267
+      ],
+      "best_source": "week11",
+      "latest_output": 2.1298682212075036e-14,
+      "latest_state": "momentum",
+      "non_improving_streak": 0,
+      "week_outcomes": [
+        {
+          "week": 1,
+          "output": -9.555047198348835e-21,
+          "best_before": 7.710875114502849e-16,
+          "improved_best": false,
+          "distance_to_prior_best": 0.020226327206948967,
+          "distance_to_latest": 0.2069064881995714,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 2,
+          "output": -1.1791010396339067e-22,
+          "best_before": 7.710875114502849e-16,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0372131785266952,
+          "distance_to_latest": 0.033541019662496875,
+          "action_type": "local"
+        },
+        {
+          "week": 3,
+          "output": -2.129897404039176e-19,
+          "best_before": 7.710875114502849e-16,
+          "improved_best": false,
+          "distance_to_prior_best": 0.015129763453376265,
+          "distance_to_latest": 0.02209072203437454,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 4,
+          "output": 2.449144980303799e-17,
+          "best_before": 7.710875114502849e-16,
+          "improved_best": false,
+          "distance_to_prior_best": 0.006665678672899146,
+          "distance_to_latest": 0.00851469318296315,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 5,
+          "output": 2.503037341959087e-16,
+          "best_before": 7.710875114502849e-16,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0021455170114191347,
+          "distance_to_latest": 0.004554119014694344,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 6,
+          "output": 1.7043369097736036e-15,
+          "best_before": 7.710875114502849e-16,
+          "improved_best": true,
+          "distance_to_prior_best": 0.001588653089699495,
+          "distance_to_latest": 0.0037336309405188338,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 7,
+          "output": 4.250433342725532e-15,
+          "best_before": 1.7043369097736036e-15,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0018384776310850686,
+          "distance_to_latest": 0.0018384776310850686,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 8,
+          "output": 7.15841792430019e-15,
+          "best_before": 4.250433342725532e-15,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0010770329614268853,
+          "distance_to_latest": 0.0010770329614268853,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 9,
+          "output": 1.0336471033861818e-14,
+          "best_before": 7.15841792430019e-15,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0007615773105864528,
+          "distance_to_latest": 0.0007615773105864528,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 10,
+          "output": 1.4866234300522646e-14,
+          "best_before": 1.0336471033861818e-14,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0007615773105863069,
+          "distance_to_latest": 0.0007615773105863069,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 11,
+          "output": 2.1298682212075036e-14,
+          "best_before": 1.4866234300522646e-14,
+          "improved_best": true,
+          "distance_to_prior_best": 0.000761577310586409,
+          "distance_to_latest": 0.000761577310586409,
+          "action_type": "micro-local"
+        }
+      ],
+      "sensitivity": {
+        "status": "ok",
+        "scores": [
+          -3.593770309217367e-15,
+          -3.5696944823886675e-15
+        ],
+        "top_coordinates": [
+          {
+            "coordinate": 1,
+            "score": -3.593770309217367e-15,
+            "direction": "decrease",
+            "strength": 3.593770309217367e-15
+          },
+          {
+            "coordinate": 2,
+            "score": -3.5696944823886675e-15,
+            "direction": "decrease",
+            "strength": 3.5696944823886675e-15
+          }
+        ]
+      },
+      "next_read": "Exploit locally; consider moving mainly along x1 decrease, x2 decrease."
+    },
+    "2": {
+      "dimension": 2,
+      "observations": 21,
+      "best_output": 0.7729097325485852,
+      "best_input": [
+        0.696,
+        0.934
+      ],
+      "best_source": "week6",
+      "latest_output": 0.460083800687324,
+      "latest_state": "recovery",
+      "non_improving_streak": 5,
+      "week_outcomes": [
+        {
+          "week": 1,
+          "output": 0.4507276047939478,
+          "best_before": 0.6112052157614438,
+          "improved_best": false,
+          "distance_to_prior_best": 0.05970135150498907,
+          "distance_to_latest": 0.05970135150498907,
+          "action_type": "wide-local"
+        },
+        {
+          "week": 2,
+          "output": 0.5879458606326573,
+          "best_before": 0.6112052157614438,
+          "improved_best": false,
+          "distance_to_prior_best": 0.004330839516972429,
+          "distance_to_latest": 0.06403124237432854,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 3,
+          "output": 0.5649169509458406,
+          "best_before": 0.6112052157614438,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0018311991510148076,
+          "distance_to_latest": 0.0025000000000000356,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 4,
+          "output": 0.4784708958247099,
+          "best_before": 0.6112052157614438,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0011317822015715264,
+          "distance_to_latest": 0.0007071067811865482,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 5,
+          "output": 0.6804759634712958,
+          "best_before": 0.6112052157614438,
+          "improved_best": true,
+          "distance_to_prior_best": 0.007144620944270113,
+          "distance_to_latest": 0.006020797289396194,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 6,
+          "output": 0.7729097325485852,
+          "best_before": 0.6804759634712958,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0028284271247461927,
+          "distance_to_latest": 0.0028284271247461927,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 7,
+          "output": 0.7227908397061406,
+          "best_before": 0.7729097325485852,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0028284271247461927,
+          "distance_to_latest": 0.0028284271247461927,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 8,
+          "output": 0.666645236194811,
+          "best_before": 0.7729097325485852,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0007071067811865482,
+          "distance_to_latest": 0.002915475947422729,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 9,
+          "output": 0.5809565697889844,
+          "best_before": 0.7729097325485852,
+          "improved_best": false,
+          "distance_to_prior_best": 0.025141180501320845,
+          "distance_to_latest": 0.024898713962773242,
+          "action_type": "local"
+        },
+        {
+          "week": 10,
+          "output": 0.5643141829384726,
+          "best_before": 0.7729097325485852,
+          "improved_best": false,
+          "distance_to_prior_best": 0.001118033988749871,
+          "distance_to_latest": 0.025863022967162915,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 11,
+          "output": 0.460083800687324,
+          "best_before": 0.7729097325485852,
+          "improved_best": false,
+          "distance_to_prior_best": 0.00028284271247474484,
+          "distance_to_latest": 0.001063014581273421,
+          "action_type": "micro-local"
+        }
+      ],
+      "sensitivity": {
+        "status": "ok",
+        "scores": [
+          0.07810997155869649,
+          -0.0994481815341825
+        ],
+        "top_coordinates": [
+          {
+            "coordinate": 2,
+            "score": -0.0994481815341825,
+            "direction": "decrease",
+            "strength": 0.0994481815341825
+          },
+          {
+            "coordinate": 1,
+            "score": 0.07810997155869649,
+            "direction": "increase",
+            "strength": 0.07810997155869649
+          }
+        ]
+      },
+      "next_read": "Reset to best basin before exploring; sensitivity says x2 decrease, x1 increase."
+    },
+    "3": {
+      "dimension": 3,
+      "observations": 26,
+      "best_output": -0.03004312377587237,
+      "best_input": [
+        0.4908,
+        0.5985,
+        0.345
+      ],
+      "best_source": "week9",
+      "latest_output": -0.03036841573134169,
+      "latest_state": "stagnant",
+      "non_improving_streak": 2,
+      "week_outcomes": [
+        {
+          "week": 1,
+          "output": -0.13856523089457012,
+          "best_before": -0.034835313350078584,
+          "improved_best": false,
+          "distance_to_prior_best": 0.14972892034672436,
+          "distance_to_latest": 0.5710923766512928,
+          "action_type": "broad"
+        },
+        {
+          "week": 2,
+          "output": -0.05560582825392717,
+          "best_before": -0.034835313350078584,
+          "improved_best": false,
+          "distance_to_prior_best": 0.10714961682404311,
+          "distance_to_latest": 0.11079259903080169,
+          "action_type": "wide-local"
+        },
+        {
+          "week": 3,
+          "output": -0.05046919192806,
+          "best_before": -0.034835313350078584,
+          "improved_best": false,
+          "distance_to_prior_best": 0.055044645352348945,
+          "distance_to_latest": 0.052134441590948245,
+          "action_type": "local"
+        },
+        {
+          "week": 4,
+          "output": -0.045958042327887666,
+          "best_before": -0.034835313350078584,
+          "improved_best": false,
+          "distance_to_prior_best": 0.02927082886204857,
+          "distance_to_latest": 0.025787593916455277,
+          "action_type": "local"
+        },
+        {
+          "week": 5,
+          "output": -0.037571358322335574,
+          "best_before": -0.034835313350078584,
+          "improved_best": false,
+          "distance_to_prior_best": 0.013850791063268492,
+          "distance_to_latest": 0.015427248620541527,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 6,
+          "output": -0.03140224643128403,
+          "best_before": -0.034835313350078584,
+          "improved_best": true,
+          "distance_to_prior_best": 0.008122028513605382,
+          "distance_to_latest": 0.02193171219946133,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 7,
+          "output": -0.05017215361785152,
+          "best_before": -0.03140224643128403,
+          "improved_best": false,
+          "distance_to_prior_best": 0.010488088481701508,
+          "distance_to_latest": 0.010488088481701508,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 8,
+          "output": -0.037502198178544936,
+          "best_before": -0.03140224643128403,
+          "improved_best": false,
+          "distance_to_prior_best": 0.003674234614174702,
+          "distance_to_latest": 0.006819090848492987,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 9,
+          "output": -0.03004312377587237,
+          "best_before": -0.03140224643128403,
+          "improved_best": true,
+          "distance_to_prior_best": 0.00597411081249747,
+          "distance_to_latest": 0.002343074902771992,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 10,
+          "output": -0.04091048355168235,
+          "best_before": -0.03004312377587237,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0016911534525288232,
+          "distance_to_latest": 0.0016911534525288232,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 11,
+          "output": -0.03036841573134169,
+          "best_before": -0.03004312377587237,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0011357816691600518,
+          "distance_to_latest": 0.00280891438103767,
+          "action_type": "micro-local"
+        }
+      ],
+      "sensitivity": {
+        "status": "ok",
+        "scores": [
+          0.08917180272036274,
+          0.12195849635255081,
+          -0.1107808760516667
+        ],
+        "top_coordinates": [
+          {
+            "coordinate": 2,
+            "score": 0.12195849635255081,
+            "direction": "increase",
+            "strength": 0.12195849635255081
+          },
+          {
+            "coordinate": 3,
+            "score": -0.1107808760516667,
+            "direction": "decrease",
+            "strength": 0.1107808760516667
+          },
+          {
+            "coordinate": 1,
+            "score": 0.08917180272036274,
+            "direction": "increase",
+            "strength": 0.08917180272036274
+          }
+        ]
+      },
+      "next_read": "Compare a local point against one bounded alternative; sensitivity says x2 increase, x3 decrease."
+    },
+    "4": {
+      "dimension": 4,
+      "observations": 41,
+      "best_output": -3.8786214264912924,
+      "best_input": [
+        0.5795,
+        0.4293,
+        0.4263,
+        0.261
+      ],
+      "best_source": "week11",
+      "latest_output": -3.8786214264912924,
+      "latest_state": "momentum",
+      "non_improving_streak": 0,
+      "week_outcomes": [
+        {
+          "week": 1,
+          "output": -6.045753382382884,
+          "best_before": -4.025542281908162,
+          "improved_best": false,
+          "distance_to_prior_best": 0.12035351361412808,
+          "distance_to_latest": 0.7961245831341404,
+          "action_type": "wide-local"
+        },
+        {
+          "week": 2,
+          "output": -7.363245806801839,
+          "best_before": -4.025542281908162,
+          "improved_best": false,
+          "distance_to_prior_best": 0.13153708414779244,
+          "distance_to_latest": 0.05848931526355902,
+          "action_type": "wide-local"
+        },
+        {
+          "week": 3,
+          "output": -4.669505408097649,
+          "best_before": -4.025542281908162,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0240739647115998,
+          "distance_to_latest": 0.1076243466879126,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 4,
+          "output": -4.222546292346188,
+          "best_before": -4.025542281908162,
+          "improved_best": false,
+          "distance_to_prior_best": 0.009044451797749762,
+          "distance_to_latest": 0.015033296378372894,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 5,
+          "output": -4.062154802752616,
+          "best_before": -4.025542281908162,
+          "improved_best": false,
+          "distance_to_prior_best": 0.002026464604262676,
+          "distance_to_latest": 0.007021395872616793,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 6,
+          "output": -3.992035882485815,
+          "best_before": -4.025542281908162,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0020066889685713112,
+          "distance_to_latest": 0.004032369030731187,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 7,
+          "output": -3.962742151304709,
+          "best_before": -3.992035882485815,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0020223748416156816,
+          "distance_to_latest": 0.0020223748416156816,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 8,
+          "output": -3.9368650702716717,
+          "best_before": -3.962742151304709,
+          "improved_best": true,
+          "distance_to_prior_best": 0.002042057785666206,
+          "distance_to_latest": 0.002042057785666206,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 9,
+          "output": -3.914241793277785,
+          "best_before": -3.9368650702716717,
+          "improved_best": true,
+          "distance_to_prior_best": 0.002027313493271325,
+          "distance_to_latest": 0.002027313493271325,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 10,
+          "output": -3.894853077058254,
+          "best_before": -3.914241793277785,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0020273134932713467,
+          "distance_to_latest": 0.0020273134932713467,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 11,
+          "output": -3.8786214264912924,
+          "best_before": -3.894853077058254,
+          "improved_best": true,
+          "distance_to_prior_best": 0.002027313493271325,
+          "distance_to_latest": 0.002027313493271325,
+          "action_type": "micro-local"
+        }
+      ],
+      "sensitivity": {
+        "status": "ok",
+        "scores": [
+          0.006509422166690283,
+          0.006313323539144521,
+          0.006313323539144521,
+          0.006509422170378885
+        ],
+        "top_coordinates": [
+          {
+            "coordinate": 4,
+            "score": 0.006509422170378885,
+            "direction": "increase",
+            "strength": 0.006509422170378885
+          },
+          {
+            "coordinate": 1,
+            "score": 0.006509422166690283,
+            "direction": "increase",
+            "strength": 0.006509422166690283
+          },
+          {
+            "coordinate": 2,
+            "score": 0.006313323539144521,
+            "direction": "increase",
+            "strength": 0.006313323539144521
+          }
+        ]
+      },
+      "next_read": "Exploit locally; consider moving mainly along x4 increase, x1 increase."
+    },
+    "5": {
+      "dimension": 4,
+      "observations": 31,
+      "best_output": 3977.5206205578024,
+      "best_input": [
+        0.07,
+        0.985,
+        0.985,
+        0.995
+      ],
+      "best_source": "week11",
+      "latest_output": 3977.5206205578024,
+      "latest_state": "momentum",
+      "non_improving_streak": 0,
+      "week_outcomes": [
+        {
+          "week": 1,
+          "output": 1421.0424648914295,
+          "best_before": 1088.8596181962705,
+          "improved_best": true,
+          "distance_to_prior_best": 0.08138470428467574,
+          "distance_to_latest": 1.0375559231521485,
+          "action_type": "wide-local"
+        },
+        {
+          "week": 2,
+          "output": 2208.227882422367,
+          "best_before": 1421.0424648914295,
+          "improved_best": true,
+          "distance_to_prior_best": 0.07158582031380238,
+          "distance_to_latest": 0.07158582031380238,
+          "action_type": "local"
+        },
+        {
+          "week": 3,
+          "output": 2675.1205400108825,
+          "best_before": 2208.227882422367,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0360555127546398,
+          "distance_to_latest": 0.0360555127546398,
+          "action_type": "local"
+        },
+        {
+          "week": 4,
+          "output": 2815.841162616493,
+          "best_before": 2675.1205400108825,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009999999999999995,
+          "distance_to_latest": 0.009999999999999995,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 5,
+          "output": 2962.2983942628757,
+          "best_before": 2815.841162616493,
+          "improved_best": true,
+          "distance_to_prior_best": 0.013228756555322964,
+          "distance_to_latest": 0.013228756555322964,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 6,
+          "output": 3114.916159936784,
+          "best_before": 2962.2983942628757,
+          "improved_best": true,
+          "distance_to_prior_best": 0.013228756555322964,
+          "distance_to_latest": 0.013228756555322964,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 7,
+          "output": 3273.8921448849183,
+          "best_before": 3114.916159936784,
+          "improved_best": true,
+          "distance_to_prior_best": 0.013228756555322954,
+          "distance_to_latest": 0.013228756555322954,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 8,
+          "output": 3439.429323444504,
+          "best_before": 3273.8921448849183,
+          "improved_best": true,
+          "distance_to_prior_best": 0.013228756555322954,
+          "distance_to_latest": 0.013228756555322954,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 9,
+          "output": 3611.7361248913985,
+          "best_before": 3439.429323444504,
+          "improved_best": true,
+          "distance_to_prior_best": 0.013228756555322964,
+          "distance_to_latest": 0.013228756555322964,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 10,
+          "output": 3791.026604594503,
+          "best_before": 3611.7361248913985,
+          "improved_best": true,
+          "distance_to_prior_best": 0.013228756555322954,
+          "distance_to_latest": 0.013228756555322954,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 11,
+          "output": 3977.5206205578024,
+          "best_before": 3791.026604594503,
+          "improved_best": true,
+          "distance_to_prior_best": 0.013228756555322954,
+          "distance_to_latest": 0.013228756555322954,
+          "action_type": "micro-local"
+        }
+      ],
+      "sensitivity": {
+        "status": "ok",
+        "scores": [
+          -0.06748381234487173,
+          0.06748381234352205,
+          0.06748381234352205,
+          0.06748381234352205
+        ],
+        "top_coordinates": [
+          {
+            "coordinate": 1,
+            "score": -0.06748381234487173,
+            "direction": "decrease",
+            "strength": 0.06748381234487173
+          },
+          {
+            "coordinate": 2,
+            "score": 0.06748381234352205,
+            "direction": "increase",
+            "strength": 0.06748381234352205
+          },
+          {
+            "coordinate": 3,
+            "score": 0.06748381234352205,
+            "direction": "increase",
+            "strength": 0.06748381234352205
+          }
+        ]
+      },
+      "next_read": "Exploit locally; consider moving mainly along x1 decrease, x2 increase."
+    },
+    "6": {
+      "dimension": 5,
+      "observations": 31,
+      "best_output": -0.4783073181880428,
+      "best_input": [
+        0.5002,
+        0.3245,
+        0.3855,
+        0.8935,
+        0.0388
+      ],
+      "best_source": "week9",
+      "latest_output": -0.5778993109420945,
+      "latest_state": "stagnant",
+      "non_improving_streak": 2,
+      "week_outcomes": [
+        {
+          "week": 1,
+          "output": -0.5406455142504304,
+          "best_before": -0.7142649478202404,
+          "improved_best": true,
+          "distance_to_prior_best": 0.4910903114989885,
+          "distance_to_latest": 1.009461437630682,
+          "action_type": "broad"
+        },
+        {
+          "week": 2,
+          "output": -0.6364378962238962,
+          "best_before": -0.5406455142504304,
+          "improved_best": false,
+          "distance_to_prior_best": 0.018899953174545157,
+          "distance_to_latest": 0.018899953174545157,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 3,
+          "output": -0.5518361050265084,
+          "best_before": -0.5406455142504304,
+          "improved_best": false,
+          "distance_to_prior_best": 0.015138799357941156,
+          "distance_to_latest": 0.016181893152533176,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 4,
+          "output": -0.5849568194612891,
+          "best_before": -0.5406455142504304,
+          "improved_best": false,
+          "distance_to_prior_best": 0.00920973647831467,
+          "distance_to_latest": 0.008485281374238578,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 5,
+          "output": -0.5837700438468816,
+          "best_before": -0.5406455142504304,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0057467596086838435,
+          "distance_to_latest": 0.014705441169852757,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 6,
+          "output": -0.6974251396129195,
+          "best_before": -0.5406455142504304,
+          "improved_best": false,
+          "distance_to_prior_best": 0.03420764893996664,
+          "distance_to_latest": 0.035878266401820506,
+          "action_type": "local"
+        },
+        {
+          "week": 7,
+          "output": -0.4993080476858224,
+          "best_before": -0.5406455142504304,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0006159918830634158,
+          "distance_to_latest": 0.03458453411569978,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 8,
+          "output": -0.5318287495170636,
+          "best_before": -0.4993080476858224,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0013564659966250924,
+          "distance_to_latest": 0.0013564659966250924,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 9,
+          "output": -0.4783073181880428,
+          "best_before": -0.4993080476858224,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0008944271909998841,
+          "distance_to_latest": 0.0022135943621178792,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 10,
+          "output": -0.6311451723650855,
+          "best_before": -0.4783073181880428,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0005385164807135173,
+          "distance_to_latest": 0.0005385164807135173,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 11,
+          "output": -0.5778993109420945,
+          "best_before": -0.4783073181880428,
+          "improved_best": false,
+          "distance_to_prior_best": 0.00022912878474776828,
+          "distance_to_latest": 0.0007566372975211159,
+          "action_type": "micro-local"
+        }
+      ],
+      "sensitivity": {
+        "status": "ok",
+        "scores": [
+          0.18817642034550944,
+          0.7931945416468582,
+          0.8166646071146253,
+          -0.6890647561114399,
+          0.7654002544094578
+        ],
+        "top_coordinates": [
+          {
+            "coordinate": 3,
+            "score": 0.8166646071146253,
+            "direction": "increase",
+            "strength": 0.8166646071146253
+          },
+          {
+            "coordinate": 2,
+            "score": 0.7931945416468582,
+            "direction": "increase",
+            "strength": 0.7931945416468582
+          },
+          {
+            "coordinate": 5,
+            "score": 0.7654002544094578,
+            "direction": "increase",
+            "strength": 0.7654002544094578
+          }
+        ]
+      },
+      "next_read": "Compare a local point against one bounded alternative; sensitivity says x3 increase, x2 increase."
+    },
+    "7": {
+      "dimension": 6,
+      "observations": 41,
+      "best_output": 1.8932361849960195,
+      "best_input": [
+        0.057,
+        0.436,
+        0.252,
+        0.212,
+        0.332,
+        0.72
+      ],
+      "best_source": "week11",
+      "latest_output": 1.8932361849960195,
+      "latest_state": "momentum",
+      "non_improving_streak": 0,
+      "week_outcomes": [
+        {
+          "week": 1,
+          "output": 0.15648740980222917,
+          "best_before": 1.3649683044991994,
+          "improved_best": false,
+          "distance_to_prior_best": 0.4353660043244983,
+          "distance_to_latest": 1.3504826162753936,
+          "action_type": "broad"
+        },
+        {
+          "week": 2,
+          "output": 0.9791489313930841,
+          "best_before": 1.3649683044991994,
+          "improved_best": false,
+          "distance_to_prior_best": 0.27777243520724476,
+          "distance_to_latest": 0.5717530329434204,
+          "action_type": "broad"
+        },
+        {
+          "week": 3,
+          "output": 1.5735371355272594,
+          "best_before": 1.3649683044991994,
+          "improved_best": true,
+          "distance_to_prior_best": 0.13905726200068305,
+          "distance_to_latest": 0.13871914071244815,
+          "action_type": "wide-local"
+        },
+        {
+          "week": 4,
+          "output": 1.6197843029490568,
+          "best_before": 1.5735371355272594,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009899494936611674,
+          "distance_to_latest": 0.009899494936611674,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 5,
+          "output": 1.6645971234129806,
+          "best_before": 1.6197843029490568,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009899494936611674,
+          "distance_to_latest": 0.009899494936611674,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 6,
+          "output": 1.7077885403964521,
+          "best_before": 1.6645971234129806,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009899494936611674,
+          "distance_to_latest": 0.009899494936611674,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 7,
+          "output": 1.7491755214029385,
+          "best_before": 1.7077885403964521,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009899494936611629,
+          "distance_to_latest": 0.009899494936611629,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 8,
+          "output": 1.7885804409132928,
+          "best_before": 1.7491755214029385,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009899494936611674,
+          "distance_to_latest": 0.009899494936611674,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 9,
+          "output": 1.8258324483760047,
+          "best_before": 1.7885804409132928,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009899494936611674,
+          "distance_to_latest": 0.009899494936611674,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 10,
+          "output": 1.8607688064809809,
+          "best_before": 1.8258324483760047,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009899494936611674,
+          "distance_to_latest": 0.009899494936611674,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 11,
+          "output": 1.8932361849960195,
+          "best_before": 1.8607688064809809,
+          "improved_best": true,
+          "distance_to_prior_best": 0.009899494936611674,
+          "distance_to_latest": 0.009899494936611674,
+          "action_type": "micro-local"
+        }
+      ],
+      "sensitivity": {
+        "status": "ok",
+        "scores": [
+          0.021355724813081865,
+          -0.021355724816742847,
+          0.02135572481521744,
+          0.021355724815217435,
+          0.021355724816641157,
+          -0.02135572481521744
+        ],
+        "top_coordinates": [
+          {
+            "coordinate": 2,
+            "score": -0.021355724816742847,
+            "direction": "decrease",
+            "strength": 0.021355724816742847
+          },
+          {
+            "coordinate": 5,
+            "score": 0.021355724816641157,
+            "direction": "increase",
+            "strength": 0.021355724816641157
+          },
+          {
+            "coordinate": 3,
+            "score": 0.02135572481521744,
+            "direction": "increase",
+            "strength": 0.02135572481521744
+          }
+        ]
+      },
+      "next_read": "Exploit locally; consider moving mainly along x2 decrease, x5 increase."
+    },
+    "8": {
+      "dimension": 8,
+      "observations": 51,
+      "best_output": 9.784294951,
+      "best_input": [
+        0.0921,
+        0.0423,
+        0.0532,
+        0.0653,
+        0.5651,
+        0.8332,
+        0.0642,
+        0.4098
+      ],
+      "best_source": "week10",
+      "latest_output": 9.7842649265,
+      "latest_state": "refine",
+      "non_improving_streak": 1,
+      "week_outcomes": [
+        {
+          "week": 1,
+          "output": 9.7575565919116,
+          "best_before": 9.598482002566342,
+          "improved_best": true,
+          "distance_to_prior_best": 0.6895448887860447,
+          "distance_to_latest": 1.0759338923244919,
+          "action_type": "broad"
+        },
+        {
+          "week": 2,
+          "output": 9.7841491208186,
+          "best_before": 9.7575565919116,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0607877838796579,
+          "distance_to_latest": 0.0607877838796579,
+          "action_type": "local"
+        },
+        {
+          "week": 3,
+          "output": 9.7783249336524,
+          "best_before": 9.7841491208186,
+          "improved_best": false,
+          "distance_to_prior_best": 0.09483714547053806,
+          "distance_to_latest": 0.09483714547053806,
+          "action_type": "local"
+        },
+        {
+          "week": 4,
+          "output": 9.782533275,
+          "best_before": 9.7841491208186,
+          "improved_best": false,
+          "distance_to_prior_best": 0.024803216545440227,
+          "distance_to_latest": 0.07791319189970337,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 5,
+          "output": 9.78342394,
+          "best_before": 9.7841491208186,
+          "improved_best": false,
+          "distance_to_prior_best": 0.012667484004331712,
+          "distance_to_latest": 0.012140428328522851,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 6,
+          "output": 9.78406571,
+          "best_before": 9.7841491208186,
+          "improved_best": false,
+          "distance_to_prior_best": 0.004924606684802343,
+          "distance_to_latest": 0.007752418977325723,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 7,
+          "output": 9.784121999,
+          "best_before": 9.7841491208186,
+          "improved_best": false,
+          "distance_to_prior_best": 0.002494945089576152,
+          "distance_to_latest": 0.002431049156228607,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 8,
+          "output": 9.7839380515,
+          "best_before": 9.7841491208186,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0009611716808146373,
+          "distance_to_latest": 0.0033693471177663427,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 9,
+          "output": 9.784076744,
+          "best_before": 9.7841491208186,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0010108169962955668,
+          "distance_to_latest": 0.0019163767896736867,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 10,
+          "output": 9.784294951,
+          "best_before": 9.7841491208186,
+          "improved_best": true,
+          "distance_to_prior_best": 0.0006752414383018777,
+          "distance_to_latest": 0.0015652475842498452,
+          "action_type": "micro-local"
+        },
+        {
+          "week": 11,
+          "output": 9.7842649265,
+          "best_before": 9.784294951,
+          "improved_best": false,
+          "distance_to_prior_best": 0.0005545268253205043,
+          "distance_to_latest": 0.0005545268253205043,
+          "action_type": "micro-local"
+        }
+      ],
+      "sensitivity": {
+        "status": "ok",
+        "scores": [
+          -0.0024646878324928955,
+          -0.001777782345162978,
+          -0.00027655313076194605,
+          -0.00019324742500279648,
+          0.002549416764474692,
+          -0.00249459012905315,
+          -0.001013452298143874,
+          -0.0026564427824661975
+        ],
+        "top_coordinates": [
+          {
+            "coordinate": 8,
+            "score": -0.0026564427824661975,
+            "direction": "decrease",
+            "strength": 0.0026564427824661975
+          },
+          {
+            "coordinate": 5,
+            "score": 0.002549416764474692,
+            "direction": "increase",
+            "strength": 0.002549416764474692
+          },
+          {
+            "coordinate": 6,
+            "score": -0.00249459012905315,
+            "direction": "decrease",
+            "strength": 0.00249459012905315
+          }
+        ]
+      },
+      "next_read": "Return toward historical best; use x8 decrease, x5 increase cautiously."
+    }
+  }
+}

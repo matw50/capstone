@@ -1,0 +1,341 @@
+{
+  "through_week": "week11",
+  "strategy": "state_trust_region",
+  "policy_variant": "state",
+  "recommendations": {
+    "1": {
+      "dimension": 2,
+      "method": "gaussian_process_state_ucb",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.7285,
+        0.7267
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.04,
+      "best_observed_output": 2.1298682212075036e-14,
+      "best_observed_input": [
+        0.7285,
+        0.7267
+      ],
+      "candidate": [
+        0.6881463943023715,
+        0.7091618556511722
+      ],
+      "portal": "0.688146-0.709162",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.04,
+          "support_percentile": 0.9523809523809523,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "2": {
+      "dimension": 2,
+      "method": "gaussian_process_state_ucb",
+      "state": "recovery",
+      "non_improving_streak": 5,
+      "anchor_type": "historical_best",
+      "anchor": [
+        0.696,
+        0.934
+      ],
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.06,
+      "best_observed_output": 0.7729097325485852,
+      "best_observed_input": [
+        0.696,
+        0.934
+      ],
+      "candidate": [
+        0.7512402958551218,
+        0.9701179970906281
+      ],
+      "portal": "0.751240-0.970118",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.06,
+          "support_percentile": 0.5714285714285714,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "3": {
+      "dimension": 3,
+      "method": "gaussian_process_state_ucb_second_basin",
+      "state": "stagnant",
+      "non_improving_streak": 2,
+      "anchor_type": "historical_best",
+      "anchor": [
+        0.4908,
+        0.5985,
+        0.345
+      ],
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.06,
+      "best_observed_output": -0.03004312377587237,
+      "best_observed_input": [
+        0.4908,
+        0.5985,
+        0.345
+      ],
+      "candidate": [
+        0.5093842346694538,
+        0.5939156128255294,
+        0.28183664340786485
+      ],
+      "portal": "0.509384-0.593916-0.281837",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb_second_basin",
+          "radius": 0.06,
+          "support_percentile": 0.8846153846153846,
+          "boundary_ok": true
+        },
+        {
+          "method": "gaussian_process_state_ucb_wide_probe",
+          "radius": 0.1,
+          "support_percentile": 0.7307692307692307,
+          "boundary_ok": true
+        },
+        {
+          "method": "gaussian_process_state_ucb_local_exploit",
+          "radius": 0.04,
+          "support_percentile": 0.7307692307692307,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "4": {
+      "dimension": 4,
+      "method": "gaussian_process_state_ucb",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.5795,
+        0.4293,
+        0.4263,
+        0.261
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.04,
+      "best_observed_output": -3.8786214264912924,
+      "best_observed_input": [
+        0.5795,
+        0.4293,
+        0.4263,
+        0.261
+      ],
+      "candidate": [
+        0.5537052503867333,
+        0.44361057738417536,
+        0.40532388898278937,
+        0.28601681502338105
+      ],
+      "portal": "0.553705-0.443611-0.405324-0.286017",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.04,
+          "support_percentile": 0.9512195121951219,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "5": {
+      "dimension": 4,
+      "method": "gaussian_process_state_ucb",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.07,
+        0.985,
+        0.985,
+        0.995
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.04,
+      "best_observed_output": 3977.5206205578024,
+      "best_observed_input": [
+        0.07,
+        0.985,
+        0.985,
+        0.995
+      ],
+      "candidate": [
+        0.027989148688618834,
+        0.9940023252810103,
+        0.9940023252810103,
+        0.9980007750936701
+      ],
+      "portal": "0.027989-0.994002-0.994002-0.998001",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "gaussian_process_state_ucb",
+          "radius": 0.04,
+          "support_percentile": 0.967741935483871,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "6": {
+      "dimension": 5,
+      "method": "random_forest_state_policy_wide_probe",
+      "state": "stagnant",
+      "non_improving_streak": 2,
+      "anchor_type": "historical_best",
+      "anchor": [
+        0.5002,
+        0.3245,
+        0.3855,
+        0.8935,
+        0.0388
+      ],
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.12,
+      "best_observed_output": -0.4783073181880428,
+      "best_observed_input": [
+        0.5002,
+        0.3245,
+        0.3855,
+        0.8935,
+        0.0388
+      ],
+      "candidate": [
+        0.42965684435002255,
+        0.32710409302782945,
+        0.4830191796220816,
+        0.8395253309003928,
+        0.034601596509437095
+      ],
+      "portal": "0.429657-0.327104-0.483019-0.839525-0.034602",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "random_forest_state_policy_wide_probe",
+          "radius": 0.12,
+          "support_percentile": 0.9032258064516129,
+          "boundary_ok": true
+        },
+        {
+          "method": "random_forest_state_policy_local_exploit",
+          "radius": 0.05,
+          "support_percentile": 0.7419354838709677,
+          "boundary_ok": true
+        },
+        {
+          "method": "random_forest_state_policy_second_basin",
+          "radius": 0.08,
+          "support_percentile": 0.6774193548387096,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "7": {
+      "dimension": 6,
+      "method": "random_forest_state_policy",
+      "state": "momentum",
+      "non_improving_streak": 0,
+      "anchor_type": "latest",
+      "anchor": [
+        0.057,
+        0.436,
+        0.252,
+        0.212,
+        0.332,
+        0.72
+      ],
+      "latest_query_improved_best": true,
+      "trust_region_radius": 0.05,
+      "best_observed_output": 1.8932361849960195,
+      "best_observed_input": [
+        0.057,
+        0.436,
+        0.252,
+        0.212,
+        0.332,
+        0.72
+      ],
+      "candidate": [
+        0.05664158125091477,
+        0.4533579121040632,
+        0.26949521765693707,
+        0.208530166164923,
+        0.3216210980481923,
+        0.6720653525103601
+      ],
+      "portal": "0.056642-0.453358-0.269495-0.208530-0.321621-0.672065",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "random_forest_state_policy",
+          "radius": 0.05,
+          "support_percentile": 0.9512195121951219,
+          "boundary_ok": true
+        }
+      ]
+    },
+    "8": {
+      "dimension": 8,
+      "method": "random_forest_state_policy",
+      "state": "refine",
+      "non_improving_streak": 1,
+      "anchor_type": "historical_best",
+      "anchor": [
+        0.0921,
+        0.0423,
+        0.0532,
+        0.0653,
+        0.5651,
+        0.8332,
+        0.0642,
+        0.4098
+      ],
+      "latest_query_improved_best": false,
+      "trust_region_radius": 0.08,
+      "best_observed_output": 9.784294951,
+      "best_observed_input": [
+        0.0921,
+        0.0423,
+        0.0532,
+        0.0653,
+        0.5651,
+        0.8332,
+        0.0642,
+        0.4098
+      ],
+      "candidate": [
+        0.07761477269066647,
+        0.036165124046211236,
+        0.04034445329607449,
+        0.060643121828771254,
+        0.5328219313009239,
+        0.8935173617052777,
+        0.026606220912857484,
+        0.44467463008247743
+      ],
+      "portal": "0.077615-0.036165-0.040344-0.060643-0.532822-0.893517-0.026606-0.444675",
+      "latest_payload_present": true,
+      "candidate_options": [
+        {
+          "method": "random_forest_state_policy",
+          "radius": 0.08,
+          "support_percentile": 0.8823529411764706,
+          "boundary_ok": true
+        }
+      ]
+    }
+  }
+}

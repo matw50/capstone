@@ -32,7 +32,7 @@ Data formats:
 - appended arrays are stored in `week<n>/function_<n>/inputs.npy` and `outputs.npy` once each week is recorded
 - raw candidates, notes, reproduction steps, diagnostics, and backtests are stored as JSON or Markdown
 
-The initial dataset contains known starting observations for each function. Each weekly round adds one new observed query/output pair per function. At the time of this datasheet, Week 10 results have been recorded, so the observed dataset contains initial data plus Week 1 to Week 10 returns. Week 11 has not yet been prepared.
+The initial dataset contains known starting observations for each function. Each weekly round adds one new observed query/output pair per function. At the time of this datasheet, Week 11 results have been recorded, so the observed dataset contains initial data plus Week 1 to Week 11 returns. Week 12 has not yet been prepared.
 
 The dataset is not a random or complete sample of the full input space. It is an adaptive optimisation trace, biased toward regions that appeared promising in previous rounds. This is intentional, but it means the dataset should not be treated as representative of the full function domains.
 

@@ -3,7 +3,7 @@
 ## Overview
 Model name: State-Policy Trust-Region BBO Optimiser
 
-Version: Week 11 results version
+Version: Week 12 results version
 
 Type: Hybrid black-box optimisation workflow using surrogate-generated candidates, diagnostic checks, historical backtesting, and manual basin-aware blending.
 
@@ -50,6 +50,8 @@ Later rounds formalised the state policy:
 
 By Week 12, the workflow adds an endgame overlay because only two submissions remain. Momentum and near-miss functions are protected with very small local moves, while repeated recovery failures are allowed one controlled alternative before the final round. This means the candidate generator is used even more conservatively: raw candidates provide direction and contrast, but final choices prioritise basin preservation and opportunity cost.
 
+For Week 13, the strategy becomes fully outcome-focused because no later learning round remains. Proven monotonic trajectories are continued, narrow historical peaks are estimated locally, and uncertain functions receive bounded hypotheses derived from multiple strong observations. Broad surrogate proposals are rejected even when their acquisition scores are high, because historical backtesting and observed results consistently favour micro-local or basin-aware choices.
+
 Candidate generation uses:
 - Gaussian-process-style search for lower-dimensional functions
 - local random-forest search for higher-dimensional functions
@@ -71,20 +73,20 @@ Secondary metrics and diagnostics:
 - classifier high-region prediction
 - historical backtest locality and support deltas
 
-Best observed outputs through Week 11:
+Best observed outputs through Week 12:
 
 | Function | Best Output | Source |
 | --- | ---: | --- |
-| 1 | `2.1298682212075036e-14` | Week 11 |
+| 1 | `3.039989296956165e-14` | Week 12 |
 | 2 | `0.7729097325485852` | Week 6 |
 | 3 | `-0.03004312377587237` | Week 9 |
-| 4 | `-3.8786214264912924` | Week 11 |
-| 5 | `3977.5206205578024` | Week 11 |
+| 4 | `-3.8654468306983207` | Week 12 |
+| 5 | `4158.027157384591` | Week 12 |
 | 6 | `-0.4783073181880428` | Week 9 |
-| 7 | `1.8932361849960195` | Week 11 |
-| 8 | `9.784294951` | Week 10 |
+| 7 | `1.9230918956863867` | Week 12 |
+| 8 | `9.7844449115` | Week 12 |
 
-Week 11 produced new bests for Functions 1, 4, 5, and 7. Function 5 remains the strongest momentum function, while Functions 1, 4, and 7 continue to reward very small local refinements. Function 3 was a near miss against the Week 9 best and Function 8 was a tiny miss against the Week 10 best, so both should remain close to their best basins. Function 2 remains the most difficult later-stage recovery case, and Function 6 is now a stagnant case after two misses from the Week 9 best.
+Week 12 produced new bests for Functions 1, 4, 5, 7, and 8. Function 2's controlled alternative recovered strongly without beating the Week 6 best, while Function 6's alternative nearly matched the Week 9 best. Function 3 missed and should return to its Week 9 basin. The final round should be strongly exploitative with no broad search.
 
 External validation:
 - COCO/BBOB was used to validate policy changes against random continuation

@@ -22,23 +22,23 @@ The repository currently uses:
 ## Current Status
 | Item | Status |
 |---|---|
-| Latest completed round | Week 11 results recorded |
-| Next submission prepared | Week 12 candidate prepared |
-| Current optimisation phase | Penultimate-round endgame strategy |
+| Latest completed round | Week 12 results recorded |
+| Next submission prepared | Week 13 final candidate prepared |
+| Current optimisation phase | Final-round exploitation |
 | Main operating pattern | Endgame trust-region search plus bounded alternatives for repeated recovery failures |
 | Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, experimental MLP ensemble checks, COCO/BBOB benchmarking, and historical backtesting |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
 |---|---|---|---|
-| 1 | `2.1298682212075036e-14` | Week 11 | Sparse narrow peak, still improving under ultra-local probing |
-| 2 | `0.7729097325485852` | Week 6 | Main recovery problem; repeated resets have not recovered the Week 6 level |
-| 3 | `-0.03004312377587237` | Week 9 | Week 11 was a near miss, so keep the search very close |
-| 4 | `-3.8786214264912924` | Week 11 | Smooth local refinement continues to improve |
-| 5 | `3977.5206205578024` | Week 11 | Strongest momentum function, still improving near the boundary |
-| 6 | `-0.4783073181880428` | Week 9 | Stagnant after two misses; compare local return against one bounded alternative |
-| 7 | `1.8932361849960195` | Week 11 | Strong momentum after recovery |
-| 8 | `9.784294951` | Week 10 | Week 11 was a tiny miss, so return to the Week 10 basin |
+| 1 | `3.039989296956165e-14` | Week 12 | Sparse narrow peak, still improving under ultra-local probing |
+| 2 | `0.7729097325485852` | Week 6 | Week 12 alternative recovered strongly but remained below the historical best |
+| 3 | `-0.03004312377587237` | Week 9 | Week 12 missed; final query should return to the Week 9 basin |
+| 4 | `-3.8654468306983207` | Week 12 | Smooth local refinement continues to improve |
+| 5 | `4158.027157384591` | Week 12 | Strongest momentum function, still improving near the boundary |
+| 6 | `-0.4783073181880428` | Week 9 | Week 12 alternative missed the best by less than `0.001` |
+| 7 | `1.9230918956863867` | Week 12 | Strong momentum continues |
+| 8 | `9.7844449115` | Week 12 | New best after returning to the established basin |
 
 ## External Benchmarking
 To sanity-check whether the current capstone policy behaves like a useful optimizer outside the course portal, I added a COCO/BBOB benchmark harness.
@@ -95,6 +95,8 @@ Artifacts:
 - [Week 10 State Policy Backtest](reports/week10_backtest/state_policy_backtest.md)
 - [Week 11 Progress Diagnostics](reports/week11_diagnostics/progress_diagnostics.md)
 - [Week 11 State Policy Backtest](reports/week11_backtest/state_policy_backtest.md)
+- [Week 12 Progress Diagnostics](reports/week12_diagnostics/progress_diagnostics.md)
+- [Week 12 State Policy Backtest](reports/week12_backtest/state_policy_backtest.md)
 
 ## Weekly Index
 | Week | Status | Folder | Notes | Reproduction | Results |
@@ -110,8 +112,8 @@ Artifacts:
 | 9 | Completed | [week9](week9/) | [notes](week9/notes.md) | [reproduction](week9/reproduction.md) | [results](week9/results.json) |
 | 10 | Completed | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
 | 11 | Completed | [week11](week11/) | [notes](week11/notes.md) | [reproduction](week11/reproduction.md) | [results](week11/results.json) |
-| 12 | Prepared | [week12](week12/) | [notes](week12/notes.md) | [reproduction](week12/reproduction.md) | [results](week12/results.json) |
-| 13 | Scaffold | [week13](week13/) | [notes](week13/notes.md) | [reproduction](week13/reproduction.md) | [results](week13/results.json) |
+| 12 | Completed | [week12](week12/) | [notes](week12/notes.md) | [reproduction](week12/reproduction.md) | [results](week12/results.json) |
+| 13 | Prepared | [week13](week13/) | [notes](week13/notes.md) | [reproduction](week13/reproduction.md) | [results](week13/results.json) |
 
 ## Reproduce Latest Round
 To reproduce the prepared Week 12 submission from the recorded Week 11 data:
@@ -241,7 +243,8 @@ These constraints make the project a practical exploration versus exploitation p
 | 9 | Week 8-state-adapted blended submission | Kept micro-local exploitation for momentum functions, allowed one bounded alternative for stagnant Function 2, returned Function 6 to its Week 7 best basin, and kept Function 8 anchored near its Week 2 best. | Week 9 produced new bests for Functions 1, 3, 4, 5, 6, and 7. Function 2's bounded alternative failed, and Function 8 remains close but below its Week 2 best. | [Week 9 Approach](week9/approach.md), [Week 9 Notes](week9/notes.md), [Week 9 Reproduction](week9/reproduction.md), [Week 9 Inputs](week9/inputs.json) |
 | 10 | Week 9 momentum/recovery blend | Continued micro-local exploitation for Functions 1, 3, 4, 5, 6, and 7; reset Function 2 near the Week 6 best; and kept Function 8 tightly anchored around the Week 2 best. | Week 10 produced new bests for Functions 1, 4, 5, 7, and 8. Function 8 finally beat its Week 2 best. Functions 3 and 6 missed and should return toward their Week 9 best basins. | [Week 10 Approach](week10/approach.md), [Week 10 Notes](week10/notes.md), [Week 10 Reproduction](week10/reproduction.md), [Week 10 Inputs](week10/inputs.json) |
 | 11 | Week 10 micro-local momentum/refine blend | Continued tiny local exploitation for Functions 1, 4, 5, 7, and 8; reset Function 2 near the Week 6 best; returned Functions 3 and 6 toward their Week 9 best basins. | Week 11 produced new bests for Functions 1, 4, 5, and 7. Function 3 was a near miss, Function 8 was a tiny miss, and Functions 2 and 6 remain the hardest recovery/stagnant cases. | [Week 11 Notes](week11/notes.md), [Week 11 Reproduction](week11/reproduction.md), [Week 11 Inputs](week11/inputs.json) |
-| 12 | Penultimate-round endgame submission | Preserved winning basins for Functions 1, 4, 5, and 7; kept Functions 3 and 8 very close to their best basins; allowed one controlled alternative for Functions 2 and 6 after repeated recovery failures. | Prepared submission balances protection of known winners with one bounded attempt to recover stubborn functions before the final round. | [Week 12 Approach](week12/approach.md), [Week 12 Notes](week12/notes.md), [Week 12 Reproduction](week12/reproduction.md), [Week 12 Inputs](week12/inputs.json) |
+| 12 | Penultimate-round endgame submission | Preserved winning basins for Functions 1, 4, 5, and 7; kept Functions 3 and 8 very close to their best basins; allowed one controlled alternative for Functions 2 and 6 after repeated recovery failures. | Week 12 produced new bests for Functions 1, 4, 5, 7, and 8. Function 2 recovered strongly, Function 6 nearly matched its best, and Function 3 missed. | [Week 12 Approach](week12/approach.md), [Week 12 Notes](week12/notes.md), [Week 12 Reproduction](week12/reproduction.md), [Week 12 Inputs](week12/inputs.json) |
+| 13 | Final-round exploitation | Continued proven trajectories for Functions 1, 4, 5, and 7; used a tiny sensitivity-guided step for Function 8; used local peak interpolation for Function 2; and tested bounded final hypotheses for Functions 3 and 6. | Final candidate prepared. No query is included solely for future learning because no later round remains. | [Week 13 Approach](week13/approach.md), [Week 13 Notes](week13/notes.md), [Week 13 Reproduction](week13/reproduction.md), [Week 13 Inputs](week13/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -265,8 +268,8 @@ The repository is organised to support the weekly optimisation cycle:
 - `week9/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
 - `week10/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
 - `week11/`: completed round with raw candidates, final submission, returned outputs, appended arrays, notes, and reproduction steps
-- `week12/`: prepared penultimate-round submission with raw candidates, final inputs, notes, and reproduction steps
-- `week13/`: standardized scaffold folder for the final round
+- `week12/`: completed penultimate round with raw candidates, final submission, returned outputs, appended arrays, notes, and reproduction steps
+- `week13/`: prepared final-round submission with reference candidates, final inputs, notes, and reproduction steps
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `docs/`: datasheet and model card documentation
 - `reports/`: generated diagnostic reports used before preparing later-round submissions
@@ -372,3 +375,7 @@ Week 10 produced new bests for Functions 1, 4, 5, 7, and 8. The most important c
 Week 11 again supported the micro-local approach for the strongest momentum functions. Functions 1, 4, 5, and 7 all produced new bests, with Function 5 continuing its very strong boundary-adjacent trend. Function 3 was a near miss against the Week 9 best, which suggests the basin is real but narrow. Function 8 missed by only a very small amount after the Week 10 improvement, so the next round should return to the Week 10 best basin rather than widen the search. Function 2 remains the clearest recovery problem, and Function 6 is now a stagnant case after two misses. The Week 11 diagnostics classify Functions 1, 4, 5, and 7 as momentum, Function 8 as refine, Functions 3 and 6 as stagnant, and Function 2 as recovery.
 
 For Week 12, the strategy changes into an endgame policy because only two submissions remain. The default is no longer to test interesting raw-surrogate candidates. Instead, the default is to preserve known winning basins. Functions 1, 4, 5, and 7 receive tiny local continuation moves because they are still improving. Functions 3 and 8 remain close to their best basins after near misses. Functions 2 and 6 are the only controlled alternatives: repeated reset-to-best attempts have not recovered their historical bests, so Week 12 uses one bounded alternative for each before the final Week 13 fallback decision.
+
+Week 12 validated the endgame policy for most functions. Functions 1, 4, 5, 7, and 8 all produced new bests, supporting one final small exploitation move. Function 2's bounded alternative improved substantially over Week 11 but did not beat the Week 6 best. Function 6's alternative came within `0.000827` of its Week 9 best, indicating useful directional information even without a new record. Function 3 was the clearest failure and should return to the Week 9 best basin for the final round. The final Week 13 decision should therefore be highly exploitative, with only very small corrections and no broad search.
+
+The Week 13 submission applies that final-round rule. Functions 1, 4, 5, and 7 continue their repeatedly successful step patterns, while Function 8 receives a tiny move from its Week 12 best. Function 2 uses a local quadratic estimate around the Week 6 peak. Function 3 moves just beyond the latest strong point in its alternating micro-local sequence, and Function 6 tests the midpoint between its Week 9 best and Week 12 near-best alternative. All final points pass trust-region and classifier checks. The raw surrogate candidates were rejected because they remained substantially wider than the observed successful paths.

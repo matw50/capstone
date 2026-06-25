@@ -20,7 +20,7 @@ Current top-level dependencies:
 - `initial_data/function_<n>/initial_outputs.npy`: original output arrays for each function
 - `week1/` to `week11/`: completed rounds with recorded submissions, returned outputs, appended `.npy` files, approach notes, and reproduction steps
 - `week12/`: completed penultimate round with returned outputs, appended arrays, diagnostics, notes, and reproduction steps
-- `week13/`: prepared final-round submission with reference candidates, final inputs, notes, and reproduction steps
+- `week13/`: completed final round with returned outputs, appended arrays, diagnostics, notes, and reproduction steps
 - `benchmarks/`: external benchmark runs used to sanity-check the policy outside the capstone portal
 - `reports/`: generated diagnostic and backtest reports used to review progress, sensitivity, and policy behaviour before later submissions
 - `scripts/`: helper scripts for maintaining the weekly workflow
@@ -133,7 +133,7 @@ python3 scripts/sanity_check_candidates.py --repo-root . --through-week week1 --
 ## Notes
 - The repository now contains the core helper scripts needed for the current workflow.
 - Week scaffolds are now standardized so future rounds start with the same core files.
-- Week 12 results have been recorded and the final Week 13 submission has been prepared.
+- Week 13 results have been recorded. The BBO query challenge is complete, and the repository now supports final analysis and presentation preparation.
 - One possible future improvement would be to let `append_week_results.py` optionally write directly into `weekN/function_<n>/` so the generated `.npy` files land beside the JSON records without needing a separate output path.
 - Another useful future improvement would be a script that combines all three steps: fill a week from pasted text, generate the appended `.npy` files for that week, and produce draft candidate queries for the next week.
 

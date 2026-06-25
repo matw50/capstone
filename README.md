@@ -2,6 +2,47 @@
 
 This repository tracks data, weekly submissions, returned outputs, and helper scripts for the capstone black-box optimisation challenge.
 
+## Programme Context
+This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
+
+The wider programme is designed to build both technical and practical capability in ML and AI. It moves from foundations, to common machine learning methods, to more advanced topics such as deep learning and generative AI. The capstone project acts as the practical culmination of that learning journey by simulating a real-world ML competition where models and optimisation strategies must be refined over time.
+
+The programme is structured in three phases:
+- Phase 1 introduces foundational ML and AI concepts and shows how they are used in data science projects.
+- Phase 2 focuses on common ML methods and how they can create business value.
+- Phase 3 explores advanced AI topics including deep learning and generative AI, with attention to real-world implementation.
+
+Across the programme, the broader learning goals include:
+- evaluating the feasibility of machine learning solutions for business challenges
+- choosing suitable ML methods to improve predictive performance and decision-making
+- analysing complex datasets with machine learning
+- refining models in Python
+- understanding the mathematical, probabilistic, and statistical foundations of ML and AI
+- considering the real-world implications of AI, including responsible use
+- understanding large language models, including architecture, scale, training, and emergent behaviour
+
+## What Is This Challenge About?
+This capstone project mimics a Bayesian optimisation-style competition in which the goal is to find the maximum of eight unknown functions, also known as black-box functions. The functions are unknown in advance, so there are no equations or direct visualisations available at the start. Instead, the challenge begins with a small amount of initial data and the task is to make informed guesses about which inputs to try next.
+
+Each function represents a real-world style optimisation problem where evaluations are expensive or limited, such as radiation detection, robot control, or drug discovery. The goal is not to find a perfect solution immediately, but to demonstrate a thoughtful, iterative optimisation process over time.
+
+## What Will We Do?
+This project works with eight synthetic black-box functions. Each function takes an input vector and returns a single output value. The task is to identify the input values that produce the highest possible output.
+
+Every function is a maximisation problem. The internal form of the function is hidden, so the only information available comes from observed input-output pairs.
+
+Each function is:
+- a maximisation task
+- initially represented by a small set of known data points
+- of increasing dimensionality, from 2D to 8D
+
+Over time, the dataset grows as new weekly query points are submitted and their outputs are returned.
+
+## Career Relevance
+This capstone is directly relevant to my current role as a Senior Engineering Manager in online ads experimentation at Meta. A large part of experimentation work in practice involves making decisions under uncertainty, balancing exploration against exploitation, and improving systems without having full visibility into the underlying response surface in advance. That is very similar to the operating conditions in this project.
+
+The value of the capstone is not only in the specific optimisation methods, but in the decision process it develops. It reinforces how to use limited evidence, structure iteration, sanity-check model outputs, and refine a strategy over time rather than over-trusting any single model recommendation. Those are highly transferable skills for experimentation systems, ranking, measurement, and other ML-adjacent product and platform decisions.
+
 ## Environment Setup
 
 Install the Python dependencies with:
@@ -22,23 +63,23 @@ The repository currently uses:
 ## Current Status
 | Item | Status |
 |---|---|
-| Latest completed round | Week 12 results recorded |
-| Next submission prepared | Week 13 final candidate prepared |
-| Current optimisation phase | Final-round exploitation |
-| Main operating pattern | Endgame trust-region search plus bounded alternatives for repeated recovery failures |
+| Latest completed round | Week 13 results recorded |
+| Next submission prepared | Challenge complete |
+| Current optimisation phase | Final analysis and portfolio documentation |
+| Main operating pattern | Completed adaptive trust-region workflow |
 | Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, experimental MLP ensemble checks, COCO/BBOB benchmarking, and historical backtesting |
 
 ## Best Results So Far
 | Function | Best Output So Far | Source | Current Read |
 |---|---|---|---|
-| 1 | `3.039989296956165e-14` | Week 12 | Sparse narrow peak, still improving under ultra-local probing |
+| 1 | `4.323136325204454e-14` | Week 13 | Final trajectory continuation produced another new best |
 | 2 | `0.7729097325485852` | Week 6 | Week 12 alternative recovered strongly but remained below the historical best |
 | 3 | `-0.03004312377587237` | Week 9 | Week 12 missed; final query should return to the Week 9 basin |
-| 4 | `-3.8654468306983207` | Week 12 | Smooth local refinement continues to improve |
-| 5 | `4158.027157384591` | Week 12 | Strongest momentum function, still improving near the boundary |
-| 6 | `-0.4783073181880428` | Week 9 | Week 12 alternative missed the best by less than `0.001` |
-| 7 | `1.9230918956863867` | Week 12 | Strong momentum continues |
-| 8 | `9.7844449115` | Week 12 | New best after returning to the established basin |
+| 4 | `-3.855201201240067` | Week 13 | Exact local trajectory improved through the final round |
+| 5 | `4303.947078248581` | Week 13 | Strongest momentum function, improving to the boundary |
+| 6 | `-0.47163305056036503` | Week 13 | Midpoint hypothesis solved the long-running recovery problem |
+| 7 | `1.9502050542862732` | Week 13 | Linear local trajectory improved through the final round |
+| 8 | `9.784594749` | Week 13 | Tiny sensitivity-guided refinement produced a new best |
 
 ## External Benchmarking
 To sanity-check whether the current capstone policy behaves like a useful optimizer outside the course portal, I added a COCO/BBOB benchmark harness.
@@ -97,6 +138,8 @@ Artifacts:
 - [Week 11 State Policy Backtest](reports/week11_backtest/state_policy_backtest.md)
 - [Week 12 Progress Diagnostics](reports/week12_diagnostics/progress_diagnostics.md)
 - [Week 12 State Policy Backtest](reports/week12_backtest/state_policy_backtest.md)
+- [Week 13 Progress Diagnostics](reports/week13_diagnostics/progress_diagnostics.md)
+- [Week 13 State Policy Backtest](reports/week13_backtest/state_policy_backtest.md)
 
 ## Weekly Index
 | Week | Status | Folder | Notes | Reproduction | Results |
@@ -113,17 +156,17 @@ Artifacts:
 | 10 | Completed | [week10](week10/) | [notes](week10/notes.md) | [reproduction](week10/reproduction.md) | [results](week10/results.json) |
 | 11 | Completed | [week11](week11/) | [notes](week11/notes.md) | [reproduction](week11/reproduction.md) | [results](week11/results.json) |
 | 12 | Completed | [week12](week12/) | [notes](week12/notes.md) | [reproduction](week12/reproduction.md) | [results](week12/results.json) |
-| 13 | Prepared | [week13](week13/) | [notes](week13/notes.md) | [reproduction](week13/reproduction.md) | [results](week13/results.json) |
+| 13 | Completed | [week13](week13/) | [notes](week13/notes.md) | [reproduction](week13/reproduction.md) | [results](week13/results.json) |
 
 ## Reproduce Latest Round
-To reproduce the prepared Week 12 submission from the recorded Week 11 data:
+To reproduce the final Week 13 submission from the recorded Week 12 data:
 
 1. Generate raw candidates:
 ```bash
 /opt/anaconda3/bin/python scripts/generate_candidate_queries.py \
   --repo-root . \
-  --through-week week11 \
-  --output-file week12/candidates.json \
+  --through-week week12 \
+  --output-file week13/candidates.json \
   --seed 42 \
   --policy-variant state
 ```
@@ -131,67 +174,26 @@ To reproduce the prepared Week 12 submission from the recorded Week 11 data:
 ```bash
 /opt/anaconda3/bin/python scripts/sanity_check_candidates.py \
   --repo-root . \
-  --through-week week11 \
-  --candidate-file week12/candidates.json
+  --through-week week12 \
+  --candidate-file week13/candidates.json
 ```
 3. Run classifier region checks:
 ```bash
 /opt/anaconda3/bin/python scripts/classifier_region_check.py \
   --repo-root . \
-  --through-week week11 \
-  --candidate-file week12/candidates.json \
+  --through-week week12 \
+  --candidate-file week13/candidates.json \
   --svm
 ```
 4. Run the experimental neural-net surrogate check:
 ```bash
 /opt/anaconda3/bin/python scripts/neural_net_surrogate_check.py \
   --repo-root . \
-  --through-week week11 \
-  --candidate-file week12/candidates.json
+  --through-week week12 \
+  --candidate-file week13/candidates.json
 ```
-5. Apply the endgame manual blending rules in [week12/reproduction.md](week12/reproduction.md) to produce [week12/inputs.json](week12/inputs.json).
-6. Re-run the same sanity, classifier, and neural-network checks on [week12/inputs.json](week12/inputs.json).
-
-## Programme Context
-This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
-
-The wider programme is designed to build both technical and practical capability in ML and AI. It moves from foundations, to common machine learning methods, to more advanced topics such as deep learning and generative AI. The capstone project acts as the practical culmination of that learning journey by simulating a real-world ML competition where models and optimisation strategies must be refined over time.
-
-The programme is structured in three phases:
-- Phase 1 introduces foundational ML and AI concepts and shows how they are used in data science projects.
-- Phase 2 focuses on common ML methods and how they can create business value.
-- Phase 3 explores advanced AI topics including deep learning and generative AI, with attention to real-world implementation.
-
-Across the programme, the broader learning goals include:
-- evaluating the feasibility of machine learning solutions for business challenges
-- choosing suitable ML methods to improve predictive performance and decision-making
-- analysing complex datasets with machine learning
-- refining models in Python
-- understanding the mathematical, probabilistic, and statistical foundations of ML and AI
-- considering the real-world implications of AI, including responsible use
-- understanding large language models, including architecture, scale, training, and emergent behaviour
-
-## What Is This Challenge About?
-This capstone project mimics a Bayesian optimisation-style competition in which the goal is to find the maximum of eight unknown functions, also known as black-box functions. The functions are unknown in advance, so there are no equations or direct visualisations available at the start. Instead, the challenge begins with a small amount of initial data and the task is to make informed guesses about which inputs to try next.
-
-Each function represents a real-world style optimisation problem where evaluations are expensive or limited, such as radiation detection, robot control, or drug discovery. The goal is not to find a perfect solution immediately, but to demonstrate a thoughtful, iterative optimisation process over time.
-
-## What Will We Do?
-This project works with eight synthetic black-box functions. Each function takes an input vector and returns a single output value. The task is to identify the input values that produce the highest possible output.
-
-Every function is a maximisation problem. The internal form of the function is hidden, so the only information available comes from observed input-output pairs.
-
-Each function is:
-- a maximisation task
-- initially represented by a small set of known data points
-- of increasing dimensionality, from 2D to 8D
-
-Over time, the dataset grows as new weekly query points are submitted and their outputs are returned.
-
-## Career Relevance
-This capstone is directly relevant to my current role as a Senior Engineering Manager in online ads experimentation at Meta. A large part of experimentation work in practice involves making decisions under uncertainty, balancing exploration against exploitation, and improving systems without having full visibility into the underlying response surface in advance. That is very similar to the operating conditions in this project.
-
-The value of the capstone is not only in the specific optimisation methods, but in the decision process it develops. It reinforces how to use limited evidence, structure iteration, sanity-check model outputs, and refine a strategy over time rather than over-trusting any single model recommendation. Those are highly transferable skills for experimentation systems, ranking, measurement, and other ML-adjacent product and platform decisions.
+5. Apply the final-round rules in [week13/reproduction.md](week13/reproduction.md) to produce [week13/inputs.json](week13/inputs.json).
+6. Re-run the same sanity, classifier, and neural-network checks on [week13/inputs.json](week13/inputs.json).
 
 ## Inputs And Outputs
 Each week, the project receives one proposed input per function and later returns one scalar output per function.
@@ -244,7 +246,7 @@ These constraints make the project a practical exploration versus exploitation p
 | 10 | Week 9 momentum/recovery blend | Continued micro-local exploitation for Functions 1, 3, 4, 5, 6, and 7; reset Function 2 near the Week 6 best; and kept Function 8 tightly anchored around the Week 2 best. | Week 10 produced new bests for Functions 1, 4, 5, 7, and 8. Function 8 finally beat its Week 2 best. Functions 3 and 6 missed and should return toward their Week 9 best basins. | [Week 10 Approach](week10/approach.md), [Week 10 Notes](week10/notes.md), [Week 10 Reproduction](week10/reproduction.md), [Week 10 Inputs](week10/inputs.json) |
 | 11 | Week 10 micro-local momentum/refine blend | Continued tiny local exploitation for Functions 1, 4, 5, 7, and 8; reset Function 2 near the Week 6 best; returned Functions 3 and 6 toward their Week 9 best basins. | Week 11 produced new bests for Functions 1, 4, 5, and 7. Function 3 was a near miss, Function 8 was a tiny miss, and Functions 2 and 6 remain the hardest recovery/stagnant cases. | [Week 11 Notes](week11/notes.md), [Week 11 Reproduction](week11/reproduction.md), [Week 11 Inputs](week11/inputs.json) |
 | 12 | Penultimate-round endgame submission | Preserved winning basins for Functions 1, 4, 5, and 7; kept Functions 3 and 8 very close to their best basins; allowed one controlled alternative for Functions 2 and 6 after repeated recovery failures. | Week 12 produced new bests for Functions 1, 4, 5, 7, and 8. Function 2 recovered strongly, Function 6 nearly matched its best, and Function 3 missed. | [Week 12 Approach](week12/approach.md), [Week 12 Notes](week12/notes.md), [Week 12 Reproduction](week12/reproduction.md), [Week 12 Inputs](week12/inputs.json) |
-| 13 | Final-round exploitation | Continued proven trajectories for Functions 1, 4, 5, and 7; used a tiny sensitivity-guided step for Function 8; used local peak interpolation for Function 2; and tested bounded final hypotheses for Functions 3 and 6. | Final candidate prepared. No query is included solely for future learning because no later round remains. | [Week 13 Approach](week13/approach.md), [Week 13 Notes](week13/notes.md), [Week 13 Reproduction](week13/reproduction.md), [Week 13 Inputs](week13/inputs.json) |
+| 13 | Final-round exploitation | Continued proven trajectories for Functions 1, 4, 5, and 7; used a tiny sensitivity-guided step for Function 8; used local peak interpolation for Function 2; and tested bounded final hypotheses for Functions 3 and 6. | The final round produced new bests for Functions 1, 4, 5, 6, 7, and 8. The Function 6 midpoint hypothesis was the most important final-round success. | [Week 13 Approach](week13/approach.md), [Week 13 Notes](week13/notes.md), [Week 13 Reproduction](week13/reproduction.md), [Week 13 Inputs](week13/inputs.json) |
 
 ## Repository Workflow
 The repository is organised to support the weekly optimisation cycle:
@@ -269,7 +271,7 @@ The repository is organised to support the weekly optimisation cycle:
 - `week10/`: completed round with raw candidates, final submission, returned outputs, appended arrays, approach notes, and reproduction steps
 - `week11/`: completed round with raw candidates, final submission, returned outputs, appended arrays, notes, and reproduction steps
 - `week12/`: completed penultimate round with raw candidates, final submission, returned outputs, appended arrays, notes, and reproduction steps
-- `week13/`: prepared final-round submission with reference candidates, final inputs, notes, and reproduction steps
+- `week13/`: completed final round with reference candidates, final submission, returned outputs, appended arrays, notes, and reproduction steps
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `docs/`: datasheet and model card documentation
 - `reports/`: generated diagnostic reports used before preparing later-round submissions
@@ -379,3 +381,8 @@ For Week 12, the strategy changes into an endgame policy because only two submis
 Week 12 validated the endgame policy for most functions. Functions 1, 4, 5, 7, and 8 all produced new bests, supporting one final small exploitation move. Function 2's bounded alternative improved substantially over Week 11 but did not beat the Week 6 best. Function 6's alternative came within `0.000827` of its Week 9 best, indicating useful directional information even without a new record. Function 3 was the clearest failure and should return to the Week 9 best basin for the final round. The final Week 13 decision should therefore be highly exploitative, with only very small corrections and no broad search.
 
 The Week 13 submission applies that final-round rule. Functions 1, 4, 5, and 7 continue their repeatedly successful step patterns, while Function 8 receives a tiny move from its Week 12 best. Function 2 uses a local quadratic estimate around the Week 6 peak. Function 3 moves just beyond the latest strong point in its alternating micro-local sequence, and Function 6 tests the midpoint between its Week 9 best and Week 12 near-best alternative. All final points pass trust-region and classifier checks. The raw surrogate candidates were rejected because they remained substantially wider than the observed successful paths.
+
+The final Week 13 results strongly validated the endgame strategy. Functions 1, 4, 5, and 7 improved again by continuing their observed trajectories, and Function 8 improved through a tiny sensitivity-guided step. Function 6 was the most valuable final insight: the midpoint between two near-equal strong regions outperformed both and created a new best. Functions 2 and 3 remained below their historical bests, demonstrating that some response surfaces stayed narrow or unstable despite extensive local sampling. Overall, six of the eight functions ended with new bests in the final round, and six functions achieved their best observed value in Week 13.
+
+## Final Outcome
+The completed challenge demonstrates a progression from broad visual and surrogate-guided exploration to a transparent state-policy trust-region workflow. The strongest general lesson is that raw surrogate recommendations were most useful as decision support, while basin-aware manual blending and small evidence-led moves produced the most consistent results under a limited evaluation budget.

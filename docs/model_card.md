@@ -3,7 +3,7 @@
 ## Overview
 Model name: State-Policy Trust-Region BBO Optimiser
 
-Version: Week 12 results version
+Version: Final Week 13 results version
 
 Type: Hybrid black-box optimisation workflow using surrogate-generated candidates, diagnostic checks, historical backtesting, and manual basin-aware blending.
 
@@ -29,7 +29,7 @@ Avoided uses:
 The approach is designed for a low-data, expensive-evaluation setting where each new query has high opportunity cost.
 
 ## Model Details And Strategy
-The approach evolved over ten submitted rounds.
+The approach evolved over thirteen submitted rounds.
 
 Early rounds used broader exploration and simple surrogate guidance:
 - local visual reasoning for lower-dimensional functions
@@ -73,20 +73,20 @@ Secondary metrics and diagnostics:
 - classifier high-region prediction
 - historical backtest locality and support deltas
 
-Best observed outputs through Week 12:
+Final best observed outputs:
 
 | Function | Best Output | Source |
 | --- | ---: | --- |
-| 1 | `3.039989296956165e-14` | Week 12 |
+| 1 | `4.323136325204454e-14` | Week 13 |
 | 2 | `0.7729097325485852` | Week 6 |
 | 3 | `-0.03004312377587237` | Week 9 |
-| 4 | `-3.8654468306983207` | Week 12 |
-| 5 | `4158.027157384591` | Week 12 |
-| 6 | `-0.4783073181880428` | Week 9 |
-| 7 | `1.9230918956863867` | Week 12 |
-| 8 | `9.7844449115` | Week 12 |
+| 4 | `-3.855201201240067` | Week 13 |
+| 5 | `4303.947078248581` | Week 13 |
+| 6 | `-0.47163305056036503` | Week 13 |
+| 7 | `1.9502050542862732` | Week 13 |
+| 8 | `9.784594749` | Week 13 |
 
-Week 12 produced new bests for Functions 1, 4, 5, 7, and 8. Function 2's controlled alternative recovered strongly without beating the Week 6 best, while Function 6's alternative nearly matched the Week 9 best. Function 3 missed and should return to its Week 9 basin. The final round should be strongly exploitative with no broad search.
+Week 13 produced new bests for Functions 1, 4, 5, 6, 7, and 8. Proven trajectories continued to work for Functions 1, 4, 5, and 7, while tiny local refinement worked for Function 8. The midpoint between two strong Function 6 regions produced a new best. Functions 2 and 3 retained historical bests from Weeks 6 and 9 respectively.
 
 External validation:
 - COCO/BBOB was used to validate policy changes against random continuation

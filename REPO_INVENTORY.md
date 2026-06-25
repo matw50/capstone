@@ -60,14 +60,16 @@ Example:
 /opt/anaconda3/bin/python scripts/backtest_state_policy.py --repo-root . --from-week week1 --through-week week7 --output-dir reports/week7_backtest
 ```
 
-Latest reports:
-- `reports/week11_diagnostics/progress_diagnostics.md`
-- `reports/week11_diagnostics/progress_diagnostics.json`
-- `reports/week11_backtest/state_policy_backtest.md`
-- `reports/week11_backtest/state_policy_backtest.json`
+Final reports:
+- `reports/week13_diagnostics/progress_diagnostics.md`
+- `reports/week13_diagnostics/progress_diagnostics.json`
+- `reports/week13_backtest/state_policy_backtest.md`
+- `reports/week13_backtest/state_policy_backtest.json`
+- `reports/final_convergence/`
+- `reports/final_low_dim/`
 
 ### `scripts/scaffold_week_structure.py`
-Creates or standardizes the core scaffold files for one or more future week folders.
+Creates or standardizes the core scaffold files for one or more week folders.
 
 Example:
 ```bash
@@ -94,7 +96,7 @@ python3 scripts/append_week_results.py --repo-root . --week week2 --output-dir u
 ```
 
 ### `scripts/generate_candidate_queries.py`
-Generates candidate query points for the next round using the current state-policy trust-region strategy.
+Generates candidate query points using the final state-policy trust-region strategy.
 - lower-dimensional functions use local Gaussian Process search
 - higher-dimensional functions use local Random Forest search
 - trust-region radius adapts depending on whether the latest query improved the best value
@@ -132,15 +134,15 @@ python3 scripts/sanity_check_candidates.py --repo-root . --through-week week1 --
 
 ## Notes
 - The repository now contains the core helper scripts needed for the current workflow.
-- Week scaffolds are now standardized so future rounds start with the same core files.
+- Weekly folders use a standardized structure across the completed challenge.
 - Week 13 results have been recorded. The BBO query challenge is complete, and the repository now supports final analysis and presentation preparation.
 - One possible future improvement would be to let `append_week_results.py` optionally write directly into `weekN/function_<n>/` so the generated `.npy` files land beside the JSON records without needing a separate output path.
 - Another useful future improvement would be a script that combines all three steps: fill a week from pasted text, generate the appended `.npy` files for that week, and produce draft candidate queries for the next week.
 
-## Current Recommendation
-Keep the existing scripts as they are for now. They are small, clear, and already cover the main workflow:
+## Reproduction Workflow
+The existing scripts cover the complete historical workflow:
 1. Scaffold or standardize the target week folder.
 2. Fill the weekly scaffold from text.
 3. Generate appended `.npy` files for that week.
-4. Generate and sanity-check next-round candidates.
+4. Generate and sanity-check candidate queries.
 5. Commit the updated week folder.

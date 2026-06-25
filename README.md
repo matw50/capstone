@@ -1,6 +1,6 @@
-# Capstone
+# Black-Box Optimisation Capstone
 
-This repository tracks data, weekly submissions, returned outputs, and helper scripts for the capstone black-box optimisation challenge.
+This repository documents the completed black-box optimisation challenge, including the data, thirteen weekly submissions, returned outputs, decision process, validation work, and reproducible helper scripts.
 
 ## Programme Context
 This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
@@ -64,22 +64,29 @@ The repository currently uses:
 | Item | Status |
 |---|---|
 | Latest completed round | Week 13 results recorded |
-| Next submission prepared | Challenge complete |
+| Challenge status | Complete |
 | Current optimisation phase | Final analysis and portfolio documentation |
 | Main operating pattern | Completed adaptive trust-region workflow |
-| Extra validation in latest round | Trust-region, nearest-neighbour, logistic regression, RBF SVM, experimental MLP ensemble checks, COCO/BBOB benchmarking, and historical backtesting |
+| Validation methods used | Trust-region, nearest-neighbour, logistic regression, RBF SVM, experimental MLP ensemble checks, COCO/BBOB benchmarking, and historical backtesting |
 
-## Best Results So Far
-| Function | Best Output So Far | Source | Current Read |
+## Final Best Results
+| Function | Final Best Output | Source | Final Read |
 |---|---|---|---|
 | 1 | `4.323136325204454e-14` | Week 13 | Final trajectory continuation produced another new best |
-| 2 | `0.7729097325485852` | Week 6 | Week 12 alternative recovered strongly but remained below the historical best |
-| 3 | `-0.03004312377587237` | Week 9 | Week 12 missed; final query should return to the Week 9 basin |
+| 2 | `0.7729097325485852` | Week 6 | Narrow local peak remained the best despite later recovery attempts |
+| 3 | `-0.03004312377587237` | Week 9 | Narrow, unstable basin remained the hardest low-dimensional response surface |
 | 4 | `-3.855201201240067` | Week 13 | Exact local trajectory improved through the final round |
 | 5 | `4303.947078248581` | Week 13 | Strongest momentum function, improving to the boundary |
 | 6 | `-0.47163305056036503` | Week 13 | Midpoint hypothesis solved the long-running recovery problem |
 | 7 | `1.9502050542862732` | Week 13 | Linear local trajectory improved through the final round |
 | 8 | `9.784594749` | Week 13 | Tiny sensitivity-guided refinement produced a new best |
+
+## Final Visuals
+![Final convergence across all eight functions](reports/final_convergence/all_functions_convergence.png)
+
+- [Individual convergence plots](reports/final_convergence/)
+- [Final low-dimensional views for Functions 1 to 4](reports/final_low_dim/)
+- [Function 4 final pairplot](reports/final_low_dim/function_4_pairplot.png)
 
 ## External Benchmarking
 To sanity-check whether the current capstone policy behaves like a useful optimizer outside the course portal, I added a COCO/BBOB benchmark harness.
@@ -112,10 +119,10 @@ Ranked-policy experiment:
 - development benchmark: ranked policy beat the state policy on `24` of `72` problems, lost on `44`, and tied on `4`
 - interpretation: the ranked layer beat random continuation, but it underperformed the simpler state-policy approach, so it is documented as an explored but rejected option for current capstone submissions
 
-Current benchmarking decision:
+Final benchmarking policy:
 - COCO/BBOB is now treated as a policy-change validation tool, not a routine weekly step
-- I will rerun COCO/BBOB only when introducing a materially new rule or candidate-selection policy
-- the weekly default is to use capstone-specific progress diagnostics, historical backtests, sanity checks, and classifier/MLP secondary checks
+- it was rerun only when introducing a materially new rule or candidate-selection policy
+- routine round decisions used capstone-specific progress diagnostics, historical backtests, sanity checks, and classifier/MLP secondary checks
 - this avoids overfitting the external benchmark and keeps attention on the actual capstone response history
 
 Artifacts:
@@ -140,6 +147,8 @@ Artifacts:
 - [Week 12 State Policy Backtest](reports/week12_backtest/state_policy_backtest.md)
 - [Week 13 Progress Diagnostics](reports/week13_diagnostics/progress_diagnostics.md)
 - [Week 13 State Policy Backtest](reports/week13_backtest/state_policy_backtest.md)
+- [Final Convergence Plots](reports/final_convergence/)
+- [Final Low-Dimensional Views](reports/final_low_dim/)
 
 ## Weekly Index
 | Week | Status | Folder | Notes | Reproduction | Results |
@@ -226,7 +235,7 @@ Key constraints:
 
 These constraints make the project a practical exploration versus exploitation problem rather than a standard supervised learning task.
 
-## Lessons Learned So Far
+## Final Lessons Learned
 - Raw model outputs are useful starting points, but they are not reliable enough to submit unchanged in every round.
 - Trust-region logic has been much more effective than broad search once a few credible basins emerged.
 - Classifier-style region checks help as supporting evidence, especially in later rounds, but should not override geometric and basin-aware sanity checks.
@@ -249,12 +258,12 @@ These constraints make the project a practical exploration versus exploitation p
 | 13 | Final-round exploitation | Continued proven trajectories for Functions 1, 4, 5, and 7; used a tiny sensitivity-guided step for Function 8; used local peak interpolation for Function 2; and tested bounded final hypotheses for Functions 3 and 6. | The final round produced new bests for Functions 1, 4, 5, 6, 7, and 8. The Function 6 midpoint hypothesis was the most important final-round success. | [Week 13 Approach](week13/approach.md), [Week 13 Notes](week13/notes.md), [Week 13 Reproduction](week13/reproduction.md), [Week 13 Inputs](week13/inputs.json) |
 
 ## Repository Workflow
-The repository is organised to support the weekly optimisation cycle:
+The repository records the workflow used for each weekly optimisation cycle:
 
 1. Start from the original arrays stored in `initial_data/`.
 2. Scaffold or standardize the target `weekN/` folder so the core files are present.
 3. Record each round of submitted points and returned outputs in that `weekN/` folder.
-4. Generate appended `.npy` files for that week so the updated dataset is ready for the next round.
+4. Generate appended `.npy` files for that week so the accumulated dataset can be analysed or replayed.
 5. Use the helper scripts in `scripts/` to keep the workflow repeatable and organised.
 
 ## Repository Layout
@@ -274,7 +283,7 @@ The repository is organised to support the weekly optimisation cycle:
 - `week13/`: completed final round with reference candidates, final submission, returned outputs, appended arrays, notes, and reproduction steps
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `docs/`: datasheet and model card documentation
-- `reports/`: generated diagnostic reports used before preparing later-round submissions
+- `reports/`: generated diagnostics, backtests, and final visualisations
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `requirements.txt`: lightweight Python dependency list for reproducing the workflow
 - `REPO_INVENTORY.md`: notes on the current repository structure and script usage
@@ -284,19 +293,19 @@ The repository is organised to support the weekly optimisation cycle:
 Runs the current capstone policy against the COCO/BBOB benchmark suite using a capstone-like budget. It compares the policy against a random continuation baseline, prints progress and ETA while it runs, and writes a CSV plus JSON summaries under `benchmarks/coco/`.
 
 ### [`scripts/analyze_progress_diagnostics.py`](scripts/analyze_progress_diagnostics.py)
-Generates a pre-submission diagnostic report from the accumulated capstone results. It summarizes the current policy state for each function, recent coordinate sensitivity, and historical round behaviour. The Week 7 report is saved at [reports/week7_diagnostics/progress_diagnostics.md](reports/week7_diagnostics/progress_diagnostics.md).
+Generates a diagnostic report from the accumulated capstone results. It summarizes the policy state for each function, recent coordinate sensitivity, and historical round behaviour. The final report is saved at [reports/week13_diagnostics/progress_diagnostics.md](reports/week13_diagnostics/progress_diagnostics.md).
 
 ### [`scripts/backtest_state_policy.py`](scripts/backtest_state_policy.py)
-Runs a leakage-safe historical replay of the current state-policy generator. At each historical week boundary, it uses only the data available at that point, generates the policy candidate, and compares it with the actual next submission using locality and nearest-neighbour support. The Week 7 report is saved at [reports/week7_backtest/state_policy_backtest.md](reports/week7_backtest/state_policy_backtest.md).
+Runs a leakage-safe historical replay of the state-policy generator. At each historical week boundary, it uses only the data available at that point, generates the policy candidate, and compares it with the actual next submission using locality and nearest-neighbour support. The final report is saved at [reports/week13_backtest/state_policy_backtest.md](reports/week13_backtest/state_policy_backtest.md).
 
 ### [`scripts/scaffold_week_structure.py`](scripts/scaffold_week_structure.py)
-Creates or standardizes the core files expected in each `weekN/` folder. It is useful when setting up future rounds or repairing scaffold consistency after the repository structure changes.
+Creates or standardizes the core files expected in each `weekN/` folder. It was used to establish consistent weekly structure and remains useful for replaying or adapting the workflow.
 
 ### [`scripts/fill_week_from_text.py`](scripts/fill_week_from_text.py)
 Populates a `weekN/` scaffold from a pasted text block containing submitted inputs and returned outputs. This is the quickest way to turn portal feedback into structured repo files.
 
 ### [`scripts/append_week_results.py`](scripts/append_week_results.py)
-Reads `initial_data` and a `weekN/results.json` file, then writes appended `.npy` arrays to a chosen output directory. This keeps the weekly accumulated datasets ready for the next round of analysis.
+Reads `initial_data` and a `weekN/results.json` file, then writes appended `.npy` arrays to a chosen output directory. This preserves reproducible accumulated datasets for analysis.
 
 ### [`scripts/generate_candidate_queries.py`](scripts/generate_candidate_queries.py)
 Generates raw next-round candidate queries from the accumulated data. It now uses a state-machine trust-region policy with explicit `bootstrap`, `momentum`, `refine`, `stagnant`, and `recovery` modes, combining Gaussian-process-style search for lower-dimensional functions with random-forest-guided search for higher-dimensional ones.
@@ -317,7 +326,7 @@ Generates convergence plots for all functions, showing observed outputs over tim
 Generates exploratory visuals for the lower-dimensional functions. It creates 2D scatter plots for Functions 1 and 2, a 3D scatter plot for Function 3, and a pairwise scatter matrix for Function 4.
 
 ## Approach
-The aim of this repository is to support a disciplined experimental workflow rather than a single fixed optimiser. Different optimisation methods may be used over time depending on the dimension and behaviour of each function, including local search, surrogate models, and Bayesian-optimisation-inspired reasoning.
+The repository documents a disciplined experimental workflow rather than a single fixed optimiser. Different optimisation methods were used depending on the dimension and behaviour of each function, including local search, surrogate models, and Bayesian-optimisation-inspired reasoning.
 
 The main objective is to maintain a clear record of:
 - what was submitted each week
@@ -326,7 +335,7 @@ The main objective is to maintain a clear record of:
 - what optimisation strategy was used and how it evolved
 
 ## Technical Approach
-Across the first seven rounds of preparation, the strategy evolved from a broader adaptive search toward a more disciplined trust-region workflow.
+Across thirteen rounds, the strategy evolved from a broader adaptive search toward a disciplined trust-region and endgame workflow.
 
 Methods considered or used:
 - local visual reasoning for lower-dimensional functions

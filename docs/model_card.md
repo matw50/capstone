@@ -15,7 +15,7 @@ This is not a single trained production model. It is a documented optimisation a
 
 ## Intended Use
 Suitable uses:
-- proposing one next query per black-box function in the capstone challenge
+- replaying or adapting the query-selection workflow for low-data black-box optimisation
 - documenting a reproducible optimisation strategy
 - comparing local exploitation, recovery, and bounded exploration decisions
 - demonstrating how limited-feedback optimisation can be managed with transparent rules
@@ -93,7 +93,7 @@ External validation:
 - the updated state-policy benchmark reached a `75.0%` development win rate and `72.9%` holdout win rate against random continuation
 - a more complex ranked policy was tested and rejected because it underperformed the simpler state policy
 
-Current decision: COCO/BBOB is used only when testing a materially new policy. Weekly submissions rely primarily on capstone-specific diagnostics and historical backtests.
+Final benchmarking policy: COCO/BBOB was used when testing materially new policies. Routine submissions relied primarily on capstone-specific diagnostics and historical backtests.
 
 ## Assumptions And Limitations
 Key assumptions:
@@ -130,15 +130,13 @@ Transparency supports:
 This model card intentionally describes the approach as a decision workflow rather than a fully autonomous optimiser. That distinction matters in real-world ML settings, where over-trusting model recommendations can lead to poor decisions when data is sparse or biased.
 
 ## Maintenance
-The approach is maintained through the repository.
+The completed approach is maintained through the repository as a reproducible portfolio artefact.
 
 Maintenance steps:
-- update weekly results after portal feedback
-- rerun progress diagnostics and historical backtests
-- generate raw candidates for the next round
-- run sanity, classifier, and MLP checks
-- document manual blending decisions
-- update README, weekly notes, and reproduction files
+- preserve the recorded weekly decisions and returned outputs
+- keep the scripts and dependency versions runnable
+- regenerate final reports or visualisations when presentation needs change
+- document any post-project methodological revisions separately from the historical challenge record
 - commit changes with Git
 
 Future improvements could include:

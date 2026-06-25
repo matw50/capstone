@@ -1,6 +1,6 @@
 # Week 8 Approach
 
-Status: candidate submission prepared
+Status: completed
 
 ## Main Principle
 Week 8 uses a backtest-informed trust-region approach. The historical backtest showed that the raw state-policy generator is useful for identifying state and direction, but it tends to propose wider moves than the manually blended submissions that have worked best so far. Therefore, the final Week 8 submission treats generated candidates as signal, not instruction.

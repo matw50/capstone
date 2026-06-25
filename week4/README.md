@@ -1,6 +1,6 @@
 # Week 4
 
-Scaffold folder for week 4 of the capstone black-box optimisation challenge.
+Completed Week 4 record for the capstone black-box optimisation challenge.
 
 Files:
 - `inputs.json`: submitted query point for each function

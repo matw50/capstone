@@ -66,14 +66,14 @@ Preprocessing steps include:
 
 No supervised labels are provided by the original challenge. Some helper scripts temporarily create derived labels such as high-performing versus lower-performing regions for classifier checks, but these are diagnostic constructs rather than canonical dataset labels.
 
-Missing data is possible for future weeks until portal outputs are returned. Placeholder files exist for scaffolded future weeks.
+The challenge dataset is complete through Week 13. No weekly portal outputs are missing from the recorded challenge history.
 
 ## Uses
 Intended uses:
 - reproduce the capstone optimisation history
 - analyse how query strategy evolved over time
 - train or evaluate surrogate models for the eight capstone functions
-- generate future query candidates
+- replay or study historical candidate-generation decisions
 - support portfolio documentation and reflections
 - demonstrate responsible documentation of an iterative ML workflow
 
@@ -96,14 +96,12 @@ The dataset is stored in this GitHub repository for capstone documentation and r
 Distribution is through the repository itself. Any use should respect the course context and any applicable programme or portal terms. The repository should be treated as educational project documentation rather than a general public benchmark.
 
 ## Maintenance
-The dataset is maintained by the repository owner as the capstone progresses.
+The completed dataset is maintained by the repository owner as a versioned portfolio and reproducibility artefact.
 
 Maintenance process:
-- record returned outputs after each portal submission
-- update `outputs.json` and `results.json`
-- generate appended `.npy` arrays for the completed week
-- rerun internal diagnostics and historical backtests
-- update README, notes, and reproduction files
-- commit and push changes to GitHub
+- preserve the final weekly inputs, outputs, and results without rewriting history
+- keep scripts and dependency documentation reproducible
+- update final analysis, visualisations, or presentation artefacts when needed
+- use Git commits to retain an auditable record of any post-project changes
 
 The dataset is version controlled with Git. Weekly folders provide an audit trail of inputs, outputs, rationale, candidates, and follow-up analysis. Future updates should preserve prior results rather than overwrite historical decisions.

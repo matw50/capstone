@@ -1,6 +1,6 @@
 # Week 5
 
-Scaffold folder for week 5 of the capstone black-box optimisation challenge.
+Completed Week 5 record for the capstone black-box optimisation challenge.
 
 Files:
 - `inputs.json`: submitted query point for each function

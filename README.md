@@ -2,6 +2,9 @@
 
 This repository documents the completed black-box optimisation challenge, including the data, thirteen weekly submissions, returned outputs, decision process, validation work, and reproducible helper scripts.
 
+## Plain-Language Summary
+This project is about finding the best settings for eight hidden systems when each test is limited and expensive. I started with a small set of example inputs and outputs, then submitted one new guess per function each week. Rather than relying on one model, I combined simple visual checks, local search, surrogate models, sanity checks, and week-by-week learning. The final strategy became deliberately cautious: keep improving regions that were working, return to known strong areas when guesses failed, and only explore when the evidence justified the risk. By the final round, six of the eight functions achieved their best result in Week 13.
+
 ## Programme Context
 This capstone sits within the Professional Certificate in Machine Learning and Artificial Intelligence, a 25-module programme jointly developed by Imperial College Business School Executive Education and the Imperial College London Department of Computing.
 
@@ -57,6 +60,7 @@ The repository currently uses:
 - `matplotlib` for convergence and low-dimensional plots
 
 ## Documentation
+- [Final Method And Results Notebook](notebooks/final_method_and_results.ipynb): presents the completed workflow, final results, convergence plots, and reproducibility pointers in a Jupyter-friendly format.
 - [Dataset Datasheet](docs/datasheet.md): documents the motivation, composition, collection process, intended uses, distribution, and maintenance of the BBO capstone dataset.
 - [Model Card](docs/model_card.md): documents the state-policy trust-region optimisation approach, intended use, performance, assumptions, limitations, and responsible AI considerations.
 
@@ -283,6 +287,7 @@ The repository records the workflow used for each weekly optimisation cycle:
 - `week13/`: completed final round with reference candidates, final submission, returned outputs, appended arrays, notes, and reproduction steps
 - `benchmarks/`: external optimizer checks, including COCO/BBOB runs against baselines
 - `docs/`: datasheet and model card documentation
+- `notebooks/`: Jupyter presentation notebook summarising the final method, results, and reproducibility path
 - `reports/`: generated diagnostics, backtests, and final visualisations
 - `scripts/`: helper scripts for filling week folders, generating candidates, running checks, plotting views, and appending results
 - `requirements.txt`: lightweight Python dependency list for reproducing the workflow
